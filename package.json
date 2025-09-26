@@ -1,0 +1,45 @@
+{
+  "name": "adwaith-portfolio-reactbits",
+  "version": "1.0.0",
+  "description": "Adwaith V's portfolio with ReactBits particle system",
+  "main": "index.js",
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "serve": "serve -s build"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "ogl": "^0.0.79"
+  },
+  "devDependencies": {
+    "react-scripts": "5.0.1",
+    "serve": "^14.2.0"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "keywords": [
+    "portfolio",
+    "react",
+    "reactbits",
+    "particles",
+    "webgl",
+    "fintech",
+    "product-manager"
+  ],
+  "author": "Adwaith V",
+  "license": "MIT"
+}
