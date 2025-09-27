@@ -5,14 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Adwaith V - Product Manager | FinTech & Gaming</title>
     <meta name="description" content="Adwaith V - Product Manager exploring new opportunities specializing in FinTech innovation and gaming. AI-powered portfolio showcasing 2+ years of PM expertise.">
-    
-    <!-- Include React and OGL for ReactBits particles -->
-    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
-    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
-    <script src="https://unpkg.com/ogl@0.0.79/dist/ogl.umd.js"></script>
-    
     <style>
-        /* Import BF Modernista Fonts - Using your uploaded local files */
+        /* Import BF Modernista Fonts - Using your uploaded files */
         @font-face {
             font-family: 'BF Modernista';
             src: url('./BF_Modernista-Light.ttf') format('truetype');
@@ -65,6 +59,7 @@
 
         body {
             font-family: 'BF Modernista', 'Futura', 'Avenir Next', 'Helvetica Neue', Arial, sans-serif;
+            /* Replace 'background-image.jpg' with your actual image filename */
             background: url('background-image.jpg') center center / cover no-repeat fixed;
             color: #FFFFFF;
             line-height: 1.6;
@@ -96,8 +91,8 @@
             padding: 0 20px;
         }
 
-        /* ReactBits Particles Container - Fixed Position for Entire Website */
-        #reactbits-particles {
+        /* Particles Container - Fixed Position for Entire Website */
+        #particles-js {
             position: fixed;
             top: 0;
             left: 0;
@@ -105,13 +100,6 @@
             height: 100%;
             pointer-events: none;
             z-index: 1;
-        }
-
-        /* ReactBits Particles Component Styles */
-        .particles-container {
-            position: relative;
-            width: 100%;
-            height: 100%;
         }
 
         /* Hero Section */
@@ -288,6 +276,311 @@
             text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
         }
 
+        /* Timeline */
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, #FF7043, #4FC3F7);
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 4rem;
+            opacity: 0;
+            animation: slideInUp 0.6s ease forwards;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content {
+            margin-right: 60%;
+            text-align: right;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content {
+            margin-left: 60%;
+        }
+
+        .timeline-content {
+            background: rgba(26, 39, 68, 0.8);
+            padding: 2.5rem;
+            border-radius: 15px;
+            position: relative;
+            border: 1px solid rgba(79, 195, 247, 0.3);
+            transition: all 0.4s ease;
+            backdrop-filter: blur(15px);
+        }
+
+        .timeline-content:hover {
+            transform: scale(1.03) translateY(-5px);
+            box-shadow: 0 20px 50px rgba(79, 195, 247, 0.3);
+            border-color: rgba(79, 195, 247, 0.6);
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            top: 2rem;
+            width: 24px;
+            height: 24px;
+            background: radial-gradient(circle, #FF7043 0%, #FF6B35 100%);
+            border-radius: 50%;
+            transform: translateX(-50%);
+            border: 3px solid rgba(255, 255, 255, 0.8);
+            z-index: 2;
+            box-shadow: 0 0 20px rgba(255, 112, 67, 0.8);
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .job-title {
+            font-family: 'BF Modernista', 'Futura', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #FF7043;
+            margin-bottom: 0.8rem;
+            text-shadow: 0 0 15px rgba(255, 112, 67, 0.6);
+        }
+
+        .company {
+            font-family: 'BF Modernista', 'Futura', 'Avenir Next', sans-serif;
+            color: #4FC3F7;
+            font-weight: 600;
+            margin-bottom: 1.2rem;
+            font-size: 1.1rem;
+            text-shadow: 0 0 10px rgba(79, 195, 247, 0.5);
+        }
+
+        .job-description {
+            font-family: 'BF Modernista', 'Futura', 'Avenir Next', sans-serif;
+            color: #FFFFFF;
+            line-height: 1.7;
+            font-size: 1.05rem;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+        }
+
+        /* Certifications */
+        .cert-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .cert-card {
+            background: rgba(26, 39, 68, 0.8);
+            padding: 2.5rem;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 143, 0, 0.3);
+            text-align: center;
+            transition: all 0.5s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(15px);
+        }
+
+        .cert-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 143, 0, 0.2), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .cert-card:hover::before {
+            left: 100%;
+        }
+
+        .cert-card:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 25px 60px rgba(255, 143, 0, 0.4);
+            border-color: rgba(255, 143, 0, 0.8);
+        }
+
+        .cert-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            filter: drop-shadow(0 0 15px rgba(255, 143, 0, 0.8));
+        }
+
+        .cert-title {
+            font-family: 'BF Modernista', 'Futura', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 0.8rem;
+            color: #FFFFFF;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+        }
+
+        .cert-issuer {
+            font-family: 'BF Modernista', 'Futura', 'Avenir Next', sans-serif;
+            color: #4FC3F7;
+            margin-bottom: 1rem;
+            font-weight: 500;
+            text-shadow: 0 0 10px rgba(79, 195, 247, 0.5);
+        }
+
+        /* Skills */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 3rem;
+        }
+
+        .skill-category {
+            background: rgba(26, 39, 68, 0.8);
+            padding: 2.5rem;
+            border-radius: 20px;
+            border: 1px solid rgba(79, 195, 247, 0.3);
+            transition: all 0.4s ease;
+            backdrop-filter: blur(15px);
+        }
+
+        .skill-category:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 50px rgba(79, 195, 247, 0.3);
+            border-color: rgba(79, 195, 247, 0.6);
+        }
+
+        .skill-category h3 {
+            font-family: 'BF Modernista', 'Futura', sans-serif;
+            color: #FF7043;
+            margin-bottom: 2rem;
+            font-size: 1.6rem;
+            font-weight: 700;
+            text-shadow: 0 0 15px rgba(255, 112, 67, 0.6);
+        }
+
+        .skill-list {
+            list-style: none;
+        }
+
+        .skill-list li {
+            font-family: 'BF Modernista', 'Futura', 'Avenir Next', sans-serif;
+            padding: 0.8rem 0;
+            color: #FFFFFF;
+            position: relative;
+            padding-left: 2rem;
+            font-size: 1.1rem;
+            font-weight: 400;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+            transition: all 0.3s ease;
+        }
+
+        .skill-list li::before {
+            content: '▶';
+            position: absolute;
+            left: 0;
+            color: #4FC3F7;
+            font-size: 0.8rem;
+            text-shadow: 0 0 10px rgba(79, 195, 247, 0.8);
+        }
+
+        .skill-list li:hover {
+            color: #FFE0B2;
+            transform: translateX(5px);
+            text-shadow: 0 0 15px rgba(255, 224, 178, 0.8);
+        }
+
+        /* Contact Form */
+        .contact-form {
+            max-width: 700px;
+            margin: 0 auto;
+            background: rgba(26, 39, 68, 0.9);
+            padding: 4rem;
+            border-radius: 25px;
+            border: 1px solid rgba(255, 143, 0, 0.4);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 20px 60px rgba(11, 20, 38, 0.8);
+        }
+
+        .form-group {
+            margin-bottom: 2.5rem;
+        }
+
+        .form-group label {
+            font-family: 'BF Modernista', 'Futura', 'Avenir Next', sans-serif;
+            display: block;
+            margin-bottom: 0.8rem;
+            color: #FFFFFF;
+            font-weight: 600;
+            font-size: 1.1rem;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            font-family: 'BF Modernista', 'Futura', 'Avenir Next', sans-serif;
+            width: 100%;
+            padding: 1.2rem 1.5rem;
+            background: rgba(11, 20, 38, 0.9);
+            border: 2px solid rgba(79, 195, 247, 0.3);
+            border-radius: 12px;
+            color: #FFFFFF;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #FF7043;
+            box-shadow: 0 0 25px rgba(255, 112, 67, 0.4);
+            background: rgba(11, 20, 38, 0.95);
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .submit-btn {
+            font-family: 'BF Modernista', 'Futura', sans-serif;
+            background: linear-gradient(135deg, #FF7043 0%, #FF6B35 50%, #4FC3F7 100%);
+            color: white;
+            border: none;
+            padding: 1.3rem 4rem;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            display: block;
+            margin: 3rem auto 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 10px 30px rgba(255, 112, 67, 0.4);
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 20px 50px rgba(255, 112, 67, 0.6);
+            filter: brightness(1.1);
+        }
+
         /* AI Badge */
         .ai-badge {
             position: fixed;
@@ -325,6 +618,30 @@
                 grid-template-columns: 1fr;
             }
 
+            .timeline::before {
+                left: 2rem;
+            }
+
+            .timeline-item:nth-child(odd) .timeline-content,
+            .timeline-item:nth-child(even) .timeline-content {
+                margin-left: 4rem;
+                margin-right: 0;
+                text-align: left;
+            }
+
+            .timeline-dot {
+                left: 2rem;
+                transform: none;
+            }
+
+            .cert-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+
             .ai-badge {
                 bottom: 1rem;
                 right: 1rem;
@@ -347,8 +664,8 @@
     </style>
 </head>
 <body>
-    <!-- ReactBits Particles Container -->
-    <div id="reactbits-particles"></div>
+    <!-- Particles Container -->
+    <div id="particles-js"></div>
 
     <!-- Hero Section -->
     <section class="hero">
@@ -391,10 +708,176 @@
         </div>
     </section>
 
+    <!-- Experience Timeline -->
+    <section class="section">
+        <div class="container">
+            <h2 class="fade-in">Experience Timeline</h2>
+            <div class="timeline fade-in">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="job-title">Product Manager</div>
+                        <div class="company">Bajaj Finserv - Bharat Lending CoE • Jan 2025 - July 2025</div>
+                        <div class="job-description">Led SME lending BRD tailoring and requirement gathering, cutting rework by 25%. Designed workflows and wireframes, expediting sign-off cycles by 30%. Collaborated with 3+ tech teams to deliver PWA & SFDC integration, reducing release cycle by 2 weeks. Conducted extensive UAT testing with 140+ cases, cutting production bugs by 20%.</div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="job-title">Junior Product Manager - Lending</div>
+                        <div class="company">Bajaj Finserv - Bharat Lending CoE • Nov 2024 - Jan 2025</div>
+                        <div class="job-description">Authored BRDs for BFL-BFDL and Airtel-BFL partnerships, accelerating partner approvals by 20%. Developed technical workflows and Figma mockups, cutting review cycles by 30%. Coordinated UAT with 25+ test cases, enabling successful first-pass testing.</div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="job-title">Junior Product Manager - Credit Cards</div>
+                        <div class="company">Bajaj Finserv - Credit Cards CoE • Jun 2023 - Nov 2024</div>
+                        <div class="job-description">Conducted funnel analysis and implemented UI/UX improvements, increasing conversions by 15%. Owned BRDs and backlog alignment, improving sprint velocity by 20%. Developed Salesforce dashboards for data-driven decisions, increasing engagement by 12%. Led Agile coordination with 100% sprint target adherence over 6 releases.</div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="job-title">Education Journey</div>
+                        <div class="company">MS Business Analytics (Buffalo) • MBA Operations (Amrita) • BE Computer Science</div>
+                        <div class="job-description">Specialized in Business Analytics with 3.644/4 GPA. MBA with specialization excellence award and leadership as class representative. Captain of Men's Basketball Team during engineering, combining technical skills with leadership experience.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certifications Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="fade-in">Certifications</h2>
+            <div class="cert-grid fade-in">
+                <div class="cert-card" onclick="window.open('https://example.com/mckinsey-forward', '_blank')">
+                    <div class="cert-icon">🎯</div>
+                    <div class="cert-title">McKinsey Forward Program</div>
+                    <div class="cert-issuer">McKinsey & Company</div>
+                </div>
+                <div class="cert-card" onclick="window.open('https://example.com/pendo-ai', '_blank')">
+                    <div class="cert-icon">🤖</div>
+                    <div class="cert-title">AI for Product Management</div>
+                    <div class="cert-issuer">Pendo</div>
+                </div>
+                <div class="cert-card" onclick="window.open('https://example.com/google-cloud', '_blank')">
+                    <div class="cert-icon">☁️</div>
+                    <div class="cert-title">Google Cloud Platform</div>
+                    <div class="cert-issuer">Google Cloud</div>
+                </div>
+                <div class="cert-card" onclick="window.open('https://example.com/ea-pm', '_blank')">
+                    <div class="cert-icon">🎮</div>
+                    <div class="cert-title">Product Management</div>
+                    <div class="cert-issuer">Electronic Arts (EA)</div>
+                </div>
+                <div class="cert-card" onclick="window.open('https://example.com/jpmc-agile', '_blank')">
+                    <div class="cert-icon">⚡</div>
+                    <div class="cert-title">Agile Program</div>
+                    <div class="cert-issuer">JP Morgan Chase</div>
+                </div>
+                <div class="cert-card" onclick="window.open('https://example.com/n8n-automation', '_blank')">
+                    <div class="cert-icon">🔧</div>
+                    <div class="cert-title">n8n Automation Level 1</div>
+                    <div class="cert-issuer">n8n</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="fade-in">Skills & Expertise</h2>
+            <div class="skills-grid fade-in">
+                <div class="skill-category">
+                    <h3>Product Management</h3>
+                    <ul class="skill-list">
+                        <li>Product Roadmapping & Strategy</li>
+                        <li>Agile/Scrum Methodologies</li>
+                        <li>BRD Creation & Requirements Gathering</li>
+                        <li>Wireframing (Draw.io, Figma)</li>
+                        <li>UAT Testing & Test Case Creation</li>
+                        <li>Cross-Functional Team Leadership</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h3>FinTech & Technical</h3>
+                    <ul class="skill-list">
+                        <li>Salesforce (SFDC) Integration</li>
+                        <li>Progressive Web Apps (PWA)</li>
+                        <li>SQL & Data Analysis</li>
+                        <li>No Code/Low Code Automation (n8n)</li>
+                        <li>Manual Testing & Issue Resolution</li>
+                        <li>Process Improvement & Monitoring</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h3>Business & Analytics</h3>
+                    <ul class="skill-list">
+                        <li>Business Analytics (MS Degree)</li>
+                        <li>Funnel Analysis & Optimization</li>
+                        <li>Dashboard Development</li>
+                        <li>Stakeholder Management</li>
+                        <li>Business Analysis & Strategy</li>
+                        <li>Process Optimization</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h3>Leadership & Interests</h3>
+                    <ul class="skill-list">
+                        <li>Team Leadership (Basketball Captain)</li>
+                        <li>Gaming & Strategic Thinking</li>
+                        <li>Problem-Solving & Innovation</li>
+                        <li>Cross-Functional Collaboration</li>
+                        <li>Music & Creative Expression</li>
+                        <li>AI Tools & Automation</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="fade-in">Contact & CTA</h2>
+            <form class="contact-form fade-in" id="contactForm">
+                <div class="form-group">
+                    <label for="name">Name *</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email *</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="company">Company</label>
+                    <input type="text" id="company" name="company">
+                </div>
+                <div class="form-group">
+                    <label for="role">Your Role</label>
+                    <input type="text" id="role" name="role">
+                </div>
+                <div class="form-group">
+                    <label for="message">Message *</label>
+                    <textarea id="message" name="message" rows="5" placeholder="Tell me about the opportunity or how we can work together..." required></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Let's Connect</button>
+            </form>
+        </div>
+    </section>
+
     <!-- AI Badge -->
     <div class="ai-badge">
-        🤖 ReactBits Particles + BF Modernista Fonts
+        🤖 Built with AI Tools + BF Modernista Fonts
     </div>
+
+    <!-- Particles.js Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
 
     <script>
         // Font Loading Detection and Management
@@ -439,268 +922,246 @@
             }
         }
 
-        // ReactBits Particles Implementation
-        const { useEffect, useRef } = React;
-        const { Renderer, Camera, Geometry, Program, Mesh } = OGL;
-
-        // Colors matching your current particle scheme
-        const defaultColors = [
-            '#ffffff',  // White
-            '#ff8f00',  // Orange
-            '#ff6b35',  // Orange accent (matches your CSS accent_orange)
-            '#4fc3f7',  // Blue (matches your CSS text_secondary) 
-            '#ffab00',  // Light orange
-            '#ffa726'   // Another orange shade
-        ];
-
-        const hexToRgb = hex => {
-            hex = hex.replace(/^#/, '');
-            if (hex.length === 3) {
-                hex = hex
-                    .split('')
-                    .map(c => c + c)
-                    .join('');
-            }
-            const int = parseInt(hex, 16);
-            const r = ((int >> 16) & 255) / 255;
-            const g = ((int >> 8) & 255) / 255;
-            const b = (int & 255) / 255;
-            return [r, g, b];
-        };
-
-        const vertex = /* glsl */ `
-            attribute vec3 position;
-            attribute vec4 random;
-            attribute vec3 color;
-
-            uniform mat4 modelMatrix;
-            uniform mat4 viewMatrix;
-            uniform mat4 projectionMatrix;
-            uniform float uTime;
-            uniform float uSpread;
-            uniform float uBaseSize;
-            uniform float uSizeRandomness;
-
-            varying vec4 vRandom;
-            varying vec3 vColor;
-
-            void main() {
-                vRandom = random;
-                vColor = color;
-
-                vec3 pos = position * uSpread;
-                pos.z *= 10.0;
-
-                vec4 mPos = modelMatrix * vec4(pos, 1.0);
-                float t = uTime;
-                mPos.x += sin(t * random.z + 6.28 * random.w) * mix(0.1, 1.5, random.x);
-                mPos.y += sin(t * random.y + 6.28 * random.x) * mix(0.1, 1.5, random.w);
-                mPos.z += sin(t * random.w + 6.28 * random.y) * mix(0.1, 1.5, random.z);
-
-                vec4 mvPos = viewMatrix * mPos;
-
-                if (uSizeRandomness == 0.0) {
-                    gl_PointSize = uBaseSize;
-                } else {
-                    gl_PointSize = (uBaseSize * (1.0 + uSizeRandomness * (random.x - 0.5))) / length(mvPos.xyz);
-                }
-
-                gl_Position = projectionMatrix * mvPos;
-            }
-        `;
-
-        const fragment = /* glsl */ `
-            precision highp float;
-
-            uniform float uTime;
-            uniform float uAlphaParticles;
-            varying vec4 vRandom;
-            varying vec3 vColor;
-
-            void main() {
-                vec2 uv = gl_PointCoord.xy;
-                float d = length(uv - vec2(0.5));
-
-                if(uAlphaParticles < 0.5) {
-                    if(d > 0.5) {
-                        discard;
+        // Particles.js configuration for ember-like particles with ReactBits.dev mouse interaction
+        particlesJS('particles-js', {
+            "particles": {
+                "number": {
+                    "value": 80,
+                    "density": {
+                        "enable": true,
+                        "value_area": 800
                     }
-                    gl_FragColor = vec4(vColor + 0.2 * sin(uv.yxx + uTime + vRandom.y * 6.28), 1.0);
-                } else {
-                    float circle = smoothstep(0.5, 0.4, d) * 0.8;
-                    gl_FragColor = vec4(vColor + 0.2 * sin(uv.yxx + uTime + vRandom.y * 6.28), circle);
+                },
+                "color": {
+                    "value": ["#ffffff", "#ff8f00", "#ff6b35", "#ffab00", "#ffa726", "#ffe0b2"]
+                },
+                "shape": {
+                    "type": "circle",
+                    "stroke": {
+                        "width": 0,
+                        "color": "#000000"
+                    }
+                },
+                "opacity": {
+                    "value": 0.7,
+                    "random": true,
+                    "anim": {
+                        "enable": true,
+                        "speed": 1.5,
+                        "opacity_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "size": {
+                    "value": 3,
+                    "random": true,
+                    "anim": {
+                        "enable": true,
+                        "speed": 3,
+                        "size_min": 0.5,
+                        "sync": false
+                    }
+                },
+                "line_linked": {
+                    "enable": false
+                },
+                "move": {
+                    "enable": true,
+                    "speed": 2,
+                    "direction": "top",
+                    "random": true,
+                    "straight": false,
+                    "out_mode": "out",
+                    "bounce": false,
+                    "attract": {
+                        "enable": false,
+                        "rotateX": 600,
+                        "rotateY": 1200
+                    }
                 }
-            }
-        `;
-
-        const Particles = ({
-            particleCount = 150,
-            particleSpread = 8,
-            speed = 0.08,
-            particleColors = defaultColors,
-            moveParticlesOnHover = true,
-            particleHoverFactor = 0.5,
-            alphaParticles = false,
-            particleBaseSize = 80,
-            sizeRandomness = 1.2,
-            cameraDistance = 18,
-            disableRotation = false
-        }) => {
-            const containerRef = useRef(null);
-            const mouseRef = useRef({ x: 0, y: 0 });
-
-            useEffect(() => {
-                const container = containerRef.current;
-                if (!container) return;
-
-                const renderer = new Renderer({ depth: false, alpha: true });
-                const gl = renderer.gl;
-                container.appendChild(gl.canvas);
-                gl.clearColor(0, 0, 0, 0);
-
-                const camera = new Camera(gl, { fov: 15 });
-                camera.position.set(0, 0, cameraDistance);
-
-                const resize = () => {
-                    const width = container.clientWidth;
-                    const height = container.clientHeight;
-                    renderer.setSize(width, height);
-                    camera.perspective({ aspect: gl.canvas.width / gl.canvas.height });
-                };
-                window.addEventListener('resize', resize, false);
-                resize();
-
-                const handleMouseMove = e => {
-                    const rect = container.getBoundingClientRect();
-                    const x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
-                    const y = -(((e.clientY - rect.top) / rect.height) * 2 - 1);
-                    mouseRef.current = { x, y };
-                };
-
-                if (moveParticlesOnHover) {
-                    container.addEventListener('mousemove', handleMouseMove);
-                }
-
-                const count = particleCount;
-                const positions = new Float32Array(count * 3);
-                const randoms = new Float32Array(count * 4);
-                const colors = new Float32Array(count * 3);
-                const palette = particleColors;
-
-                for (let i = 0; i < count; i++) {
-                    let x, y, z, len;
-                    do {
-                        x = Math.random() * 2 - 1;
-                        y = Math.random() * 2 - 1;
-                        z = Math.random() * 2 - 1;
-                        len = x * x + y * y + z * z;
-                    } while (len > 1 || len === 0);
-                    const r = Math.cbrt(Math.random());
-                    positions.set([x * r, y * r, z * r], i * 3);
-                    randoms.set([Math.random(), Math.random(), Math.random(), Math.random()], i * 4);
-                    const col = hexToRgb(palette[Math.floor(Math.random() * palette.length)]);
-                    colors.set(col, i * 3);
-                }
-
-                const geometry = new Geometry(gl, {
-                    position: { size: 3, data: positions },
-                    random: { size: 4, data: randoms },
-                    color: { size: 3, data: colors }
-                });
-
-                const program = new Program(gl, {
-                    vertex,
-                    fragment,
-                    uniforms: {
-                        uTime: { value: 0 },
-                        uSpread: { value: particleSpread },
-                        uBaseSize: { value: particleBaseSize },
-                        uSizeRandomness: { value: sizeRandomness },
-                        uAlphaParticles: { value: alphaParticles ? 1 : 0 }
+            },
+            "interactivity": {
+                "detect_on": "canvas",
+                "events": {
+                    "onhover": {
+                        "enable": true,
+                        "mode": "attract"
                     },
-                    transparent: true,
-                    depthTest: false
-                });
+                    "onclick": {
+                        "enable": true,
+                        "mode": "push"
+                    },
+                    "resize": true
+                },
+                "modes": {
+                    "attract": {
+                        "distance": 150,
+                        "duration": 0.4,
+                        "factor": 5
+                    },
+                    "push": {
+                        "particles_nb": 4
+                    }
+                }
+            },
+            "retina_detect": true
+        });
 
-                const particles = new Mesh(gl, { mode: gl.POINTS, geometry, program });
-
-                let animationFrameId;
-                let lastTime = performance.now();
-                let elapsed = 0;
-
-                const update = t => {
-                    animationFrameId = requestAnimationFrame(update);
-                    const delta = t - lastTime;
-                    lastTime = t;
-                    elapsed += delta * speed;
-
-                    program.uniforms.uTime.value = elapsed * 0.001;
-
-                    if (moveParticlesOnHover) {
-                        particles.position.x = -mouseRef.current.x * particleHoverFactor;
-                        particles.position.y = -mouseRef.current.y * particleHoverFactor;
+        // Custom ember particles overlay - ReactBits.dev style
+        function createEmberParticles() {
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            const particlesContainer = document.getElementById('particles-js');
+            
+            canvas.style.position = 'absolute';
+            canvas.style.top = '0';
+            canvas.style.left = '0';
+            canvas.style.pointerEvents = 'none';
+            canvas.style.zIndex = '2';
+            particlesContainer.appendChild(canvas);
+            
+            let particles = [];
+            let mouse = { x: null, y: null, radius: 100 };
+            
+            function resizeCanvas() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+            
+            window.addEventListener('resize', resizeCanvas);
+            resizeCanvas();
+            
+            // Mouse move event - ReactBits.dev interaction style
+            window.addEventListener('mousemove', function(event) {
+                mouse.x = event.x;
+                mouse.y = event.y;
+            });
+            
+            window.addEventListener('mouseout', function() {
+                mouse.x = null;
+                mouse.y = null;
+            });
+            
+            class EmberParticle {
+                constructor() {
+                    this.x = Math.random() * canvas.width;
+                    this.y = canvas.height + Math.random() * 100;
+                    this.size = Math.random() * 3 + 1;
+                    this.baseX = this.x;
+                    this.baseY = this.y;
+                    this.density = (Math.random() * 30) + 1;
+                    this.speedY = Math.random() * 2 + 0.5;
+                    this.speedX = (Math.random() - 0.5) * 0.5;
+                    this.opacity = Math.random() * 0.8 + 0.2;
+                    this.life = Math.random() * 200 + 100;
+                    this.age = 0;
+                    
+                    // Ember colors
+                    const colors = ['#ffffff', '#ff8f00', '#ff6b35', '#ffab00', '#ffa726'];
+                    this.color = colors[Math.floor(Math.random() * colors.length)];
+                }
+                
+                draw() {
+                    ctx.save();
+                    ctx.globalAlpha = this.opacity * (1 - this.age / this.life);
+                    
+                    // Create glow effect
+                    const gradient = ctx.createRadialGradient(
+                        this.x, this.y, 0,
+                        this.x, this.y, this.size * 2
+                    );
+                    
+                    if (this.color === '#ffffff') {
+                        gradient.addColorStop(0, 'rgba(255, 255, 255, 1)');
+                        gradient.addColorStop(0.4, 'rgba(255, 200, 100, 0.8)');
+                        gradient.addColorStop(1, 'transparent');
+                    } else if (this.color === '#ff8f00') {
+                        gradient.addColorStop(0, 'rgba(255, 143, 0, 1)');
+                        gradient.addColorStop(0.6, 'rgba(255, 107, 53, 0.6)');
+                        gradient.addColorStop(1, 'transparent');
                     } else {
-                        particles.position.x = 0;
-                        particles.position.y = 0;
+                        gradient.addColorStop(0, this.color);
+                        gradient.addColorStop(1, 'transparent');
                     }
-
-                    if (!disableRotation) {
-                        particles.rotation.x = Math.sin(elapsed * 0.0002) * 0.1;
-                        particles.rotation.y = Math.cos(elapsed * 0.0005) * 0.15;
-                        particles.rotation.z += 0.01 * speed;
+                    
+                    ctx.fillStyle = gradient;
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.restore();
+                }
+                
+                update() {
+                    // Mouse interaction - ReactBits.dev style
+                    if (mouse.x != null && mouse.y != null) {
+                        let dx = mouse.x - this.x;
+                        let dy = mouse.y - this.y;
+                        let distance = Math.sqrt(dx * dx + dy * dy);
+                        let forceDirectionX = dx / distance;
+                        let forceDirectionY = dy / distance;
+                        let maxDistance = mouse.radius;
+                        let force = (maxDistance - distance) / maxDistance;
+                        let directionX = forceDirectionX * force * this.density * 0.6;
+                        let directionY = forceDirectionY * force * this.density * 0.6;
+                        
+                        if (distance < mouse.radius) {
+                            this.x += directionX;
+                            this.y += directionY;
+                        } else {
+                            if (this.x !== this.baseX) {
+                                let dx = this.x - this.baseX;
+                                this.x -= dx / 10;
+                            }
+                            if (this.y !== this.baseY) {
+                                let dy = this.y - this.baseY;
+                                this.y -= dy / 10;
+                            }
+                        }
                     }
-
-                    renderer.render({ scene: particles, camera });
-                };
-
-                animationFrameId = requestAnimationFrame(update);
-
-                return () => {
-                    window.removeEventListener('resize', resize);
-                    if (moveParticlesOnHover) {
-                        container.removeEventListener('mousemove', handleMouseMove);
+                    
+                    // Natural ember movement
+                    this.y -= this.speedY;
+                    this.x += this.speedX;
+                    this.age++;
+                    
+                    // Update base position
+                    this.baseY -= this.speedY;
+                    this.baseX += this.speedX;
+                    
+                    // Reset particle if it goes off screen or dies
+                    if (this.y < -10 || this.age >= this.life) {
+                        this.x = Math.random() * canvas.width;
+                        this.y = canvas.height + Math.random() * 100;
+                        this.baseX = this.x;
+                        this.baseY = this.y;
+                        this.age = 0;
+                        this.life = Math.random() * 200 + 100;
+                        this.opacity = Math.random() * 0.8 + 0.2;
                     }
-                    cancelAnimationFrame(animationFrameId);
-                    if (container.contains(gl.canvas)) {
-                        container.removeChild(gl.canvas);
-                    }
-                };
-            }, []);
-
-            return React.createElement('div', {
-                ref: containerRef,
-                className: 'particles-container'
-            });
-        };
-
-        // Initialize ReactBits particles
-        const ParticlesApp = () => {
-            return React.createElement(Particles, {
-                particleCount: window.innerWidth < 768 ? 80 : 150, // Mobile optimization
-                particleSpread: 8,
-                speed: 0.08,
-                particleColors: defaultColors,
-                moveParticlesOnHover: true,
-                particleHoverFactor: 0.5,
-                alphaParticles: false,
-                particleBaseSize: window.innerWidth < 768 ? 60 : 80,
-                sizeRandomness: 1.2,
-                cameraDistance: 18,
-                disableRotation: false
-            });
-        };
-
-        // Initialize ReactDOM
-        const container = document.getElementById('reactbits-particles');
-        const root = ReactDOM.createRoot ? ReactDOM.createRoot(container) : {
-            render: (element) => ReactDOM.render(element, container)
-        };
-        
-        if (ReactDOM.createRoot) {
-            root.render(React.createElement(ParticlesApp));
-        } else {
-            root.render(React.createElement(ParticlesApp));
+                }
+            }
+            
+            // Create ember particles
+            for (let i = 0; i < 50; i++) {
+                particles.push(new EmberParticle());
+            }
+            
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                
+                particles.forEach(particle => {
+                    particle.update();
+                    particle.draw();
+                });
+                
+                requestAnimationFrame(animate);
+            }
+            
+            animate();
         }
+        
+        // Initialize ember particles after particles.js loads
+        setTimeout(createEmberParticles, 1000);
 
         // Intersection Observer for animations
         function setupScrollAnimations() {
@@ -720,6 +1181,50 @@
             document.querySelectorAll('.fade-in').forEach(el => {
                 observer.observe(el);
             });
+
+            // Timeline items animation with delay
+            const timelineItems = document.querySelectorAll('.timeline-item');
+            timelineItems.forEach((item, index) => {
+                setTimeout(() => {
+                    item.style.animationDelay = `${index * 0.2}s`;
+                }, 100);
+            });
+        }
+
+        // Contact form handling
+        function setupContactForm() {
+            const form = document.getElementById('contactForm');
+            
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Get form data
+                const formData = new FormData(form);
+                const data = Object.fromEntries(formData);
+                
+                // Create mailto link with form data
+                const subject = `Portfolio Inquiry from ${data.name}`;
+                const body = `
+Name: ${data.name}
+Email: ${data.email}
+Company: ${data.company || 'Not specified'}
+Role: ${data.role || 'Not specified'}
+
+Message:
+${data.message}
+                `.trim();
+                
+                const mailtoLink = `mailto:adwaith.mrv@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+                
+                // Open mailto link
+                window.location.href = mailtoLink;
+                
+                // Show success message
+                alert('Thank you for your interest! Your email client should open with a pre-filled message. Please send it to complete your inquiry.');
+                
+                // Reset form
+                form.reset();
+            });
         }
 
         // Initialize everything when DOM is loaded
@@ -728,8 +1233,9 @@
             initializeFontLoading();
             
             setupScrollAnimations();
+            setupContactForm();
             
-            console.log('🎮 Portfolio loaded with ReactBits particles + BF Modernista fonts! 🤖');
+            console.log('🎮 Portfolio loaded with BF Modernista fonts! Built with Claude AI 🤖');
         });
     </script>
 </body>
