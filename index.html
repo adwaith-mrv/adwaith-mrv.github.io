@@ -1235,10 +1235,11 @@ ${data.message}
             setupScrollAnimations();
             setupContactForm();
             
-            console.log('🎮 Portfolio loaded with BF Modernista fonts! Built with Claude AI 🤖');
+            console.log('🎮 Portfolio built with Claude AI 🤖');
         });
     </script>
-    <!-- Background Music Audio - Debug Version -->
+
+<!-- Background Music Audio - Debug Version -->
 <audio id="bg-music" controls preload="auto">
   <source src="./assets/audio/Battlefield 1 The Flight of the Pigeon.mp3" type="audio/mpeg" />
   <source src="./assets/audio/Battlefield%201%20The%20Flight%20of%20the%20Pigeon.mp3" type="audio/mpeg" />
@@ -1257,15 +1258,16 @@ ${data.message}
     console.log('❌ Audio error:', e);
   });
   
-  // Test play on user click
-  document.addEventListener('click', () => {
+  // Play audio on first scroll event
+  function handleScroll() {
     audio.play().then(() => {
-      console.log('🎵 Audio playing');
+      console.log('🎵 Audio playing on scroll');
     }).catch(err => {
       console.log('❌ Play failed:', err);
     });
-  }, { once: true });
+    // Remove listener after first scroll to prevent repeated triggers
+    window.removeEventListener('scroll', handleScroll);
+  }   
 </script>
-
 </body>
 </html>
