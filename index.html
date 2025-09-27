@@ -759,27 +759,27 @@
                     <div class="cert-title">McKinsey Forward Program</div>
                     <div class="cert-issuer">McKinsey & Company</div>
                 </div>
-                <div class="cert-card" onclick="window.open('https://example.com/pendo-ai', '_blank')">
+                <div class="cert-card" onclick="window.open('https://www.credly.com/badges/69a873f8-a661-41f9-a4f8-d861370d62e3', '_blank')">
                     <div class="cert-icon">🤖</div>
                     <div class="cert-title">AI for Product Management</div>
                     <div class="cert-issuer">Pendo</div>
                 </div>
-                <div class="cert-card" onclick="window.open('https://example.com/google-cloud', '_blank')">
+                <div class="cert-card" onclick="window.open('https://www.credly.com/users/adwaith-v.6245a192/badges#credly', '_blank')">
                     <div class="cert-icon">☁️</div>
                     <div class="cert-title">Google Cloud Platform</div>
                     <div class="cert-issuer">Google Cloud</div>
                 </div>
-                <div class="cert-card" onclick="window.open('https://example.com/ea-pm', '_blank')">
+                <div class="cert-card" onclick="window.open('https://drive.google.com/file/d/1X_k1YVgSUKADt47Cr4ayuSEXIJI63GF-/view?usp=drive_link', '_blank')">
                     <div class="cert-icon">🎮</div>
                     <div class="cert-title">Product Management</div>
                     <div class="cert-issuer">Electronic Arts (EA)</div>
                 </div>
-                <div class="cert-card" onclick="window.open('https://example.com/jpmc-agile', '_blank')">
+                <div class="cert-card" onclick="window.open('https://drive.google.com/file/d/1YvqzZOqKWoiieEZLnl8TuSj3KGNe0syM/view?usp=drive_link', '_blank')">
                     <div class="cert-icon">⚡</div>
                     <div class="cert-title">Agile Program</div>
                     <div class="cert-issuer">JP Morgan Chase</div>
                 </div>
-                <div class="cert-card" onclick="window.open('https://example.com/n8n-automation', '_blank')">
+                <div class="cert-card" onclick="window.open('https://community.n8n.io/badges/104/completed-n8n-course-level-1?username=beingsavage', '_blank')">
                     <div class="cert-icon">🔧</div>
                     <div class="cert-title">n8n Automation Level 1</div>
                     <div class="cert-issuer">n8n</div>
@@ -1248,26 +1248,31 @@ ${data.message}
 
 <script>
   const audio = document.getElementById('bg-music');
-  
-  // Debug logging
-  audio.addEventListener('canplay', () => {
-    console.log('✅ Audio can play');
-  });
-  
-  audio.addEventListener('error', (e) => {
-    console.log('❌ Audio error:', e);
-  });
-  
-  // Play audio on first scroll event
-  function handleScroll() {
+  let unlocked = false;
+
+  function unlockAudio(event) {
+    if (unlocked) return;
+    unlocked = true;
+
+    console.log(`🔔 Audio unlock triggered by: ${event.type}`);
+
     audio.play().then(() => {
-      console.log('🎵 Audio playing on scroll');
+      console.log('🎵 Audio playing successfully.');
     }).catch(err => {
-      console.log('❌ Play failed:', err);
+      console.error('❌ Audio play failed:', err);
     });
-    // Remove listener after first scroll to prevent repeated triggers
-    window.removeEventListener('scroll', handleScroll);
-  }   
+
+    // Remove all event listeners once triggered
+    window.removeEventListener('scroll', unlockAudio);
+    window.removeEventListener('click', unlockAudio);
+    window.removeEventListener('keydown', unlockAudio);
+  }
+
+  // Listen for user interactions that can unlock audio
+  window.addEventListener('scroll', unlockAudio, { passive: true });
+  window.addEventListener('click', unlockAudio);
+  window.addEventListener('keydown', unlockAudio);
 </script>
+
 </body>
 </html>
