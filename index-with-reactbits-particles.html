@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adwaith V - Product Manager | FinTech & Gaming</title>
+    <meta name="description" content="Adwaith V - Product Manager exploring new opportunities specializing in FinTech innovation and gaming. AI-powered portfolio showcasing 2+ years of PM expertise.">
+    
+    <!-- Include React and OGL for ReactBits particles -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/ogl@0.0.79/dist/ogl.umd.js"></script>
+    
+    <style>
+        /* Import EA Battlefield Fonts */
+        @font-face {
+            font-family: 'BF Modernista';
+            src: url('https://www.ea.com/assets/fonts/battlefield/BF_Modernista-Light.ttf') format('truetype');
+            font-weight: 300;
+            font-display: swap;
+        }
+        
+        @font-face {
+            font-family: 'BF Modernista';
+            src: url('https://www.ea.com/assets/fonts/battlefield/BF_Modernista-Regular.ttf') format('truetype');
+            font-weight: 400;
+            font-display: swap;
+        }
+        
+        @font-face {
+            font-family: 'BF Modernista';
+            src: url('https://www.ea.com/assets/fonts/battlefield/BF_Modernista-Bold.ttf') format('truetype');
+            font-weight: 700;
+            font-display: swap;
+        }
+
+        :root {
+            /* Default (Light Mode Users) */
+            --bg-primary: #0B1426;
+            --bg-secondary: #1A2744;
+            --text-primary: #FFFFFF;
+            --text-secondary: #4FC3F7;
+            --accent-orange: #FF6B35;
+            --accent-rose: #FF1744;
+            --smoke-gray: #37474F;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-primary: #0F1A2E;
+                --bg-secondary: #1F2B47;
+                --text-primary: #F8F9FA;
+                --text-secondary: #64B5F6;
+                --accent-orange: #FF7043;
+                --accent-rose: #EC407A;
+                --smoke-gray: #455A64;
+            }
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Futura', 'Avenir Next', 'Helvetica Neue', Arial, sans-serif;
+            /* Replace 'background-image.jpg' with your actual image filename */
+            background: url('background-image.jpg') center center / cover no-repeat fixed;
+            color: #FFFFFF;
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+            min-height: 100vh;
+        }
+
+        /* Fallback background if image doesn't load */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(ellipse 40% 60% at 15% 50%, rgba(255, 143, 0, 0.4) 0%, rgba(255, 107, 53, 0.2) 30%, transparent 60%),
+                radial-gradient(ellipse 50% 70% at 85% 25%, rgba(79, 195, 247, 0.3) 0%, rgba(100, 181, 246, 0.15) 40%, transparent 70%),
+                radial-gradient(ellipse 60% 80% at 50% 100%, rgba(55, 71, 79, 0.5) 0%, rgba(26, 39, 68, 0.4) 50%, transparent 80%),
+                linear-gradient(135deg, rgba(11, 20, 38, 0.9) 0%, rgba(26, 39, 68, 0.7) 40%, rgba(55, 71, 79, 0.5) 80%, rgba(11, 20, 38, 0.9) 100%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* ReactBits Particles Container - Fixed Position for Entire Website */
+        #reactbits-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* ReactBits Particles Component Styles */
+        .particles-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 3;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-family: 'BF Modernista', 'Futura', sans-serif;
+            font-size: clamp(3rem, 6vw, 5rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #FFFFFF;
+            text-shadow: 
+                0 0 10px rgba(255, 255, 255, 0.8),
+                0 0 20px rgba(255, 143, 0, 0.6),
+                0 0 40px rgba(255, 143, 0, 0.4),
+                2px 2px 4px rgba(0, 0, 0, 0.8);
+            letter-spacing: 2px;
+            animation: heroGlow 4s ease-in-out infinite alternate;
+        }
+
+        @keyframes heroGlow {
+            0% { 
+                text-shadow: 
+                    0 0 10px rgba(255, 255, 255, 0.8),
+                    0 0 20px rgba(255, 143, 0, 0.6),
+                    0 0 40px rgba(255, 143, 0, 0.4),
+                    2px 2px 4px rgba(0, 0, 0, 0.8);
+            }
+            100% { 
+                text-shadow: 
+                    0 0 15px rgba(255, 255, 255, 1),
+                    0 0 30px rgba(255, 143, 0, 0.8),
+                    0 0 60px rgba(255, 143, 0, 0.6),
+                    2px 2px 4px rgba(0, 0, 0, 0.8);
+            }
+        }
+
+        .hero .tagline {
+            font-family: 'BF Modernista', 'Futura', sans-serif;
+            font-size: clamp(1.5rem, 3vw, 2.2rem);
+            color: #FFFFFF;
+            margin-bottom: 2rem;
+            font-weight: 400;
+            text-shadow: 
+                0 0 10px rgba(255, 255, 255, 0.8),
+                0 0 20px rgba(79, 195, 247, 0.6),
+                2px 2px 4px rgba(0, 0, 0, 0.8);
+            letter-spacing: 1px;
+        }
+
+        .hero .subtitle {
+            font-family: 'BF Modernista', 'Futura', sans-serif;
+            font-size: clamp(1.1rem, 2.2vw, 1.4rem);
+            color: #FFE0B2;
+            font-weight: 300;
+            text-shadow: 
+                0 0 10px rgba(255, 224, 178, 0.8),
+                2px 2px 4px rgba(0, 0, 0, 0.8);
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 100px 0;
+            position: relative;
+            z-index: 2;
+            background: rgba(11, 20, 38, 0.7);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .section:nth-child(even) {
+            background: rgba(26, 39, 68, 0.7);
+        }
+
+        .section h2 {
+            font-family: 'BF Modernista', 'Futura', sans-serif;
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            margin-bottom: 3rem;
+            text-align: center;
+            color: #FFFFFF;
+            position: relative;
+            font-weight: 700;
+            text-shadow: 
+                0 0 10px rgba(255, 255, 255, 0.8),
+                0 0 20px rgba(255, 143, 0, 0.6),
+                2px 2px 4px rgba(0, 0, 0, 0.8);
+            letter-spacing: 1px;
+        }
+
+        .section h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, #FF7043, #4FC3F7);
+            border-radius: 2px;
+        }
+
+        /* About Section */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-text {
+            font-family: 'Futura', 'Avenir Next', sans-serif;
+            font-size: 1.2rem;
+            line-height: 1.9;
+            color: #FFFFFF;
+            font-weight: 400;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+        }
+
+        .about-text p {
+            margin-bottom: 1.8rem;
+        }
+
+        .about-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 2.5rem 1.5rem;
+            background: rgba(26, 39, 68, 0.8);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 143, 0, 0.3);
+            transition: all 0.4s ease;
+            backdrop-filter: blur(15px);
+        }
+
+        .stat-item:hover {
+            transform: translateY(-8px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(255, 143, 0, 0.4);
+            border-color: rgba(255, 143, 0, 0.8);
+        }
+
+        .stat-number {
+            font-family: 'BF Modernista', 'Futura', sans-serif;
+            font-size: 3rem;
+            font-weight: 700;
+            color: #FF7043;
+            display: block;
+            text-shadow: 0 0 20px rgba(255, 112, 67, 0.8);
+        }
+
+        .stat-label {
+            font-family: 'Futura', 'Avenir Next', sans-serif;
+            color: #FFFFFF;
+            margin-top: 0.8rem;
+            font-size: 1.1rem;
+            font-weight: 500;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+        }
+
+        /* AI Badge */
+        .ai-badge {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: linear-gradient(135deg, #FF7043, #EC407A);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            box-shadow: 0 10px 30px rgba(255, 112, 67, 0.4);
+            z-index: 1000;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .about-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .ai-badge {
+                bottom: 1rem;
+                right: 1rem;
+                padding: 0.8rem 1.2rem;
+                font-size: 0.8rem;
+            }
+        }
+
+        /* Intersection Observer Animation Classes */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- ReactBits Particles Container -->
+    <div id="reactbits-particles"></div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Adwaith V</h1>
+            <p class="tagline">Product Manager</p>
+            <p class="subtitle">FinTech • Gaming • AI-Powered Solutions</p>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="fade-in">About Me</h2>
+            <div class="about-content fade-in">
+                <div class="about-text">
+                    <p>Product Manager with expertise in FinTech innovation and a passion for gaming. Previously leading cross-functional product efforts at Bajaj Finserv, where I've successfully delivered multiple lending and credit card products that have transformed user experiences and business outcomes.</p>
+                    <p>My journey from Computer Science Engineering to Product Management has been fueled by my analytical mindset and love for strategic problem-solving - skills I've honed through years of competitive gaming and basketball leadership. I specialize in building AI-powered financial solutions, having reduced release cycles by 2 weeks and improved conversions by 15% through data-driven product decisions.</p>
+                    <p>When I'm not optimizing user funnels or conducting UAT testing with 140+ test cases, you'll find me exploring the latest gaming trends, playing basketball, or experimenting with no-code automation tools to enhance team productivity.</p>
+                </div>
+                <div class="about-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">2+</span>
+                        <div class="stat-label">Years PM Experience</div>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">6+</span>
+                        <div class="stat-label">Products Delivered</div>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">25%</span>
+                        <div class="stat-label">Reduced Rework</div>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">100%</span>
+                        <div class="stat-label">Sprint Adherence</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Badge -->
+    <div class="ai-badge">
+        🤖 Built with AI Tools + ReactBits Particles
+    </div>
+
+    <script>
+        // ReactBits Particles Implementation
+        const { useEffect, useRef } = React;
+        const { Renderer, Camera, Geometry, Program, Mesh } = OGL;
+
+        // Colors matching your current particle scheme
+        const defaultColors = [
+            '#ffffff',  // White
+            '#ff8f00',  // Orange
+            '#ff6b35',  // Orange accent (matches your CSS accent_orange)
+            '#4fc3f7',  // Blue (matches your CSS text_secondary) 
+            '#ffab00',  // Light orange
+            '#ffa726'   // Another orange shade
+        ];
+
+        const hexToRgb = hex => {
+            hex = hex.replace(/^#/, '');
+            if (hex.length === 3) {
+                hex = hex
+                    .split('')
+                    .map(c => c + c)
+                    .join('');
+            }
+            const int = parseInt(hex, 16);
+            const r = ((int >> 16) & 255) / 255;
+            const g = ((int >> 8) & 255) / 255;
+            const b = (int & 255) / 255;
+            return [r, g, b];
+        };
+
+        const vertex = /* glsl */ `
+            attribute vec3 position;
+            attribute vec4 random;
+            attribute vec3 color;
+
+            uniform mat4 modelMatrix;
+            uniform mat4 viewMatrix;
+            uniform mat4 projectionMatrix;
+            uniform float uTime;
+            uniform float uSpread;
+            uniform float uBaseSize;
+            uniform float uSizeRandomness;
+
+            varying vec4 vRandom;
+            varying vec3 vColor;
+
+            void main() {
+                vRandom = random;
+                vColor = color;
+
+                vec3 pos = position * uSpread;
+                pos.z *= 10.0;
+
+                vec4 mPos = modelMatrix * vec4(pos, 1.0);
+                float t = uTime;
+                mPos.x += sin(t * random.z + 6.28 * random.w) * mix(0.1, 1.5, random.x);
+                mPos.y += sin(t * random.y + 6.28 * random.x) * mix(0.1, 1.5, random.w);
+                mPos.z += sin(t * random.w + 6.28 * random.y) * mix(0.1, 1.5, random.z);
+
+                vec4 mvPos = viewMatrix * mPos;
+
+                if (uSizeRandomness == 0.0) {
+                    gl_PointSize = uBaseSize;
+                } else {
+                    gl_PointSize = (uBaseSize * (1.0 + uSizeRandomness * (random.x - 0.5))) / length(mvPos.xyz);
+                }
+
+                gl_Position = projectionMatrix * mvPos;
+            }
+        `;
+
+        const fragment = /* glsl */ `
+            precision highp float;
+
+            uniform float uTime;
+            uniform float uAlphaParticles;
+            varying vec4 vRandom;
+            varying vec3 vColor;
+
+            void main() {
+                vec2 uv = gl_PointCoord.xy;
+                float d = length(uv - vec2(0.5));
+
+                if(uAlphaParticles < 0.5) {
+                    if(d > 0.5) {
+                        discard;
+                    }
+                    gl_FragColor = vec4(vColor + 0.2 * sin(uv.yxx + uTime + vRandom.y * 6.28), 1.0);
+                } else {
+                    float circle = smoothstep(0.5, 0.4, d) * 0.8;
+                    gl_FragColor = vec4(vColor + 0.2 * sin(uv.yxx + uTime + vRandom.y * 6.28), circle);
+                }
+            }
+        `;
+
+        const Particles = ({
+            particleCount = 150,
+            particleSpread = 8,
+            speed = 0.08,
+            particleColors = defaultColors,
+            moveParticlesOnHover = true,
+            particleHoverFactor = 0.5,
+            alphaParticles = false,
+            particleBaseSize = 80,
+            sizeRandomness = 1.2,
+            cameraDistance = 18,
+            disableRotation = false
+        }) => {
+            const containerRef = useRef(null);
+            const mouseRef = useRef({ x: 0, y: 0 });
+
+            useEffect(() => {
+                const container = containerRef.current;
+                if (!container) return;
+
+                const renderer = new Renderer({ depth: false, alpha: true });
+                const gl = renderer.gl;
+                container.appendChild(gl.canvas);
+                gl.clearColor(0, 0, 0, 0);
+
+                const camera = new Camera(gl, { fov: 15 });
+                camera.position.set(0, 0, cameraDistance);
+
+                const resize = () => {
+                    const width = container.clientWidth;
+                    const height = container.clientHeight;
+                    renderer.setSize(width, height);
+                    camera.perspective({ aspect: gl.canvas.width / gl.canvas.height });
+                };
+                window.addEventListener('resize', resize, false);
+                resize();
+
+                const handleMouseMove = e => {
+                    const rect = container.getBoundingClientRect();
+                    const x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+                    const y = -(((e.clientY - rect.top) / rect.height) * 2 - 1);
+                    mouseRef.current = { x, y };
+                };
+
+                if (moveParticlesOnHover) {
+                    container.addEventListener('mousemove', handleMouseMove);
+                }
+
+                const count = particleCount;
+                const positions = new Float32Array(count * 3);
+                const randoms = new Float32Array(count * 4);
+                const colors = new Float32Array(count * 3);
+                const palette = particleColors;
+
+                for (let i = 0; i < count; i++) {
+                    let x, y, z, len;
+                    do {
+                        x = Math.random() * 2 - 1;
+                        y = Math.random() * 2 - 1;
+                        z = Math.random() * 2 - 1;
+                        len = x * x + y * y + z * z;
+                    } while (len > 1 || len === 0);
+                    const r = Math.cbrt(Math.random());
+                    positions.set([x * r, y * r, z * r], i * 3);
+                    randoms.set([Math.random(), Math.random(), Math.random(), Math.random()], i * 4);
+                    const col = hexToRgb(palette[Math.floor(Math.random() * palette.length)]);
+                    colors.set(col, i * 3);
+                }
+
+                const geometry = new Geometry(gl, {
+                    position: { size: 3, data: positions },
+                    random: { size: 4, data: randoms },
+                    color: { size: 3, data: colors }
+                });
+
+                const program = new Program(gl, {
+                    vertex,
+                    fragment,
+                    uniforms: {
+                        uTime: { value: 0 },
+                        uSpread: { value: particleSpread },
+                        uBaseSize: { value: particleBaseSize },
+                        uSizeRandomness: { value: sizeRandomness },
+                        uAlphaParticles: { value: alphaParticles ? 1 : 0 }
+                    },
+                    transparent: true,
+                    depthTest: false
+                });
+
+                const particles = new Mesh(gl, { mode: gl.POINTS, geometry, program });
+
+                let animationFrameId;
+                let lastTime = performance.now();
+                let elapsed = 0;
+
+                const update = t => {
+                    animationFrameId = requestAnimationFrame(update);
+                    const delta = t - lastTime;
+                    lastTime = t;
+                    elapsed += delta * speed;
+
+                    program.uniforms.uTime.value = elapsed * 0.001;
+
+                    if (moveParticlesOnHover) {
+                        particles.position.x = -mouseRef.current.x * particleHoverFactor;
+                        particles.position.y = -mouseRef.current.y * particleHoverFactor;
+                    } else {
+                        particles.position.x = 0;
+                        particles.position.y = 0;
+                    }
+
+                    if (!disableRotation) {
+                        particles.rotation.x = Math.sin(elapsed * 0.0002) * 0.1;
+                        particles.rotation.y = Math.cos(elapsed * 0.0005) * 0.15;
+                        particles.rotation.z += 0.01 * speed;
+                    }
+
+                    renderer.render({ scene: particles, camera });
+                };
+
+                animationFrameId = requestAnimationFrame(update);
+
+                return () => {
+                    window.removeEventListener('resize', resize);
+                    if (moveParticlesOnHover) {
+                        container.removeEventListener('mousemove', handleMouseMove);
+                    }
+                    cancelAnimationFrame(animationFrameId);
+                    if (container.contains(gl.canvas)) {
+                        container.removeChild(gl.canvas);
+                    }
+                };
+            }, []);
+
+            return React.createElement('div', {
+                ref: containerRef,
+                className: 'particles-container'
+            });
+        };
+
+        // Initialize ReactBits particles
+        const ParticlesApp = () => {
+            return React.createElement(Particles, {
+                particleCount: 150,
+                particleSpread: 8,
+                speed: 0.08,
+                particleColors: defaultColors,
+                moveParticlesOnHover: true,
+                particleHoverFactor: 0.5,
+                alphaParticles: false,
+                particleBaseSize: 80,
+                sizeRandomness: 1.2,
+                cameraDistance: 18,
+                disableRotation: false
+            });
+        };
+
+        // Initialize ReactDOM
+        const container = document.getElementById('reactbits-particles');
+        const root = ReactDOM.createRoot ? ReactDOM.createRoot(container) : {
+            render: (element) => ReactDOM.render(element, container)
+        };
+        
+        if (ReactDOM.createRoot) {
+            root.render(React.createElement(ParticlesApp));
+        } else {
+            root.render(React.createElement(ParticlesApp));
+        }
+
+        // Intersection Observer for animations
+        function setupScrollAnimations() {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.fade-in').forEach(el => {
+                observer.observe(el);
+            });
+        }
+
+        // Initialize everything when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            setupScrollAnimations();
+            
+            console.log('🎮 Portfolio loaded with ReactBits particles! 🤖');
+        });
+    </script>
+</body>
+</html>

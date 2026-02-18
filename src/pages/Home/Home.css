@@ -1,0 +1,43 @@
+.home-page {
+    width: 100%;
+    min-height: 100vh;
+}
+
+.hero {
+    background: transparent;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    scroll-snap-align: start;
+}
+
+/* Ensure sections only animate when they have the visible class */
+.section {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    scroll-snap-align: start;
+    padding: 60px 0;
+}
+
+#contact {
+    min-height: auto;
+    display: block;
+    padding: 100px 0;
+    scroll-snap-align: center;
+    /* Still allow centering for snapping */
+}
+
+/* Premium Reveal Animation for Sections */
+.fade-in {
+    opacity: 0;
+    transform: translateY(30px) scale(0.98);
+    transition: all 1.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}

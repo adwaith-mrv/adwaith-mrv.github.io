@@ -1,0 +1,670 @@
+@font-face {
+    font-family: 'BF Modernista';
+    src: url('./assets/fonts/BF_Modernista-Light.ttf') format('truetype');
+    font-weight: 300;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'BF Modernista';
+    src: url('./assets/fonts/BF_Modernista-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'BF Modernista';
+    src: url('./assets/fonts/BF_Modernista-Bold.ttf') format('truetype');
+    font-weight: 700;
+    font-display: swap;
+}
+
+:root {
+    /* Default (Light Mode Users) */
+    --bg-primary: #0B1426;
+    --bg-secondary: #1A2744;
+    --text-primary: #FFFFFF;
+    --text-secondary: #4FC3F7;
+    --accent-orange: #FF6B35;
+    --accent-rose: #FF1744;
+    --smoke-gray: #37474F;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg-primary: #0F1A2E;
+        --bg-secondary: #1F2B47;
+        --text-primary: #F8F9FA;
+        --text-secondary: #64B5F6;
+        --accent-orange: #FF7043;
+        --accent-rose: #EC407A;
+        --smoke-gray: #455A64;
+    }
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'BF Modernista', 'Futura', 'Avenir Next', 'Helvetica Neue', Arial, sans-serif;
+    background: url('./assets/background-image.jpg') center center / cover no-repeat fixed;
+    color: #FFFFFF;
+    line-height: 1.6;
+    overflow-x: hidden;
+    position: relative;
+}
+
+.App {
+    min-height: 100vh;
+    transition: background 1s ease;
+}
+
+.App.locked {
+    height: 100vh;
+    overflow: hidden;
+}
+
+.App.unlocked {
+    height: auto;
+    overflow: visible;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background:
+        radial-gradient(ellipse 40% 60% at 15% 50%, rgba(255, 143, 0, 0.4) 0%, rgba(255, 107, 53, 0.2) 30%, transparent 60%),
+        radial-gradient(ellipse 50% 70% at 85% 25%, rgba(79, 195, 247, 0.3) 0%, rgba(100, 181, 246, 0.15) 40%, transparent 70%),
+        radial-gradient(ellipse 60% 80% at 50% 100%, rgba(55, 71, 79, 0.5) 0%, rgba(26, 39, 68, 0.4) 50%, transparent 80%),
+        linear-gradient(135deg, rgba(11, 20, 38, 0.9) 0%, rgba(26, 39, 68, 0.7) 40%, rgba(55, 71, 79, 0.5) 80%, rgba(11, 20, 38, 0.9) 100%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+#reactbits-particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.hero {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 2;
+}
+
+.hero-content {
+    text-align: center;
+    z-index: 3;
+    position: relative;
+}
+
+.hero h1 {
+    font-family: 'BF Modernista', 'Futura', sans-serif;
+    font-size: clamp(4rem, 8vw, 7rem);
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.4);
+    background: linear-gradient(135deg, #fff 0%, #FF8F00 50%, #fff 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    text-shadow: 0 0 30px rgba(255, 143, 0, 0.3);
+    letter-spacing: 5px;
+    animation: heroEntrance 1.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+@keyframes heroEntrance {
+    0% {
+        opacity: 0;
+        transform: scale(0.9) translateY(20px);
+        letter-spacing: 20px;
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+        letter-spacing: 5px;
+    }
+}
+
+
+.hero .tagline {
+    font-family: 'BF Modernista', 'Futura', sans-serif;
+    font-size: clamp(1.5rem, 3vw, 2.2rem);
+    color: #FFFFFF;
+    margin-bottom: 2rem;
+    font-weight: 400;
+    text-shadow:
+        0 0 10px rgba(255, 255, 255, 0.8),
+        0 0 20px rgba(79, 195, 247, 0.6),
+        2px 2px 4px rgba(0, 0, 0, 0.8);
+    letter-spacing: 1px;
+    opacity: 0;
+    animation: fadeIn 1s ease-out 1s forwards;
+}
+
+.hero .subtitle {
+    font-family: 'BF Modernista', 'Futura', sans-serif;
+    font-size: clamp(1.1rem, 2.2vw, 1.4rem);
+    color: #FFE0B2;
+    font-weight: 300;
+    text-shadow:
+        0 0 10px rgba(255, 224, 178, 0.8),
+        2px 2px 4px rgba(0, 0, 0, 0.8);
+    opacity: 0;
+    animation: fadeIn 1s ease-out 1.5s forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+.section {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    scroll-snap-align: start;
+    padding: 80px 0;
+    position: relative;
+    z-index: 2;
+    background: transparent !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+}
+
+.section h2 {
+    font-family: 'BF Modernista', 'Futura', sans-serif;
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    margin-bottom: 3rem;
+    text-align: center;
+    color: #FFFFFF;
+    position: relative;
+    font-weight: 700;
+    text-shadow:
+        0 0 10px rgba(255, 255, 255, 0.8),
+        0 0 20px rgba(255, 143, 0, 0.6),
+        2px 2px 4px rgba(0, 0, 0, 0.8);
+    letter-spacing: 1px;
+}
+
+.section h2::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, #FF7043, #4FC3F7);
+    border-radius: 2px;
+}
+
+.comet-card {
+    position: relative;
+    background: linear-gradient(135deg, rgba(26, 39, 68, 0.85) 0%, rgba(11, 20, 38, 0.8) 100%);
+    border-radius: 20px;
+    overflow: hidden;
+    will-change: transform;
+    transition: all 0.3s ease;
+    z-index: 1;
+    user-select: none;
+    perspective: 1000px;
+    cursor: pointer;
+    border: 1px solid rgba(255, 143, 0, 0.2);
+    box-shadow:
+        0 8px 32px rgba(255, 143, 0, 0.08),
+        0 2px 8px rgba(79, 195, 247, 0.05),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.comet-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 50% 50%, rgba(255, 143, 0, 0.12) 0%, transparent 70%);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 1;
+}
+
+.comet-card:hover::before {
+    opacity: 1;
+}
+
+.comet-card-content {
+    position: relative;
+    z-index: 2;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1.5rem;
+}
+
+.about-stats-row {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 2.2rem;
+}
+
+.stat-card {
+    min-width: 160px;
+    flex: 1 1 200px;
+    max-width: 240px;
+    height: 140px;
+}
+
+.stat-number {
+    font-size: 2.8rem;
+    font-weight: 700;
+    color: #FF7043;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 0 20px rgba(255, 112, 67, 0.8);
+    display: block;
+}
+
+.stat-label {
+    font-size: 1rem;
+    color: #FFFFFF;
+    opacity: 0.9;
+    letter-spacing: 1px;
+    font-weight: 500;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+    text-align: center;
+}
+
+.about-text {
+    font-family: 'BF Modernista', 'Futura', 'Avenir Next', sans-serif;
+    font-size: 1.2rem;
+    line-height: 1.9;
+    color: #FFFFFF;
+    font-weight: 400;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+    margin-top: 1.6rem;
+}
+
+.about-text p {
+    margin-bottom: 1.8rem;
+}
+
+.timeline {
+    position: relative;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(180deg, #FF7043, #4FC3F7);
+    transform: translateX(-50%);
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 4rem;
+    transition: all 0.6s ease;
+}
+
+.timeline-item.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.timeline-item:nth-child(odd) .timeline-content {
+    margin-right: 55%;
+    text-align: right;
+}
+
+.timeline-item:nth-child(even) .timeline-content {
+    margin-left: 55%;
+}
+
+.timeline-content {
+    min-height: 180px;
+}
+
+.timeline-dot {
+    position: absolute;
+    left: 50%;
+    top: 2rem;
+    width: 24px;
+    height: 24px;
+    background: radial-gradient(circle, #FF7043 0%, #FF6B35 100%);
+    border-radius: 50%;
+    transform: translateX(-50%);
+    border: 3px solid rgba(255, 255, 255, 0.8);
+    z-index: 3;
+    box-shadow: 0 0 20px rgba(255, 112, 67, 0.8);
+}
+
+.job-title {
+    font-family: 'BF Modernista', 'Futura', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #FF7043;
+    margin-bottom: 0.8rem;
+    text-shadow: 0 0 15px rgba(255, 112, 67, 0.6);
+}
+
+.company {
+    font-family: 'BF Modernista', 'Futura', 'Avenir Next', sans-serif;
+    color: #4FC3F7;
+    font-weight: 600;
+    margin-bottom: 1.2rem;
+    font-size: 1rem;
+    text-shadow: 0 0 10px rgba(79, 195, 247, 0.5);
+}
+
+.job-description {
+    font-family: 'BF Modernista', 'Futura', 'Avenir Next', sans-serif;
+    color: #FFFFFF;
+    line-height: 1.7;
+    font-size: 1rem;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+}
+
+.cert-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+@media (max-width: 900px) {
+    .cert-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .cert-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.cert-card {
+    min-height: 200px;
+    cursor: pointer;
+}
+
+.cert-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    filter: drop-shadow(0 0 15px rgba(255, 143, 0, 0.8));
+}
+
+.cert-title {
+    font-family: 'BF Modernista', 'Futura', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 0.8rem;
+    color: #FFFFFF;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+}
+
+.cert-issuer {
+    font-family: 'BF Modernista', 'Futura', 'Avenir Next', sans-serif;
+    color: #4FC3F7;
+    font-weight: 500;
+    text-shadow: 0 0 10px rgba(79, 195, 247, 0.5);
+}
+
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.skill-category {
+    min-height: 320px;
+}
+
+.skill-category h3 {
+    font-family: 'BF Modernista', 'Futura', sans-serif;
+    color: #FF7043;
+    margin-bottom: 1.5rem;
+    font-size: 1.4rem;
+    font-weight: 700;
+    text-shadow: 0 0 15px rgba(255, 112, 67, 0.6);
+    text-align: center;
+}
+
+.skill-list {
+    list-style: none;
+    text-align: left;
+}
+
+.skill-list li {
+    font-family: 'BF Modernista', 'Futura', 'Avenir Next', sans-serif;
+    padding: 0.6rem 0;
+    color: #FFFFFF;
+    position: relative;
+    padding-left: 1.5rem;
+    font-size: 1rem;
+    font-weight: 400;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+    transition: all 0.3s ease;
+}
+
+.skill-list li::before {
+    content: '▶';
+    position: absolute;
+    left: 0;
+    color: #4FC3F7;
+    font-size: 0.7rem;
+    text-shadow: 0 0 10px rgba(79, 195, 247, 0.8);
+}
+
+.skill-list li:hover {
+    color: #FFE0B2;
+    transform: translateX(5px);
+    text-shadow: 0 0 15px rgba(255, 224, 178, 0.8);
+}
+
+.contact-form {
+    max-width: 700px;
+    margin: 0 auto;
+    background: rgba(26, 39, 68, 0.9);
+    padding: 4rem;
+    border-radius: 25px;
+    border: 1px solid rgba(255, 143, 0, 0.4);
+    backdrop-filter: blur(20px);
+    box-shadow: 0 20px 60px rgba(11, 20, 38, 0.8);
+}
+
+.form-group {
+    margin-bottom: 2.5rem;
+}
+
+.form-group label {
+    font-family: 'BF Modernista', 'Futura', 'Avenir Next', sans-serif;
+    display: block;
+    margin-bottom: 0.8rem;
+    color: #FFFFFF;
+    font-weight: 600;
+    font-size: 1.1rem;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+}
+
+.form-group input,
+.form-group textarea {
+    font-family: 'BF Modernista', 'Futura', 'Avenir Next', sans-serif;
+    width: 100%;
+    padding: 1.2rem 1.5rem;
+    background: rgba(11, 20, 38, 0.9);
+    border: 2px solid rgba(79, 195, 247, 0.3);
+    border-radius: 12px;
+    color: #FFFFFF;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.submit-btn {
+    font-family: 'BF Modernista', 'Futura', sans-serif;
+    background: linear-gradient(135deg, #FF7043 0%, #FF6B35 50%, #4FC3F7 100%);
+    color: white;
+    border: none;
+    padding: 1.2rem 3rem;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    display: block;
+    margin: 2rem auto 0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 10px 30px rgba(255, 112, 67, 0.4);
+}
+
+.ai-badge {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    background: linear-gradient(135deg, #FF7043, #EC407A);
+    color: white;
+    padding: 1rem 1.5rem;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    box-shadow: 0 10px 30px rgba(255, 112, 67, 0.4);
+    z-index: 1000;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+/* Global Fade-in handled by Home.css premium style */
+
+
+@media (max-width: 1200px) {
+    .skills-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+    }
+}
+
+@media (max-width: 900px) {
+    .skills-grid {
+        grid-template-columns: repeat(1, 1fr);
+        gap: 1rem;
+    }
+
+    .about-stats-row {
+        justify-content: center;
+        gap: 1.5rem;
+    }
+
+    .stat-card {
+        flex-basis: 45%;
+        max-width: 200px;
+    }
+}
+
+@media (max-width: 768px) {
+    .timeline::before {
+        left: 2rem;
+    }
+
+    .timeline-item:nth-child(odd) .timeline-content,
+    .timeline-item:nth-child(even) .timeline-content {
+        margin-left: 4rem;
+        margin-right: 0;
+        text-align: left;
+    }
+
+    .timeline-dot {
+        left: 2rem;
+        transform: none;
+    }
+
+    .cert-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+    .about-stats-row {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: center;
+    }
+
+    .stat-card {
+        flex-basis: 100%;
+        max-width: 280px;
+    }
+}
+
+audio#bg-music {
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
+    opacity: 0.1;
+    z-index: 1001;
+}
+
+audio#bg-music:hover {
+    opacity: 1;
+}
