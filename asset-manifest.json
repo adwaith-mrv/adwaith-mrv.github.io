@@ -1,0 +1,18 @@
+{
+  "files": {
+    "main.css": "/static/css/main.2d42580a.css",
+    "main.js": "/static/js/main.ede33f20.js",
+    "static/media/Battlefield 1 The Flight of the Pigeon.mp3": "/static/media/Battlefield 1 The Flight of the Pigeon.a9b69ae0ab7aad3dca44.mp3",
+    "static/media/background-image.jpg": "/static/media/background-image.88433431e1d45b90f5c6.jpg",
+    "static/media/BF_Modernista-Bold.ttf": "/static/media/BF_Modernista-Bold.4ae1b6b27ac11aef94cd.ttf",
+    "static/media/BF_Modernista-Light.ttf": "/static/media/BF_Modernista-Light.207844590a06bfbd676c.ttf",
+    "static/media/BF_Modernista-Regular.ttf": "/static/media/BF_Modernista-Regular.077be9a08c0aecb65f19.ttf",
+    "index.html": "/index.html",
+    "main.2d42580a.css.map": "/static/css/main.2d42580a.css.map",
+    "main.ede33f20.js.map": "/static/js/main.ede33f20.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.2d42580a.css",
+    "static/js/main.ede33f20.js"
+  ]
+}
