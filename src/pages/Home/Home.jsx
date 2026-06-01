@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import KnowMoreButton from '../../components/UI/KnowMoreButton';
+import ResumeButton from '../../components/UI/ResumeButton';
 import './Home.css';
 
 const Home = ({ isLocked, onUnlock }) => {
@@ -61,14 +62,21 @@ const Home = ({ isLocked, onUnlock }) => {
         e.target.reset();
     };
 
+    // The Google Drive link for your latest resume
+    const resumeUrl = "https://drive.google.com/file/d/1bYd79sS097N4rxO_SCoJux2w3ynx_v_u/view?usp=sharing";
+
     return (
         <main className="home-page">
             <section className="hero">
                 <div className="hero-content">
                     <h1 className="premium-title">Adwaith V</h1>
                     <p className="tagline">Product Manager</p>
-                    <p className="subtitle">FinTech • Gaming • AI-Powered Solutions</p>
-                    {isLocked && <KnowMoreButton onClick={onUnlock} />}
+                    <p className="subtitle">Gaming | FinTech | Product-first | AI-Powered Solutions</p>
+                    {isLocked ? (
+                        <KnowMoreButton onClick={onUnlock} />
+                    ) : (
+                        <ResumeButton href={resumeUrl} />
+                    )}
                 </div>
             </section>
 
