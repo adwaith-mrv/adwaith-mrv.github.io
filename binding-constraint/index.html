@@ -1,0 +1,389 @@
+<meta charset="utf-8">
+<title>Publish the Bill Before the Grind</title>
+<!--FONTS-->
+<style>
+/* Type comes from the host site's global family, not from a page-local brand font.
+   An iframe does not inherit the parent document's @font-face rules, so the same
+   faces the portfolio declares in App.css are re-declared here against the copies
+   in this folder. Weights available: 300 / 400 / 700 only. */
+@font-face{font-family:'BF Modernista';src:url(assets/fonts/BF_Modernista-Light.ttf) format('truetype');font-weight:300;font-display:swap;}
+@font-face{font-family:'BF Modernista';src:url(assets/fonts/BF_Modernista-Regular.ttf) format('truetype');font-weight:400;font-display:swap;}
+@font-face{font-family:'BF Modernista';src:url(assets/fonts/BF_Modernista-Bold.ttf) format('truetype');font-weight:700;font-display:swap;}
+</style>
+<!--/FONTS-->
+
+<style>
+:root{
+  --paper:#F6F5F1; --surface:#FFFFFF; --ink:#14161A; --muted:#4A5568;
+  --rule:#DED9CD; --grid:#E7E2D6; --faint:#8A9099;
+  --gold:#A8801F; --blue:#2C63B5;
+  --r1:#C9A840; --r2:#9C7618; --r3:#5A470D;
+  --shadow:0 1px 2px rgba(20,22,26,.05), 0 8px 24px rgba(20,22,26,.05);
+  --modelbg:#F8F9FB;
+  /* One family, matching the portfolio's global stack in App.css. --serif is kept
+     as a token so existing rules do not have to be rewritten; it now resolves to
+     the same face as --sans. --mono stays a system monospace because the tables
+     and chart labels need tabular figures, and no brand font here supplies them. */
+  --sans:'BF Modernista','Futura','Avenir Next','Helvetica Neue',Arial,sans-serif;
+  --serif:'BF Modernista','Futura','Avenir Next','Helvetica Neue',Arial,sans-serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --paper:#14161A; --surface:#1B1E23; --ink:#EFEDE6; --muted:#A8AEB8;
+    --rule:#2C3037; --grid:#262A30; --faint:#767D88;
+    --gold:#B08722; --blue:#3E7FCC;
+    --r1:#5A470D; --r2:#9C7618; --r3:#C9A840;
+    --shadow:0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.25); --modelbg:#1B1E23;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#14161A; --surface:#1B1E23; --ink:#EFEDE6; --muted:#A8AEB8;
+  --rule:#2C3037; --grid:#262A30; --faint:#767D88;
+  --gold:#B08722; --blue:#3E7FCC;
+  --r1:#5A470D; --r2:#9C7618; --r3:#C9A840;
+  --shadow:0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.25); --modelbg:#1B1E23;
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font-family:var(--sans); font-size:16px; line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:920px; margin:0 auto; padding:48px 24px 80px}
+
+/* ---------- masthead ---------- */
+.mast{border-bottom:1px solid var(--rule); padding-bottom:28px; margin-bottom:36px}
+.eyebrow{font-family:var(--mono); font-size:12.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); margin:0 0 14px}
+h1{font-family:var(--serif); font-weight:600; font-size:clamp(28px,4.4vw,44px); line-height:1.15; letter-spacing:-.01em; margin:0 0 14px; max-width:20ch}
+.byline{font-size:14px; color:var(--muted); margin:0}
+.byline b{color:var(--ink); font-weight:600}
+
+/* ---------- hero ---------- */
+.hero{display:flex; flex-wrap:wrap; gap:32px; align-items:center; margin:0 0 40px; padding:28px 30px; background:var(--surface); border:1px solid var(--rule); border-radius:10px; box-shadow:var(--shadow)}
+.hero-fig{font-family:var(--sans); font-weight:700; font-size:64px; line-height:.92; letter-spacing:-.03em; color:var(--gold)}
+.hero-body{flex:1 1 320px; min-width:260px}
+.hero-body p{margin:0 0 10px; font-size:15.5px; font-weight:300; line-height:1.6; color:var(--ink)}
+.hero-body p b{color:var(--ink); font-weight:700}
+.hero-body .blocklabel{color:var(--gold)}
+
+/* ---------- filter row / theme segment ---------- */
+.filters{display:flex; flex-wrap:wrap; gap:10px 22px; align-items:center; padding:14px 18px; background:var(--surface); border:1px solid var(--rule); border-radius:10px; margin:0 0 28px; box-shadow:var(--shadow)}
+.fgroup{display:flex; align-items:center; gap:9px}
+.fgroup>span{font-size:12px; color:var(--muted); letter-spacing:.02em}
+.seg{display:flex; border:1px solid var(--rule); border-radius:7px; overflow:hidden}
+.seg button{appearance:none; border:0; background:transparent; color:var(--muted); font-family:var(--sans); font-size:13px; font-weight:500; padding:7px 13px; cursor:pointer; border-right:1px solid var(--rule); min-height:34px}
+.seg button:last-child{border-right:0}
+.seg button[aria-pressed="true"]{background:var(--ink); color:var(--paper)}
+.seg button:focus-visible{outline:2px solid var(--blue); outline-offset:-2px}
+
+/* ---------- cards ---------- */
+.card{background:var(--surface); border:1px solid var(--rule); border-radius:10px; padding:26px 28px 22px; margin:0 0 26px; box-shadow:var(--shadow)}
+.card h2{font-family:var(--sans); font-size:20px; font-weight:600; letter-spacing:-.01em; line-height:1.3; margin:0 0 14px; color:var(--ink)}
+.card .dek{font-size:15.5px; font-weight:300; line-height:1.6; color:var(--muted); margin:0 0 20px}
+.card .dek b{color:var(--ink); font-weight:600}
+.note{font-size:12.5px; color:var(--muted); margin:14px 0 0; padding-top:13px; border-top:1px solid var(--rule)}
+.note a{color:var(--ink); text-underline-offset:2px}
+.note code{font-family:var(--mono); font-size:11.5px}
+
+/* table view & specs */
+.tbtn{appearance:none; background:transparent; border:1px solid var(--rule); border-radius:7px; color:var(--muted); font-family:var(--sans); font-size:12.5px; padding:6px 12px; cursor:pointer; min-height:32px}
+.tbtn:hover{color:var(--ink)}
+.tbtn:focus-visible{outline:2px solid var(--blue); outline-offset:2px}
+.tablewrap{overflow-x:auto; margin-top:16px; margin-bottom:20px}
+table{border-collapse:collapse; font-size:13px; width:100%; min-width:420px}
+th,td{text-align:left; padding:10px 14px; border-bottom:1px solid var(--rule); font-family:var(--sans); vertical-align:top}
+th{font-size:12.5px; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:.04em}
+td{font-size:14.5px; line-height:1.5; color:var(--ink)}
+td b{font-weight:700}
+[hidden]{display:none !important}
+
+/* figure & images */
+figure{margin:28px 0; padding:0}
+figure img{display:block; width:100%; height:auto; border:1px solid var(--rule); border-radius:8px; box-shadow:var(--shadow)}
+figcaption{font-size:13.5px; line-height:1.5; color:var(--muted); margin-top:12px; font-family:var(--sans)}
+figcaption code{font-family:var(--mono); font-size:12.5px; background:var(--paper); border:1px solid var(--rule); border-radius:4px; padding:1px 5px}
+
+@media (max-width:640px){
+  .wrap{padding:32px 16px 60px}
+  .card{padding:20px 16px 18px}
+  .hero{padding:22px 20px; gap:20px}
+  .hero-fig{font-size:48px}
+}
+</style>
+<style>
+/* ---------- spine typography ---------- */
+.card .blocklabel, .hero .blocklabel, .blocklabel{
+  font-family:var(--mono); font-size:15px; letter-spacing:.12em; text-transform:uppercase;
+  color:var(--gold); margin:0 0 14px; font-weight:500; line-height:1.4;
+}
+.hero-body .blocklabel{margin-bottom:8px}
+.card.prose p{font-size:15.5px; font-weight:300; line-height:1.65; margin:0 0 15px; color:var(--ink)}
+.card.prose p:last-child, .card.prose ol:last-child{margin-bottom:0}
+.card.prose p.blocklabel{font-size:15px; font-weight:500; letter-spacing:.12em; color:var(--gold); margin:0 0 14px; line-height:1.4}
+.card.prose p.dek{font-size:15.5px; font-weight:300; line-height:1.6; color:var(--muted); margin:0 0 20px}
+.card.prose p.splith{color:var(--ink)}
+.card.prose p b, .card.prose li b{font-weight:700}
+.card.prose ul, .card.prose ol{margin:0 0 15px 0; padding-left:22px}
+.card.prose li{font-size:15.5px; font-weight:300; line-height:1.65; margin-bottom:9px; color:var(--ink)}
+.card.prose code{font-family:var(--mono); font-size:14.5px; background:var(--paper);
+  border:1px solid var(--rule); border-radius:4px; padding:1px 5px}
+.card.prose .splith, .card.prose .split .splith{font-family:var(--mono); font-size:13.5px; letter-spacing:.06em; text-transform:uppercase;
+  color:var(--ink); font-weight:500; margin:22px 0 10px !important}
+.splitgrid{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:22px; margin:4px 0 22px}
+.split{border-top:2px solid var(--gold); padding-top:14px}
+.split .splith{margin:0 0 8px !important}
+.split p{font-size:14.5px; line-height:1.58; color:var(--muted); margin:0}
+.card.prose .split p{font-size:14.5px; line-height:1.58; margin:0}
+.card.prose .pull{font-family:var(--mono); font-weight:500; font-size:16px; line-height:1.55;
+  border-left:4px solid var(--gold); padding-left:20px; color:var(--ink); margin:22px 0}
+table.spec{min-width:540px}
+table.spec th{font-family:var(--sans); font-weight:600; color:var(--muted); font-size:12.5px; text-align:left; border-bottom:1px solid var(--rule)}
+table.spec td{text-align:left; font-family:var(--sans); font-size:14.5px; line-height:1.5; color:var(--ink); border-bottom:1px solid var(--rule)}
+table.spec td b{font-weight:700}
+.crosslink-note{font-size:15px; line-height:1.6; color:var(--muted); margin:14px 0 0; padding-top:12px; border-top:1px solid var(--rule)}
+.crosslink-note b{color:var(--ink); font-weight:700}
+.crosslink-note a{color:var(--blue); font-weight:600; text-underline-offset:3px}
+.crosslink-note a:hover{color:var(--gold)}
+.mast .crosslink-note{border-top:none; padding-top:0; margin-top:10px}
+@media (max-width:640px){
+  .card.prose p, .card.prose li{font-size:15.5px}
+}
+</style>
+
+<div class="wrap">
+
+<header class="mast">
+  <p class="eyebrow">Product Brief &middot; Model 1 &middot; Digital Extremes</p>
+  <h1>Publish the bill before the grind</h1>
+  <p class="byline"><b>Adwaith V</b> &middot; What a new Warframe player is never told about the cost of their first frame.</p>
+  <p class="crosslink-note"><b>This brief is the decision.</b> The measurement behind it is the teardown: <a href="../#/DeepDive/VenusGate" target="_top">The Venus Gate</a>.</p>
+</header>
+
+<!-- ============ THE 90-SECOND READ ============ -->
+<section class="hero" id="block-decision">
+  <div class="hero-fig">0 / 30</div>
+  <div class="hero-body">
+    <p class="blocklabel">Decision</p>
+    <p><b>Put a Warframe's full material cost on the blueprint page, before the player commits to farming it</b> — the three component blueprints rolled up, not just listed as items. Leave the Jackal drop table alone.</p>
+    <p><b>Because.</b> Handing a player all three blueprints free saves zero runs in 30 of 30 plays at the measured rate. The requirement that does bind them appears nowhere in the client until after they have farmed for it.</p>
+    <p><b>Costs.</b> Two display surfaces, revertible in a patch. Gives up the misdirection aiming player frustration at a system tuned correctly, and tells a new player up front what the frame really costs.</p>
+    <p><b>Watch.</b> Farm-start rate on new accounts. An honest bill can deter the player it was written for.</p>
+    <p><b>Confidence.</b> High on the diagnosis. The measured rate would have to be understated threefold before it moves. Medium on the fix, because I cannot see what a new player collects.</p>
+  </div>
+</section>
+
+<!-- ============ DERIVATION ============ -->
+<section class="card prose" id="block-derivation">
+  <p class="blocklabel">How the problem was found</p>
+  <h2>I was wrong about this for years, in public</h2>
+  <p class="dek">A recommendation without its derivation is an opinion. This is the derivation, including the part where the first version of it was also wrong.</p>
+
+  <div class="splitgrid">
+    <div class="split">
+      <p class="splith">What I believed</p>
+      <p>That the drop table was the problem. So does most of the playerbase, and I held that view across 938 hours. Entry 11 in a ledger of predictions I got wrong.</p>
+    </div>
+    <div class="split">
+      <p class="splith">What I measured</p>
+      <p>Twenty consecutive Jackal runs on Fossa, one session, seventy minutes, Legendary Rank 1, solo, no boosters.</p>
+    </div>
+    <div class="split">
+      <p class="splith">What killed it</p>
+      <p>724 Circuits over twenty runs, 36 a run, so 700 takes about twenty. The three blueprints complete at 6.04 runs by exact arithmetic over DE's published weights. Two thresholds on one counter, one finishing fourteen runs early.</p>
+    </div>
+  </div>
+
+  <p>The mechanism also inverts. Collecting <i>faster</i> leaves the draws less room to resolve, so the drop table only bites for the player who explores.</p>
+
+  <p><b>What survived, and what I got wrong twice.</b> I first wrote this as a legibility problem: the Circuit count sits in a menu nobody opens. Then I opened the client. It is worse. For a component blueprint the player does not own, <b>no screen states its material cost at all.</b> The market page names where components drop and lists them <code>0/1</code>; the Foundry parent card does the same. Neither says what building them consumes. The requirement appears only after the farming it justifies is done.</p>
+
+  <p class="note"><b>Problem statement.</b> A new player cannot see what a first Warframe costs until they have already paid for part of it: the material requirement lives inside component blueprints they do not own yet, and no screen in the client sums it before they commit.</p>
+</section>
+
+<!-- ============ OPTIONS ============ -->
+<section class="card prose" id="block-options">
+  <p class="blocklabel">Options considered</p>
+  <h2>The fix players ask for buys 1.8 minutes</h2>
+  <p class="dek">Every option priced against the same measured collection rate. The ratio between the second row and the fourth is the entire argument.</p>
+
+  <div class="tablewrap">
+    <table class="spec">
+      <thead>
+        <tr><th>Option</th><th>What it changes</th><th>Cost</th><th>Effect at the measured rate</th><th>Verdict</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><b>Do nothing</b></td><td>&mdash;</td><td>zero</td><td>&mdash;</td>
+          <td>Not acceptable. The complaint is loud, persistent, and aimed at the wrong system, so every hour DE spends answering it defends something already right.</td>
+        </tr>
+        <tr>
+          <td><b>Double the Systems drop weight</b></td>
+          <td>The obvious fix, and the one players ask for</td>
+          <td>Live drop-table change, published tables reissued</td>
+          <td><b>0.50 runs, or 1.8 minutes</b> of blueprint farming. At 36 Circuits a run it changes when the player leaves Venus by <b>nothing at all</b>, in 30 of 30 plays</td>
+          <td><b>Rejected.</b> A visible concession that buys no time.</td>
+        </tr>
+        <tr>
+          <td><b>Publish the rolled-up bill</b> <i>(chosen)</i></td>
+          <td>What the player knows before they start</td>
+          <td>Two display surfaces</td>
+          <td>No time saved. Makes the player's plan match the game's actual requirement</td>
+          <td><b>Chosen.</b> Cheapest change on the list, and the only one that fixes information the client does not currently contain.</td>
+        </tr>
+        <tr>
+          <td><b>Halve the Foundry assembly stage, 24h &rarr; 12h</b></td>
+          <td>The real wall clock</td>
+          <td>Economy change; touches a rush-purchase surface</td>
+          <td><b>12 hours, roughly 400&times; the drop-table option</b></td>
+          <td><b>Out of v1 scope</b>, and the more valuable change. It needs purchase data I do not have.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ============ TRADEOFFS ============ -->
+<section class="card prose" id="block-tradeoffs">
+  <p class="blocklabel">Tradeoffs taken</p>
+  <h2>What this deliberately gives up</h2>
+  <p class="dek">A tradeoff is not a risk. A risk might happen; a tradeoff is a loss chosen on purpose, now.</p>
+
+  <p><b>I accept that some players will not start, in order that the ones who do can plan.</b> A new player told up front that a first Warframe means 700 Circuits, 1,500 Ferrite, 1,200 Rubedo and thirty-six hours in the Foundry may decide it is not worth beginning. Today the game gets them started by not saying. That is a real acquisition cost, and it is the honest price of this change. I would revisit if farm-start rate falls without abandonment improving.</p>
+
+  <p><b>I accept that the complaint moves to a monetised surface.</b> Frustration currently lands on the drop table, which costs DE nothing but goodwill. Once thirty-six Foundry hours are legible as the wall, pressure moves to the stage where rushing costs 125 platinum.</p>
+
+  <p><b>I accept that players who already know the recipe gain nothing.</b> A first-run fix, whose whole value is in the session before a player knows what they are grinding for.</p>
+</section>
+
+<!-- ============ BUILD ============ -->
+<section class="card prose" id="block-build">
+  <p class="blocklabel">How it gets built</p>
+  <h2>Two surfaces, no economy logic</h2>
+  <p class="dek">Verified in client, 1 September 2026. Screenshots at the foot of this page.</p>
+
+  <p><b>v1 scope, two surfaces.</b> The market blueprint page already lists the three components as <code>0/1</code> alongside the parent recipe's Neurodes and credits. Add beneath it the summed material requirement of those three component blueprints, in the same treatment. Same roll-up on the Foundry's parent card, so a player holding one or two blueprints sees the remaining bill without opening three cards and adding them up.</p>
+
+  <p><b>What engineering does.</b> Read three component recipes the player may not own, sum them, render into an existing requirements list. No new state, no new telemetry, no economy logic. The one real question is whether those recipes are client-authoritative before acquisition. If not, this is a data change before it is a UI change, and the estimate is wrong.</p>
+
+  <p><b>Deferred.</b> The Foundry timer. An economy change against a purchase surface, and it needs its own brief with conversion data behind it.</p>
+
+  <p><b>Rollout and reversibility.</b> Platform-staged, PC first, stopped by any fall in farm-start rate in week one. A display change reverts in a patch, and that is what makes it the correct first move: it buys the information about whether the expensive, irreversible option is worth making.</p>
+</section>
+
+<!-- ============ AI ============ -->
+<section class="card prose" id="block-ai">
+  <p class="blocklabel">AI: necessary, or not</p>
+  <h2>No, and the reason is DE's own drop tables</h2>
+  <p class="dek">Every adaptive system in this brief had to answer four questions before it earned a place. This one failed on the third.</p>
+
+  <p><b>No.</b> Summing three recipes and showing the total is arithmetic that was solved before there were computers to do it on.</p>
+
+  <p>The version worth taking seriously is the one players actually request: per-player bad-luck protection, a pity timer raising Systems odds after a dry streak. <b>The deterministic answer is a fixed pity counter</b>: guaranteed drop after N failures, published, identical for everyone. Where it fails: nowhere that matters here, because the condition it protects against binds 0.61% of the time at the measured rate.</p>
+
+  <p><b>What it would cost.</b> Per-account drop telemetry, and something worse. Digital Extremes publishes its drop tables, and that publication is a trust asset in a genre where most studios do not. A per-player adjusted rate makes the published table false for every individual player. The failure mode is not a bad recommendation &mdash; it is that DE's own documentation stops being true.</p>
+
+  <p><b>How you would know it was failing.</b> You would not, from inside the product. Players infer pity systems from streaks and argue about them elsewhere, and the ones who conclude the table is a lie do not file a ticket. A system whose failure is only observable outside the product is not one to operate here.</p>
+</section>
+
+<!-- ============ METRICS ============ -->
+<section class="card prose" id="block-metrics">
+  <p class="blocklabel">Success and counter-metrics</p>
+  <h2>Every primary has a counter</h2>
+  <p class="dek">A primary metric with no counter is a target, and a target with no counter is how a team ships a number instead of a product. Thresholds marked <code>proposed</code> are mine, not DE's.</p>
+
+  <div class="tablewrap">
+    <table class="spec">
+      <thead>
+        <tr><th>Category</th><th>Metric</th><th>Definition / formula</th><th>Health indicator</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>PRIMARY</td><td>Circuit surplus at exit</td>
+          <td>Median Circuits held above 700 when a new account leaves Venus</td>
+          <td>+16.8 in simulation today. Falling toward zero means players are tracking the constraint that binds. Target <code>proposed</code>: under +8.</td>
+        </tr>
+        <tr>
+          <td>PRIMARY</td><td>Blueprint-blame rate</td>
+          <td>Share of new-player support contacts and forum threads on first-Warframe pacing that name the drop table</td>
+          <td>The complaint being aimed correctly is the point of the change. A fall here is the feature working.</td>
+        </tr>
+        <tr>
+          <td>COUNTER</td><td>Farm-start rate</td>
+          <td>New accounts that open a Warframe blueprint page and run Fossa within 48 hours</td>
+          <td><b>The one that decides whether this ships wide.</b> If honesty deters starts, DE is trading acquisition for clarity and needs that priced before rollout continues.</td>
+        </tr>
+        <tr>
+          <td>COUNTER</td><td>Assembly rush rate</td>
+          <td>Foundry assembly-stage rush purchases per new account, first 14 days</td>
+          <td>Legibility moves pressure onto a monetised surface. If rush purchases fall instead of rising, the change cost revenue in a direction nobody predicted.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="note"><b>The metric I would sacrifice: blueprint-blame rate.</b> It flatters the change and connects least to whether anyone keeps playing. If it stayed flat while farm-start held and Venus abandonment fell, I would still call this a success.</p>
+</section>
+
+<!-- ============ LIMITS ============ -->
+<section class="card prose" id="block-limits">
+  <p class="blocklabel">What I could not see</p>
+  <h2>The evidence bar, stated rather than implied</h2>
+  <p class="dek">This is analysis from outside the company. Four things would change it, and none of them are mine to look at.</p>
+
+  <p><b>The new-player collection rate.</b> 72 and 104 Circuits a run are assumptions. I cannot measure a new player's rate without a new account and a stopwatch. DE's per-account resource telemetry settles it, and it decides how much of the playerbase sits past the threshold where the drop table starts to bite.</p>
+
+  <p><b>Whether component recipes are client-side before acquisition.</b> The v1 estimate rests on it and only DE knows. Every screen I checked belongs to my own account, which is at Legendary Rank 1 and owns the blueprints, so I am inferring the new-player view rather than seeing it.</p>
+
+  <p><b>Rush-purchase conversion.</b> What the Foundry change is worth in revenue lives inside DE. Everything I can say about it is wall-clock.</p>
+
+  <p><b>Circuit drop lumpiness.</b> The model draws Circuits smoothly; the game drops them in stacks of 35 to 50. Means unaffected, <b>spread understated, and no variance figure until it is re-derived.</b> Ledger 19.</p>
+</section>
+
+<!-- ============ PROVENANCE ============ -->
+<section class="card prose" id="block-provenance">
+  <p class="blocklabel">Provenance</p>
+  <h2>The two screens this rests on</h2>
+  <p class="dek">Uncropped, as captured on 1 September 2026. The Foundry view shows component cards carrying material costs only because this account owns those blueprints; the market view shows what a player without them sees.</p>
+
+  <figure>
+    <img src="assets/provenance-01-foundry-rhino-components.png" alt="Warframe Foundry filtered to Rhino. The parent Rhino card lists only its three components as 0/1 plus Neurodes; each component card carries its own separate material requirement.">
+    <figcaption>Foundry, Rhino. The parent card states no materials, only components at <code>0/1</code>. Three component cards each carry a partial bill, and nothing sums them.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="assets/provenance-02-market-rhino-blueprint.png" alt="Warframe market item details for the Rhino blueprint. The requirement panel names where components drop and lists them 0/1, with no material cost for any of them.">
+    <figcaption>Market, Rhino blueprint. It names where the components drop &mdash; &ldquo;defeating Jackal on Fossa (Venus)&rdquo; &mdash; and never says what building them will cost.</figcaption>
+  </figure>
+
+  <p class="note">Model: nine nodes, Machinations.io, 30 plays per configuration; no play truncated by a step cap. Drop weights from Digital Extremes' published tables, 2026-06-25 revision. Play data measured 2026-08-19, Legendary Rank 1 account, Normal mode, solo, no boosters. Build costs and timers verified in client 2026-09-01: components 12 hours and 15,000 credits each, parent assembly 24 hours and 25,000, market blueprint 35,000. That is 105,000 credits and 36 hours in total, matching the published recipe.</p>
+
+  <p class="crosslink-note"><b>This brief is the decision.</b> The measurement behind it is the teardown: <a href="../#/DeepDive/VenusGate" target="_top">The Venus Gate</a>.</p>
+</section>
+
+</div><!-- /.wrap -->
+
+<script>
+(function(){
+"use strict";
+
+/* When this page is embedded, the host cannot know how tall it is. Tell it, so
+   it can size the frame to the content instead of nesting a second scrollbar. */
+var lastH = 0;
+function postHeight(){
+  if (window.parent === window) return;
+  var h = Math.ceil(document.documentElement.scrollHeight);
+  if (Math.abs(h - lastH) < 2) return;
+  lastH = h;
+  window.parent.postMessage({type:'deepdive:height', slug:'binding-constraint', height:h}, '*');
+}
+if (window.parent !== window){
+  window.addEventListener('load', postHeight);
+  window.addEventListener('resize', postHeight);
+  if (window.ResizeObserver) new ResizeObserver(postHeight).observe(document.documentElement);
+  setInterval(postHeight, 1000);
+}
+postHeight();
+})();
+</script>

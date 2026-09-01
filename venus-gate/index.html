@@ -1,0 +1,2093 @@
+<meta charset="utf-8">
+<title>The Venus Gate</title>
+<!--FONTS-->
+<style>
+/* Type comes from the host site's global family, not from a page-local brand font.
+   An iframe does not inherit the parent document's @font-face rules, so the same
+   faces the portfolio declares in App.css are re-declared here against the copies
+   in this folder. Weights available: 300 / 400 / 700 only. */
+@font-face{font-family:'BF Modernista';src:url(assets/fonts/BF_Modernista-Light.ttf) format('truetype');font-weight:300;font-display:swap;}
+@font-face{font-family:'BF Modernista';src:url(assets/fonts/BF_Modernista-Regular.ttf) format('truetype');font-weight:400;font-display:swap;}
+@font-face{font-family:'BF Modernista';src:url(assets/fonts/BF_Modernista-Bold.ttf) format('truetype');font-weight:700;font-display:swap;}
+</style>
+<!--/FONTS-->
+
+<style>
+:root{
+  --paper:#F6F5F1; --surface:#FFFFFF; --ink:#14161A; --muted:#4A5568;
+  --rule:#DED9CD; --grid:#E7E2D6; --faint:#8A9099;
+  --gold:#A8801F; --blue:#2C63B5;
+  --r1:#C9A840; --r2:#9C7618; --r3:#5A470D;
+  --shadow:0 1px 2px rgba(20,22,26,.05), 0 8px 24px rgba(20,22,26,.05);
+  --modelbg:#F8F9FB;
+  /* One family, matching the portfolio's global stack in App.css. --serif is kept
+     as a token so existing rules do not have to be rewritten; it now resolves to
+     the same face as --sans. --mono stays a system monospace because the tables
+     and chart labels need tabular figures, and no brand font here supplies them. */
+  --sans:'BF Modernista','Futura','Avenir Next','Helvetica Neue',Arial,sans-serif;
+  --serif:'BF Modernista','Futura','Avenir Next','Helvetica Neue',Arial,sans-serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --paper:#14161A; --surface:#1B1E23; --ink:#EFEDE6; --muted:#A8AEB8;
+    --rule:#2C3037; --grid:#262A30; --faint:#767D88;
+    --gold:#B08722; --blue:#3E7FCC;
+    --r1:#5A470D; --r2:#9C7618; --r3:#C9A840;
+    --shadow:0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.25); --modelbg:#1B1E23;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#14161A; --surface:#1B1E23; --ink:#EFEDE6; --muted:#A8AEB8;
+  --rule:#2C3037; --grid:#262A30; --faint:#767D88;
+  --gold:#B08722; --blue:#3E7FCC;
+  --r1:#5A470D; --r2:#9C7618; --r3:#C9A840;
+  --shadow:0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.25); --modelbg:#1B1E23;
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font-family:var(--sans); font-size:16px; line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:920px; margin:0 auto; padding:48px 24px 80px}
+
+/* ---------- masthead ---------- */
+.mast{border-bottom:1px solid var(--rule); padding-bottom:28px; margin-bottom:36px}
+.eyebrow{font-family:var(--mono); font-size:12.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); margin:0 0 14px}
+h1{font-family:var(--serif); font-weight:600; font-size:clamp(28px,4.4vw,44px); line-height:1.15; letter-spacing:-.01em; margin:0 0 14px; max-width:20ch}
+.byline{font-size:14px; color:var(--muted); margin:0}
+.byline b{color:var(--ink); font-weight:600}
+
+/* ---------- hero ---------- */
+.hero{display:flex; flex-wrap:wrap; gap:32px; align-items:center; margin:0 0 40px; padding:28px 30px; background:var(--surface); border:1px solid var(--rule); border-radius:10px; box-shadow:var(--shadow)}
+.hero-fig{font-family:var(--sans); font-weight:700; font-size:72px; line-height:.92; letter-spacing:-.03em; color:var(--gold)}
+.hero-body{flex:1 1 320px; min-width:260px}
+.hero-body p{margin:0 0 10px; font-size:15.5px; font-weight:300; line-height:1.6; color:var(--ink)}
+.hero-body p b{color:var(--ink); font-weight:700}
+.hero-body .blocklabel{color:var(--gold)}
+
+/* ---------- stat tiles ---------- */
+.tiles{display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:14px; margin:0 0 44px}
+.tile{background:var(--surface); border:1px solid var(--rule); border-radius:10px; padding:18px 20px; box-shadow:var(--shadow)}
+.tile .lbl{font-size:12px; color:var(--muted); display:flex; align-items:center; gap:7px; margin-bottom:9px}
+.swatch{width:10px; height:10px; border-radius:2px; flex:none}
+.tile .val{font-family:var(--sans); font-weight:700; font-size:30px; line-height:1; letter-spacing:-.02em}
+.tile .sub{font-size:12.5px; color:var(--muted); margin-top:7px}
+
+/* ---------- filter row ---------- */
+.filters{display:flex; flex-wrap:wrap; gap:10px 22px; align-items:center; padding:14px 18px; background:var(--surface); border:1px solid var(--rule); border-radius:10px; margin:0 0 28px; box-shadow:var(--shadow)}
+.fgroup{display:flex; align-items:center; gap:9px}
+.fgroup>span{font-size:12px; color:var(--muted); letter-spacing:.02em}
+.seg{display:flex; border:1px solid var(--rule); border-radius:7px; overflow:hidden}
+.seg button{appearance:none; border:0; background:transparent; color:var(--muted); font-family:var(--sans); font-size:13px; font-weight:500; padding:7px 13px; cursor:pointer; border-right:1px solid var(--rule); min-height:34px}
+.seg button:last-child{border-right:0}
+.seg button[aria-pressed="true"]{background:var(--ink); color:var(--paper)}
+.seg button:focus-visible{outline:2px solid var(--blue); outline-offset:-2px}
+
+/* ---------- chart cards ---------- */
+.card{background:var(--surface); border:1px solid var(--rule); border-radius:10px; padding:26px 28px 22px; margin:0 0 26px; box-shadow:var(--shadow)}
+.card h2{font-family:var(--sans); font-size:20px; font-weight:600; letter-spacing:-.01em; line-height:1.3; margin:0 0 14px; color:var(--ink)}
+.card .dek{font-size:15.5px; font-weight:300; line-height:1.6; color:var(--muted); margin:0 0 20px}
+.card .dek b{color:var(--ink); font-weight:600}
+.chart-head{display:flex; justify-content:space-between; align-items:flex-start; gap:20px; flex-wrap:nowrap}
+.chart-head>div{min-width:0; flex:1 1 auto}
+.chart-head>.tbtn, .chart-head>a.tbtn{flex:0 0 auto; white-space:nowrap}
+@media (max-width:600px){.chart-head{flex-wrap:wrap}}
+.legend{display:flex; flex-wrap:wrap; gap:8px 18px; margin:0 0 14px}
+.legend .item{display:flex; align-items:center; gap:8px; font-size:13px; color:var(--muted)}
+.legend .key{width:14px; height:3px; border-radius:2px; flex:none}
+.legend .key.dot{width:10px; height:10px; border-radius:50%}
+.plot{position:relative; width:100%; overflow:hidden}
+svg{display:block; width:100%; max-width:100%; height:auto}
+.note{font-size:12.5px; color:var(--muted); margin:14px 0 0; padding-top:13px; border-top:1px solid var(--rule)}
+.note code{font-family:var(--mono); font-size:11.5px}
+
+/* table view */
+.tbtn{appearance:none; background:transparent; border:1px solid var(--rule); border-radius:7px; color:var(--muted); font-family:var(--sans); font-size:12.5px; padding:6px 12px; cursor:pointer; min-height:32px}
+.tbtn:hover{color:var(--ink)}
+.tbtn:focus-visible{outline:2px solid var(--blue); outline-offset:2px}
+.tablewrap{overflow-x:auto; margin-top:16px}
+table{border-collapse:collapse; font-size:13px; width:100%; min-width:420px}
+th,td{text-align:right; padding:7px 12px; border-bottom:1px solid var(--rule); font-family:var(--mono); font-variant-numeric:tabular-nums}
+th:first-child,td:first-child{text-align:left; font-family:var(--sans)}
+th{font-family:var(--sans); font-size:12px; font-weight:600; color:var(--muted); text-align:right}
+th:first-child{text-align:left}
+[hidden]{display:none !important}
+
+/* tooltip */
+.tip{position:absolute; pointer-events:none; background:var(--ink); color:var(--paper); font-size:12.5px; line-height:1.5; padding:9px 12px; border-radius:7px; white-space:nowrap; opacity:0; transition:opacity .1s; z-index:20; box-shadow:0 4px 16px rgba(0,0,0,.2)}
+.tip b{font-family:var(--mono); font-weight:500}
+.tip .tk{display:inline-block; width:9px; height:9px; border-radius:2px; margin-right:6px; vertical-align:baseline}
+
+/* machinations embed */
+.embed{position:relative; width:100%; aspect-ratio:16/10; min-height:380px; border:1px solid var(--rule); border-radius:8px; overflow:hidden; background:var(--paper)}
+.embed iframe{position:absolute; inset:0; width:100%; height:100%}
+.embed.is-image{aspect-ratio:auto; min-height:0; background:var(--modelbg); border-color:var(--rule)}
+.embed.is-image img{display:block; width:100%; height:auto}
+.embed-fallback{position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:12px; text-align:center; padding:28px}
+.embed-fallback p{margin:0; font-size:14px; color:var(--muted); max-width:46ch}
+.embed-fallback p b{color:var(--ink); font-weight:600}
+.note a{color:var(--ink); text-underline-offset:2px}
+a.tbtn{text-decoration:none; display:inline-flex; align-items:center}
+
+/* provenance */
+.prov{margin-top:44px; padding-top:26px; border-top:1px solid var(--rule); font-size:13px; color:var(--muted)}
+.prov h3{font-family:var(--mono); font-size:15px; font-weight:500; color:var(--gold); letter-spacing:.12em; margin:0 0 12px; text-transform:uppercase}
+.prov ul{margin:0; padding-left:18px}
+.prov li{margin-bottom:7px}
+.prov b{color:var(--ink); font-weight:600}
+
+@media (max-width:640px){
+  .wrap{padding:32px 16px 60px}
+  .card{padding:20px 16px 18px}
+  .hero{padding:22px 20px; gap:20px}
+  .hero-fig{font-size:56px}
+}
+</style>
+<style>
+/* ---------- teardown spine ---------- */
+.card .blocklabel, .hero .blocklabel, .blocklabel{
+  font-family:var(--mono); font-size:15px; letter-spacing:.12em; text-transform:uppercase;
+  color:var(--gold); margin:0 0 14px; font-weight:500; line-height:1.4;
+}
+.hero-body .blocklabel{margin-bottom:8px}
+/* .card h2 already carries the 14px; the override is gone so prose and chart
+   blocks cannot drift apart again. */
+/* Modernista Regular is a heavy geometric; at 15.5px over a long read it greys the
+   page and leaves almost no contrast against bold. The site itself sets 300 for
+   running copy, so long-form prose here does the same and bold steps to 700. */
+.card.prose p{font-size:15.5px; font-weight:300; line-height:1.65; margin:0 0 15px; color:var(--ink)}
+.card.prose p:last-child, .card.prose ol:last-child{margin-bottom:0}
+/* `.card.prose p` outranks the class-only rules below it, so the eyebrow and the
+   dek have to be re-stated at matching specificity or they drift apart again. */
+.card.prose p.blocklabel{font-size:15px; font-weight:500; letter-spacing:.12em; color:var(--gold); margin:0 0 14px; line-height:1.4}
+.card.prose p.dek{font-size:15.5px; font-weight:300; line-height:1.6; color:var(--muted); margin:0 0 20px}
+.card.prose p.splith{color:var(--ink)}
+.card.prose p b, .card.prose li b{font-weight:700}
+.card.prose ul, .card.prose ol{margin:0 0 15px 0; padding-left:22px}
+.card.prose li{font-size:15.5px; font-weight:300; line-height:1.65; margin-bottom:9px; color:var(--ink)}
+.card.prose code{font-family:var(--mono); font-size:14.5px; background:var(--paper);
+  border:1px solid var(--rule); border-radius:4px; padding:1px 5px}
+.card.prose .splith, .card.prose .split .splith{font-family:var(--mono); font-size:13.5px; letter-spacing:.06em; text-transform:uppercase;
+  color:var(--ink); font-weight:500; margin:22px 0 10px !important}
+.splitgrid{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:22px; margin:4px 0 22px}
+.split{border-top:2px solid var(--gold); padding-top:14px}
+.split .splith{margin:0 0 8px !important}
+.split p{font-size:14.5px; line-height:1.58; color:var(--muted); margin:0}
+.card.prose .split p{font-size:14.5px; line-height:1.58; margin:0}
+.card.prose .pull{font-family:var(--mono); font-weight:500; font-size:16px; line-height:1.55;
+  border-left:4px solid var(--gold); padding-left:20px; color:var(--ink); margin:22px 0}
+table.spec{min-width:0}
+table.spec th[scope="row"]{width:30%; white-space:nowrap; font-family:var(--sans); font-weight:600;
+  color:var(--muted); font-size:13.5px; text-align:left; vertical-align:top}
+table.spec td{text-align:left; font-family:var(--sans); font-size:14.5px; line-height:1.5; color:var(--ink)}
+table.spec td b{font-weight:600}
+.card.prose .tablewrap{margin:0 0 20px}
+.crosslink-note{font-size:15px; line-height:1.6; color:var(--muted); margin:14px 0 0; padding-top:12px; border-top:1px solid var(--rule)}
+.crosslink-note b{color:var(--ink); font-weight:700}
+.crosslink-note a{color:var(--blue); font-weight:600; text-underline-offset:3px}
+.crosslink-note a:hover{color:var(--gold)}
+.mast .crosslink-note{border-top:none; padding-top:0; margin-top:10px}
+@media (max-width:640px){
+  .card.prose p, .card.prose li{font-size:15.5px}
+  table.spec th[scope="row"]{width:38%; white-space:normal}
+}
+</style>
+
+<div class="wrap">
+
+<header class="mast">
+  <p class="eyebrow">Systems Teardown &middot; Model 1 &middot; Digital Extremes</p>
+  <h1>The Venus Gate</h1>
+  <p class="byline"><b>Adwaith V</b> &middot; What actually decides how long a new Warframe player waits for their first crafted frame.</p>
+  <p class="crosslink-note"><b>This teardown is the measurement.</b> The decision that came out of it is the <a href="../#/DeepDive/BindingConstraint" target="_top">Product Brief/PRD</a>.</p>
+</header>
+
+<!-- BLOCK 1 &mdash; VERDICT -->
+<section class="hero" id="block-verdict">
+  <div class="hero-fig">0.6%</div>
+  <div class="hero-body">
+    <p class="blocklabel">Verdict</p>
+    <p>The boss drop table everyone blames decided the outcome <b>0.6% of the time</b>, at the collection rate I measured across twenty real Fossa runs.</p>
+    <p>A first Rhino needs three blueprints from Jackal &mdash; Neuroptics 38.72%, Chassis 38.72%, Systems 22.56%, one draw per kill on Digital Extremes' published table &mdash; and 700 Circuits picked up in the same missions. Two thresholds, one run counter. The blueprints land at <b>6.04 runs</b>. The Circuits land at about <b>twenty</b>.</p>
+    <p><b>The drop table finishes fourteen runs early and then waits.</b> The other 99.4% of the time a player is waiting on a Circuit count the game never puts in front of them.</p>
+  </div>
+</section>
+
+<div class="tiles" id="tiles"></div>
+
+<div class="filters">
+  <div class="fgroup">
+    <span id="rateLabel">Collection rate</span>
+    <div class="seg" role="group" aria-labelledby="rateLabel" id="rateSeg"></div>
+  </div>
+  <div class="fgroup">
+    <span id="themeLabel">Appearance</span>
+    <div class="seg" role="group" aria-labelledby="themeLabel" id="themeSeg">
+      <button data-theme-set="light" aria-pressed="false">Light</button>
+      <button data-theme-set="dark" aria-pressed="false">Dark</button>
+    </div>
+  </div>
+</div>
+
+<!-- THE FINDING, DRAWN &mdash; promoted out of the proof block -->
+<section class="card" id="card1">
+  <div class="chart-head">
+    <div>
+      <p class="blocklabel">The finding, drawn</p>
+      <h2>One threshold finishes early and waits</h2>
+      <p class="dek">Share of plays that have satisfied each requirement, run by run. The gap between the curves is dead time: runs spent holding three finished blueprints while the Circuit count catches up. Baseline 36 Circuits a run, measured over 20 runs on 2026-08-19. The blueprint curve is closed-form arithmetic over DE's published weights; the Circuit curve is 30 simulated plays.</p>
+    </div>
+    <button class="tbtn" data-table="t1" aria-expanded="false">Table view</button>
+  </div>
+  <div class="legend" id="lg1"></div>
+  <div class="plot" id="p1"></div>
+  <div class="tablewrap" id="t1" hidden></div>
+  <p class="note" id="n1"></p>
+</section>
+
+<!-- BLOCK 2 &mdash; SYSTEM UNDER TEST -->
+<section class="card prose" id="block-scope">
+  <p class="blocklabel">System under test</p>
+  <h2>Three kinds of number, and which is which</h2>
+  <p class="dek">What I watched, what I calculated, and what I assumed. A teardown of someone else's game is worth reading only if that line is drawn in public.</p>
+
+  <div class="splitgrid">
+    <div class="split">
+      <p class="splith">Measured</p>
+      <p>36 Circuits per run, 3.5 minutes per run, and the 12&thinsp;/&thinsp;6&thinsp;/&thinsp;2 blueprint split, all from twenty runs on 2026-08-19. Drop weights are Digital Extremes' own published tables.</p>
+    </div>
+    <div class="split">
+      <p class="splith">Simulated</p>
+      <p>Only the Venus race &mdash; blueprints against Circuits, 30 plays per configuration. The one question here that needed a model, because it is a question about a distribution.</p>
+    </div>
+    <div class="split">
+      <p class="splith">Modelled, not measured</p>
+      <p>72 and 104 Circuits a run. There is no way to measure a new player's rate without a new account and a stopwatch. Plausible multiples, and the shape of the curve depends on them.</p>
+    </div>
+  </div>
+
+  <p>Two figures in the wider picture were measured and never simulated, and I would rather say so than let the framing imply otherwise:</p>
+  <ol>
+    <li>Earth's Rubedo grind takes about <b>106 minutes</b>, timed across one session.</li>
+    <li>The Foundry build is a published <b>36 hours</b>.</li>
+  </ol>
+  <p>Both are constants. Running a Monte Carlo to reproduce a constant is a mistake I have already made once in this project.</p>
+</section>
+
+<!-- BLOCK 3 &mdash; STAKES -->
+<section class="card prose" id="block-stakes">
+  <p class="blocklabel">Stakes</p>
+  <h2>What it costs to diagnose this wrong</h2>
+  <p class="dek">Who a wrong call lands on, before any of the evidence.</p>
+  <p>The first crafted Warframe is the highest-leverage moment in the new-player funnel: the first time the game asks for a multi-session commitment, and the first reward large enough to be worth one.</p>
+  <p>If perceived unfairness attaches to the drop table while the binding constraint is really resource collection plus a flat timer, the diagnosis and the roadmap come apart. Engineering hours spent on bad-luck protection buy about <b>1.75 minutes</b> on this evidence. The change that would move the experience &mdash; making the binding counter legible &mdash; never reaches a roadmap, because nobody is asking for it. Players report the thing they can see.</p>
+  <p>That is the risk worth naming: not a tuning error, but a <b>measurement error that survives because the visible number and the binding number are different numbers</b>.</p>
+</section>
+
+<!-- BLOCK 4 &mdash; MEASUREMENT -->
+<section class="card prose" id="block-measurement">
+  <p class="blocklabel">Measurement</p>
+  <h2>Twenty runs, one protocol, everything written down</h2>
+  <p class="dek">The conditions the measured figures came out of, including what was deliberately left out.</p>
+
+  <div class="tablewrap">
+    <table class="spec">
+      <tbody>
+        <tr><th scope="row">Node</th><td>Fossa, Venus &mdash; Assassination (Jackal)</td></tr>
+        <tr><th scope="row">Runs</th><td>20 consecutive, 2026-08-19</td></tr>
+        <tr><th scope="row">Duration</th><td>70 minutes total &mdash; <b>3.5 minutes per run</b>, 17.14 runs per hour</td></tr>
+        <tr><th scope="row">Account</th><td>Legendary Rank 1, Normal mode (not Steel Path), solo</td></tr>
+        <tr><th scope="row">Companion</th><td>Raksa Kubrow, no credit or resource mods fitted</td></tr>
+        <tr><th scope="row">Protocol</th><td><b>Farm-target</b> &mdash; kill the boss and leave, loot ignored</td></tr>
+        <tr><th scope="row">Capture</th><td>Before and after on <em>all</em> resources, not only the targets</td></tr>
+        <tr><th scope="row">Circuits</th><td>724 collected &mdash; <b>36 per run</b></td></tr>
+        <tr><th scope="row">Blueprints</th><td>12 Neuroptics / 6 Chassis / 2 Systems</td></tr>
+        <tr><th scope="row">Drop weights</th><td>Digital Extremes' published tables, 2026-06-25 revision</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p><b>The Circuit figure is a floor.</b> Farm-target means I killed Jackal and left, ignoring containers and most trash. A player who clears the level collects more per run, not less &mdash; so every conclusion here is drawn at the <em>least</em> favourable rate for my own argument.</p>
+
+  <p class="splith">What was excluded, and why it is worth saying</p>
+  <p>No Smeeta Kavat, whose Charm buff can double a resource drop at random and would put uncontrolled variance straight into the only measured number here. No Nekros, Khora, Hydroid, Atlas or Chesa &mdash; all of them multiply drops through desecration, pilfering or scavenging. No Resource Boosters, no Resource Drop Chance Boosters, no relay Blessing.</p>
+  <p>A reader who knows the game checks for exactly that list before believing a resource figure.</p>
+</section>
+
+<!-- BLOCK 5 &mdash; THE STUDIO'S FORK -->
+<section class="card prose" id="block-their-fork">
+  <p class="blocklabel">The studio's fork</p>
+  <h2>The decision Digital Extremes stood in front of</h2>
+  <p class="dek">Reconstructed from outside, from published values and shipped behaviour. Every sentence here is inference &mdash; I have no access to anyone's reasoning and am not pretending otherwise.</p>
+  <p>Pacing a first crafted Warframe has four levers, and on the public evidence all four were available:</p>
+  <ul>
+    <li>tune the drop table, or add bad-luck protection to boss-frame components</li>
+    <li>tune the resource thresholds</li>
+    <li>tune the Foundry timer</li>
+    <li>tune legibility &mdash; surface which counter is actually binding</li>
+  </ul>
+  <p>What shipped is a drop table published in full, at weights that read generously, alongside a flat 36-hour Foundry timer that treats every player identically. What has repeatedly <em>not</em> shipped, against recurring community requests, is bad-luck protection on boss-frame components.</p>
+  <p>The shape of that decision suggests a deciding consideration: at realistic collection rates the table is already invisible, so protection would buy no measurable time. If that is what was weighed, the call looks correct on this evidence &mdash; and the interesting part is that the correct call still leaves players convinced the table is the problem.</p>
+</section>
+
+<!-- BLOCK 6 &mdash; MY FORK -->
+<section class="card prose" id="block-my-fork">
+  <p class="blocklabel">My fork</p>
+  <h2>Delete the randomness entirely, then re-run it</h2>
+  <p class="dek">A counterfactual run inside the model rather than argued on paper.</p>
+  <p>If the drop table is not the constraint, the complaints are not about drop rates. They are about which number a player can see. The blueprint counter is legible &mdash; you watch it fill. The Circuit counter is buried in a menu and moves in chunks nobody looks at.</p>
+
+  <p class="pull">Surface the binding constraint. Leave the table alone.</p>
+
+  <p>Here is the test, and it is a re-run rather than a paragraph. The parameter is the value on the <code>Run Fossa &rarr; Circuits</code> connection: <code>2D20+15</code> for the measured 36 a run, <code>2D40+30</code> for 72, <code>3D40+42</code> for 104. The randomness lives one node away, on the <code>Blueprint Drop</code> gate. The counterfactual removes it and hands the player all three blueprints on the first kill.</p>
+  <p><b>Thirty of thirty simulated plays finish on exactly the same run as before.</b> Doubling the Systems weight instead saves half a run of farming, about a minute and three quarters, and still changes the day a first Rhino arrives by nothing at all.</p>
+
+  <p>The bigger number is downstream. Three components build at once, twelve hours each, then assembly runs twenty-four more; cutting 36 hours to 12 would return a full day. Rushing is priced per component but the components run together, so buying one or two of the three saves nothing: <b>the unit of purchase is legible and the unit of effect is not.</b></p>
+  <p>Play time varies &mdash; with luck, with collection rate, with whether you explore. The Foundry wait does not. It adds the same day and a half to every player's Venus, identically.</p>
+  <p class="pull">It is the only part of a first Warframe that a player cannot get better at.</p>
+</section>
+
+<!-- BLOCK 7 &mdash; WHAT I COULDN'T PROVE -->
+<section class="card prose" id="block-limits">
+  <p class="blocklabel">What I couldn't prove</p>
+  <h2>The limits, including the two I walked into</h2>
+  <p class="dek">Two mistakes made in the work, and three constraints that were there from the start.</p>
+  <p><b>I ran a Monte Carlo the closed form had already answered</b> &mdash; 0.61%, 9.23%, 22.93%, exactly. The simulation earned its place on the conditional penalty, the 4.6 extra runs a blueprint-bound play costs; it did not earn its place on the probability, and I did not check before running it.</p>
+  <p><b>And I model Circuits as a smooth roll when they arrive in stacks of thirty-five to fifty.</b> Averages survive that and every number here rests on an average, but the spread does not, so no variance figure is published off this model.</p>
+  <p class="splith">Three limits that were there from the start</p>
+  <ul>
+    <li><b>n = 20 is small.</b> Which is why the survival claim is a breaking point, not a confidence interval: my 36 would have to be understated more than threefold, to 117 a run, before the drop table decided even a quarter of outcomes.</li>
+    <li><b>72 and 104 Circuits a run are modelled.</b> The direction is defensible &mdash; breaking containers beats sprinting past them &mdash; but the magnitude is an assumption and the sweep depends on it.</li>
+    <li><b>Rush conversion cannot be assessed from outside.</b> It needs return rates and purchase data held inside the company, so the Foundry gate is named here and deliberately not priced.</li>
+  </ul>
+  <p>The first is entry sixteen in a ledger I keep of predictions I got wrong. The other fifteen are about Warframe. This one is about me.</p>
+</section>
+
+<!-- BLOCK 8 &mdash; PROOF -->
+<section class="card" id="card2">
+  <div class="chart-head">
+    <div>
+      <p class="blocklabel">Proof &middot; Chart 02</p>
+      <h2>Collecting faster moves the whole distribution left</h2>
+      <p class="dek">Thirty simulated plays per rate, and a long right tail where a faster player has run into the drop table a slower one never meets. Baseline 36 a run measured; 72 and 104 modelled. Source: nine-node Machinations model, parameter pack v3.</p>
+    </div>
+    <button class="tbtn" data-table="t2" aria-expanded="false">Table view</button>
+  </div>
+  <div class="legend" id="lg2"></div>
+  <div class="plot" id="p2"></div>
+  <div class="tablewrap" id="t2" hidden></div>
+  <p class="note" id="n2"></p>
+</section>
+
+<section class="card" id="card3">
+  <div class="chart-head">
+    <div>
+      <p class="blocklabel">Proof &middot; Chart 03</p>
+      <h2>The drop table only starts to bite above about 80 Circuits a run</h2>
+      <p class="dek">Probability that the blueprints, not the Circuits, are the last thing a player waits on, across rates from 20 to 144. The curve is <b>closed-form</b> arithmetic over DE's published weights, not simulation output; the three marked points are the configurations that were simulated.</p>
+    </div>
+    <button class="tbtn" data-table="t3" aria-expanded="false">Table view</button>
+  </div>
+  <div class="legend" id="lg3"></div>
+  <div class="plot" id="p3"></div>
+  <div class="tablewrap" id="t3" hidden></div>
+  <p class="note" id="n3"></p>
+</section>
+
+<!-- BLOCK 9 &mdash; SO WHAT FOR THE PM -->
+<section class="card prose" id="block-sowhat">
+  <p class="blocklabel">So what for the PM</p>
+  <h2>The number to watch, and the one that catches it lying</h2>
+  <p class="dek">One metric to move, and the one that shows whether the move was real.</p>
+  <p><b>Primary:</b> share of new accounts reaching a first crafted Warframe within seven days of creation. Not started, not built &mdash; <em>claimed</em>, because claiming is the only event that proves someone came back for it.</p>
+  <p><b>Counter-metric:</b> platinum rush conversion at the Foundry stage. If legibility ships and the claim rate rises while rush conversion falls, that is the trade Digital Extremes actually priced, and naming it in advance is the honest version of the recommendation.</p>
+  <p class="pull">The player who rushes never meets the randomness. The player who explores does.</p>
+</section>
+
+<!-- THE MODEL -->
+<section class="card" id="cardModel">
+  <div class="chart-head">
+    <div>
+      <p class="blocklabel">The instrument</p>
+      <h2>Nine nodes, and only one of them is random</h2>
+      <p class="dek">One Source drives the run counter. A Random gate splits the three blueprints on Digital Extremes' published weights. A dice roll feeds Circuits. A Register ANDs the four conditions the End Condition would otherwise OR &mdash; which is the whole reason this is a model and not a spreadsheet.</p>
+    </div>
+    <a class="tbtn" href="https://my.machinations.io/d/the-venus-gate--first-crafted-warframe/2cac653e9fc511f189880abc5ce0dcc9" target="_blank" rel="noopener">Open in Machinations</a>
+  </div>
+  <div class="embed" id="modelEmbed"></div>
+  <p class="note" id="modelNote"></p>
+</section>
+
+<footer class="prov">
+  <h3>Provenance</h3>
+  <ul>
+    <li><b>Model:</b> <span style="font-family:var(--mono)">The Venus Gate &mdash; first crafted Warframe</span>, 9 nodes, built by hand in Machinations.io. Parameter pack v3.</li>
+    <li><b>Drop weights:</b> Digital Extremes' published tables, 2026-06-25 revision.</li>
+    <li><b>Simulation:</b> 30 plays per configuration. Step caps were set at 40&thinsp;/&thinsp;40&thinsp;/&thinsp;25 for the three rates; the longest play actually reached 22&thinsp;/&thinsp;13&thinsp;/&thinsp;15 steps, so no play was cut short by the cap.</li>
+    <li><b>Byline:</b> Adwaith V. Measurement protocol and exclusions are stated in full in the Measurement block above.</li>
+  </ul>
+</footer>
+
+<p class="crosslink-note"><b>This teardown is the measurement.</b> The decision that came out of it is the <a href="../#/DeepDive/BindingConstraint" target="_top">Product Brief/PRD</a>.</p>
+
+</div>
+
+<script id="chartdata" type="application/json">{
+ "runs": {
+  "A": {
+   "cpr": 36,
+   "n": 30,
+   "runs": [
+    18,
+    18,
+    18,
+    18,
+    18,
+    19,
+    19,
+    19,
+    19,
+    19,
+    19,
+    20,
+    20,
+    20,
+    20,
+    20,
+    20,
+    20,
+    20,
+    20,
+    20,
+    20,
+    20,
+    20,
+    20,
+    20,
+    21,
+    21,
+    22,
+    22
+   ],
+   "hist": [
+    {
+     "x": 18,
+     "n": 5
+    },
+    {
+     "x": 19,
+     "n": 6
+    },
+    {
+     "x": 20,
+     "n": 15
+    },
+    {
+     "x": 21,
+     "n": 2
+    },
+    {
+     "x": 22,
+     "n": 2
+    }
+   ],
+   "mean": 19.67,
+   "median": 20.0,
+   "sd": 1.06,
+   "cv": 0.054,
+   "mn": 18,
+   "mx": 22,
+   "bound": 0,
+   "extra": [],
+   "extra_mean": null,
+   "surplus": 16.8,
+   "circ_cdf": [
+    {
+     "n": 0,
+     "pct": 0.0
+    },
+    {
+     "n": 1,
+     "pct": 0.0
+    },
+    {
+     "n": 2,
+     "pct": 0.0
+    },
+    {
+     "n": 3,
+     "pct": 0.0
+    },
+    {
+     "n": 4,
+     "pct": 0.0
+    },
+    {
+     "n": 5,
+     "pct": 0.0
+    },
+    {
+     "n": 6,
+     "pct": 0.0
+    },
+    {
+     "n": 7,
+     "pct": 0.0
+    },
+    {
+     "n": 8,
+     "pct": 0.0
+    },
+    {
+     "n": 9,
+     "pct": 0.0
+    },
+    {
+     "n": 10,
+     "pct": 0.0
+    },
+    {
+     "n": 11,
+     "pct": 0.0
+    },
+    {
+     "n": 12,
+     "pct": 0.0
+    },
+    {
+     "n": 13,
+     "pct": 0.0
+    },
+    {
+     "n": 14,
+     "pct": 0.0
+    },
+    {
+     "n": 15,
+     "pct": 0.0
+    },
+    {
+     "n": 16,
+     "pct": 0.0
+    },
+    {
+     "n": 17,
+     "pct": 0.0
+    },
+    {
+     "n": 18,
+     "pct": 16.67
+    },
+    {
+     "n": 19,
+     "pct": 36.67
+    },
+    {
+     "n": 20,
+     "pct": 86.67
+    },
+    {
+     "n": 21,
+     "pct": 93.33
+    },
+    {
+     "n": 22,
+     "pct": 100.0
+    },
+    {
+     "n": 23,
+     "pct": 100.0
+    }
+   ]
+  },
+  "B": {
+   "cpr": 72,
+   "n": 30,
+   "runs": [
+    9,
+    9,
+    10,
+    10,
+    10,
+    10,
+    10,
+    10,
+    10,
+    10,
+    10,
+    10,
+    11,
+    11,
+    11,
+    11,
+    11,
+    11,
+    11,
+    11,
+    11,
+    11,
+    12,
+    12,
+    12,
+    12,
+    12,
+    12,
+    12,
+    13
+   ],
+   "hist": [
+    {
+     "x": 9,
+     "n": 2
+    },
+    {
+     "x": 10,
+     "n": 10
+    },
+    {
+     "x": 11,
+     "n": 10
+    },
+    {
+     "x": 12,
+     "n": 7
+    },
+    {
+     "x": 13,
+     "n": 1
+    }
+   ],
+   "mean": 10.83,
+   "median": 11.0,
+   "sd": 0.99,
+   "cv": 0.091,
+   "mn": 9,
+   "mx": 13,
+   "bound": 2,
+   "extra": [
+    1,
+    1
+   ],
+   "extra_mean": 1.0,
+   "surplus": 49.3,
+   "circ_cdf": [
+    {
+     "n": 0,
+     "pct": 0.0
+    },
+    {
+     "n": 1,
+     "pct": 0.0
+    },
+    {
+     "n": 2,
+     "pct": 0.0
+    },
+    {
+     "n": 3,
+     "pct": 0.0
+    },
+    {
+     "n": 4,
+     "pct": 0.0
+    },
+    {
+     "n": 5,
+     "pct": 0.0
+    },
+    {
+     "n": 6,
+     "pct": 0.0
+    },
+    {
+     "n": 7,
+     "pct": 0.0
+    },
+    {
+     "n": 8,
+     "pct": 0.0
+    },
+    {
+     "n": 9,
+     "pct": 6.67
+    },
+    {
+     "n": 10,
+     "pct": 43.33
+    },
+    {
+     "n": 11,
+     "pct": 73.33
+    },
+    {
+     "n": 12,
+     "pct": 100.0
+    },
+    {
+     "n": 13,
+     "pct": 100.0
+    },
+    {
+     "n": 14,
+     "pct": 100.0
+    }
+   ]
+  },
+  "C": {
+   "cpr": 104,
+   "n": 30,
+   "runs": [
+    6,
+    6,
+    7,
+    7,
+    7,
+    7,
+    7,
+    7,
+    7,
+    7,
+    7,
+    7,
+    7,
+    7,
+    7,
+    7,
+    8,
+    8,
+    8,
+    8,
+    8,
+    8,
+    8,
+    9,
+    10,
+    11,
+    12,
+    12,
+    12,
+    15
+   ],
+   "hist": [
+    {
+     "x": 6,
+     "n": 2
+    },
+    {
+     "x": 7,
+     "n": 14
+    },
+    {
+     "x": 8,
+     "n": 7
+    },
+    {
+     "x": 9,
+     "n": 1
+    },
+    {
+     "x": 10,
+     "n": 1
+    },
+    {
+     "x": 11,
+     "n": 1
+    },
+    {
+     "x": 12,
+     "n": 3
+    },
+    {
+     "x": 15,
+     "n": 1
+    }
+   ],
+   "mean": 8.23,
+   "median": 7.0,
+   "sd": 2.13,
+   "cv": 0.259,
+   "mn": 6,
+   "mx": 15,
+   "bound": 7,
+   "extra": [
+    2,
+    3,
+    4,
+    4,
+    5,
+    6,
+    8
+   ],
+   "extra_mean": 4.57,
+   "surplus": 154.2,
+   "circ_cdf": [
+    {
+     "n": 0,
+     "pct": 0.0
+    },
+    {
+     "n": 1,
+     "pct": 0.0
+    },
+    {
+     "n": 2,
+     "pct": 0.0
+    },
+    {
+     "n": 3,
+     "pct": 0.0
+    },
+    {
+     "n": 4,
+     "pct": 0.0
+    },
+    {
+     "n": 5,
+     "pct": 0.0
+    },
+    {
+     "n": 6,
+     "pct": 10.0
+    },
+    {
+     "n": 7,
+     "pct": 73.33
+    },
+    {
+     "n": 8,
+     "pct": 100.0
+    },
+    {
+     "n": 9,
+     "pct": 100.0
+    },
+    {
+     "n": 10,
+     "pct": 100.0
+    },
+    {
+     "n": 11,
+     "pct": 100.0
+    },
+    {
+     "n": 12,
+     "pct": 100.0
+    },
+    {
+     "n": 13,
+     "pct": 100.0
+    },
+    {
+     "n": 14,
+     "pct": 100.0
+    },
+    {
+     "n": 15,
+     "pct": 100.0
+    },
+    {
+     "n": 16,
+     "pct": 100.0
+    }
+   ]
+  }
+ },
+ "closed": {
+  "curve": [
+   {
+    "cpr": 20,
+    "runs": 35,
+    "p": 0.013002519744309549
+   },
+   {
+    "cpr": 21,
+    "runs": 34,
+    "p": 0.016792894886086263
+   },
+   {
+    "cpr": 22,
+    "runs": 32,
+    "p": 0.028014067635073747
+   },
+   {
+    "cpr": 23,
+    "runs": 31,
+    "p": 0.036185841555969045
+   },
+   {
+    "cpr": 24,
+    "runs": 30,
+    "p": 0.04674496536820616
+   },
+   {
+    "cpr": 25,
+    "runs": 28,
+    "p": 0.07803076152262944
+   },
+   {
+    "cpr": 26,
+    "runs": 27,
+    "p": 0.10083839156209695
+   },
+   {
+    "cpr": 27,
+    "runs": 26,
+    "p": 0.1303381151198435
+   },
+   {
+    "cpr": 28,
+    "runs": 25,
+    "p": 0.16850964053825024
+   },
+   {
+    "cpr": 29,
+    "runs": 25,
+    "p": 0.16850964053825024
+   },
+   {
+    "cpr": 30,
+    "runs": 24,
+    "p": 0.21792845935689753
+   },
+   {
+    "cpr": 31,
+    "runs": 23,
+    "p": 0.2819514452338301
+   },
+   {
+    "cpr": 32,
+    "runs": 22,
+    "p": 0.3649641212247645
+   },
+   {
+    "cpr": 33,
+    "runs": 22,
+    "p": 0.3649641212247645
+   },
+   {
+    "cpr": 34,
+    "runs": 21,
+    "p": 0.4727123553380119
+   },
+   {
+    "cpr": 35,
+    "runs": 20,
+    "p": 0.612750893019609
+   },
+   {
+    "cpr": 36,
+    "runs": 20,
+    "p": 0.612750893019609
+   },
+   {
+    "cpr": 37,
+    "runs": 19,
+    "p": 0.7950554842533264
+   },
+   {
+    "cpr": 38,
+    "runs": 19,
+    "p": 0.7950554842533264
+   },
+   {
+    "cpr": 39,
+    "runs": 18,
+    "p": 1.032866947373523
+   },
+   {
+    "cpr": 40,
+    "runs": 18,
+    "p": 1.032866947373523
+   },
+   {
+    "cpr": 41,
+    "runs": 18,
+    "p": 1.032866947373523
+   },
+   {
+    "cpr": 42,
+    "runs": 17,
+    "p": 1.3438682973317073
+   },
+   {
+    "cpr": 43,
+    "runs": 17,
+    "p": 1.3438682973317073
+   },
+   {
+    "cpr": 44,
+    "runs": 16,
+    "p": 1.751846233507337
+   },
+   {
+    "cpr": 45,
+    "runs": 16,
+    "p": 1.751846233507337
+   },
+   {
+    "cpr": 46,
+    "runs": 16,
+    "p": 1.751846233507337
+   },
+   {
+    "cpr": 47,
+    "runs": 15,
+    "p": 2.2890653588492627
+   },
+   {
+    "cpr": 48,
+    "runs": 15,
+    "p": 2.2890653588492627
+   },
+   {
+    "cpr": 49,
+    "runs": 15,
+    "p": 2.2890653588492627
+   },
+   {
+    "cpr": 50,
+    "runs": 14,
+    "p": 2.9997018442446177
+   },
+   {
+    "cpr": 51,
+    "runs": 14,
+    "p": 2.9997018442446177
+   },
+   {
+    "cpr": 52,
+    "runs": 14,
+    "p": 2.9997018442446177
+   },
+   {
+    "cpr": 53,
+    "runs": 14,
+    "p": 2.9997018442446177
+   },
+   {
+    "cpr": 54,
+    "runs": 13,
+    "p": 3.9448635252538944
+   },
+   {
+    "cpr": 55,
+    "runs": 13,
+    "p": 3.9448635252538944
+   },
+   {
+    "cpr": 56,
+    "runs": 13,
+    "p": 3.9448635252538944
+   },
+   {
+    "cpr": 57,
+    "runs": 13,
+    "p": 3.9448635252538944
+   },
+   {
+    "cpr": 58,
+    "runs": 13,
+    "p": 3.9448635252538944
+   },
+   {
+    "cpr": 59,
+    "runs": 12,
+    "p": 5.209992598104418
+   },
+   {
+    "cpr": 60,
+    "runs": 12,
+    "p": 5.209992598104418
+   },
+   {
+    "cpr": 61,
+    "runs": 12,
+    "p": 5.209992598104418
+   },
+   {
+    "cpr": 62,
+    "runs": 12,
+    "p": 5.209992598104418
+   },
+   {
+    "cpr": 63,
+    "runs": 12,
+    "p": 5.209992598104418
+   },
+   {
+    "cpr": 64,
+    "runs": 11,
+    "p": 6.915832143474498
+   },
+   {
+    "cpr": 65,
+    "runs": 11,
+    "p": 6.915832143474498
+   },
+   {
+    "cpr": 66,
+    "runs": 11,
+    "p": 6.915832143474498
+   },
+   {
+    "cpr": 67,
+    "runs": 11,
+    "p": 6.915832143474498
+   },
+   {
+    "cpr": 68,
+    "runs": 11,
+    "p": 6.915832143474498
+   },
+   {
+    "cpr": 69,
+    "runs": 11,
+    "p": 6.915832143474498
+   },
+   {
+    "cpr": 70,
+    "runs": 10,
+    "p": 9.234638650129245
+   },
+   {
+    "cpr": 71,
+    "runs": 10,
+    "p": 9.234638650129245
+   },
+   {
+    "cpr": 72,
+    "runs": 10,
+    "p": 9.234638650129245
+   },
+   {
+    "cpr": 73,
+    "runs": 10,
+    "p": 9.234638650129245
+   },
+   {
+    "cpr": 74,
+    "runs": 10,
+    "p": 9.234638650129245
+   },
+   {
+    "cpr": 75,
+    "runs": 10,
+    "p": 9.234638650129245
+   },
+   {
+    "cpr": 76,
+    "runs": 10,
+    "p": 9.234638650129245
+   },
+   {
+    "cpr": 77,
+    "runs": 10,
+    "p": 9.234638650129245
+   },
+   {
+    "cpr": 78,
+    "runs": 9,
+    "p": 12.413823653997147
+   },
+   {
+    "cpr": 79,
+    "runs": 9,
+    "p": 12.413823653997147
+   },
+   {
+    "cpr": 80,
+    "runs": 9,
+    "p": 12.413823653997147
+   },
+   {
+    "cpr": 81,
+    "runs": 9,
+    "p": 12.413823653997147
+   },
+   {
+    "cpr": 82,
+    "runs": 9,
+    "p": 12.413823653997147
+   },
+   {
+    "cpr": 83,
+    "runs": 9,
+    "p": 12.413823653997147
+   },
+   {
+    "cpr": 84,
+    "runs": 9,
+    "p": 12.413823653997147
+   },
+   {
+    "cpr": 85,
+    "runs": 9,
+    "p": 12.413823653997147
+   },
+   {
+    "cpr": 86,
+    "runs": 9,
+    "p": 12.413823653997147
+   },
+   {
+    "cpr": 87,
+    "runs": 9,
+    "p": 12.413823653997147
+   },
+   {
+    "cpr": 88,
+    "runs": 8,
+    "p": 16.809207608276566
+   },
+   {
+    "cpr": 89,
+    "runs": 8,
+    "p": 16.809207608276566
+   },
+   {
+    "cpr": 90,
+    "runs": 8,
+    "p": 16.809207608276566
+   },
+   {
+    "cpr": 91,
+    "runs": 8,
+    "p": 16.809207608276566
+   },
+   {
+    "cpr": 92,
+    "runs": 8,
+    "p": 16.809207608276566
+   },
+   {
+    "cpr": 93,
+    "runs": 8,
+    "p": 16.809207608276566
+   },
+   {
+    "cpr": 94,
+    "runs": 8,
+    "p": 16.809207608276566
+   },
+   {
+    "cpr": 95,
+    "runs": 8,
+    "p": 16.809207608276566
+   },
+   {
+    "cpr": 96,
+    "runs": 8,
+    "p": 16.809207608276566
+   },
+   {
+    "cpr": 97,
+    "runs": 8,
+    "p": 16.809207608276566
+   },
+   {
+    "cpr": 98,
+    "runs": 8,
+    "p": 16.809207608276566
+   },
+   {
+    "cpr": 99,
+    "runs": 8,
+    "p": 16.809207608276566
+   },
+   {
+    "cpr": 100,
+    "runs": 7,
+    "p": 22.927885984572082
+   },
+   {
+    "cpr": 101,
+    "runs": 7,
+    "p": 22.927885984572082
+   },
+   {
+    "cpr": 102,
+    "runs": 7,
+    "p": 22.927885984572082
+   },
+   {
+    "cpr": 103,
+    "runs": 7,
+    "p": 22.927885984572082
+   },
+   {
+    "cpr": 104,
+    "runs": 7,
+    "p": 22.927885984572082
+   },
+   {
+    "cpr": 105,
+    "runs": 7,
+    "p": 22.927885984572082
+   },
+   {
+    "cpr": 106,
+    "runs": 7,
+    "p": 22.927885984572082
+   },
+   {
+    "cpr": 107,
+    "runs": 7,
+    "p": 22.927885984572082
+   },
+   {
+    "cpr": 108,
+    "runs": 7,
+    "p": 22.927885984572082
+   },
+   {
+    "cpr": 109,
+    "runs": 7,
+    "p": 22.927885984572082
+   },
+   {
+    "cpr": 110,
+    "runs": 7,
+    "p": 22.927885984572082
+   },
+   {
+    "cpr": 111,
+    "runs": 7,
+    "p": 22.927885984572082
+   },
+   {
+    "cpr": 112,
+    "runs": 7,
+    "p": 22.927885984572082
+   },
+   {
+    "cpr": 113,
+    "runs": 7,
+    "p": 22.927885984572082
+   },
+   {
+    "cpr": 114,
+    "runs": 7,
+    "p": 22.927885984572082
+   },
+   {
+    "cpr": 115,
+    "runs": 7,
+    "p": 22.927885984572082
+   },
+   {
+    "cpr": 116,
+    "runs": 7,
+    "p": 22.927885984572082
+   },
+   {
+    "cpr": 117,
+    "runs": 6,
+    "p": 31.4710953740311
+   },
+   {
+    "cpr": 118,
+    "runs": 6,
+    "p": 31.4710953740311
+   },
+   {
+    "cpr": 119,
+    "runs": 6,
+    "p": 31.4710953740311
+   },
+   {
+    "cpr": 120,
+    "runs": 6,
+    "p": 31.4710953740311
+   },
+   {
+    "cpr": 121,
+    "runs": 6,
+    "p": 31.4710953740311
+   },
+   {
+    "cpr": 122,
+    "runs": 6,
+    "p": 31.4710953740311
+   },
+   {
+    "cpr": 123,
+    "runs": 6,
+    "p": 31.4710953740311
+   },
+   {
+    "cpr": 124,
+    "runs": 6,
+    "p": 31.4710953740311
+   },
+   {
+    "cpr": 125,
+    "runs": 6,
+    "p": 31.4710953740311
+   },
+   {
+    "cpr": 126,
+    "runs": 6,
+    "p": 31.4710953740311
+   },
+   {
+    "cpr": 127,
+    "runs": 6,
+    "p": 31.4710953740311
+   },
+   {
+    "cpr": 128,
+    "runs": 6,
+    "p": 31.4710953740311
+   },
+   {
+    "cpr": 129,
+    "runs": 6,
+    "p": 31.4710953740311
+   },
+   {
+    "cpr": 130,
+    "runs": 6,
+    "p": 31.4710953740311
+   },
+   {
+    "cpr": 131,
+    "runs": 6,
+    "p": 31.4710953740311
+   },
+   {
+    "cpr": 132,
+    "runs": 6,
+    "p": 31.4710953740311
+   },
+   {
+    "cpr": 133,
+    "runs": 6,
+    "p": 31.4710953740311
+   },
+   {
+    "cpr": 134,
+    "runs": 6,
+    "p": 31.4710953740311
+   },
+   {
+    "cpr": 135,
+    "runs": 6,
+    "p": 31.4710953740311
+   },
+   {
+    "cpr": 136,
+    "runs": 6,
+    "p": 31.4710953740311
+   },
+   {
+    "cpr": 137,
+    "runs": 6,
+    "p": 31.4710953740311
+   },
+   {
+    "cpr": 138,
+    "runs": 6,
+    "p": 31.4710953740311
+   },
+   {
+    "cpr": 139,
+    "runs": 6,
+    "p": 31.4710953740311
+   },
+   {
+    "cpr": 140,
+    "runs": 5,
+    "p": 43.33421348734372
+   },
+   {
+    "cpr": 141,
+    "runs": 5,
+    "p": 43.33421348734372
+   },
+   {
+    "cpr": 142,
+    "runs": 5,
+    "p": 43.33421348734372
+   },
+   {
+    "cpr": 143,
+    "runs": 5,
+    "p": 43.33421348734372
+   },
+   {
+    "cpr": 144,
+    "runs": 5,
+    "p": 43.33421348734372
+   }
+  ],
+  "bp_cdf": [
+   {
+    "n": 0,
+    "pct": 0.0
+   },
+   {
+    "n": 1,
+    "pct": 0.0
+   },
+   {
+    "n": 2,
+    "pct": 0.0
+   },
+   {
+    "n": 3,
+    "pct": 20.29369098239999
+   },
+   {
+    "n": 4,
+    "pct": 40.587381964799995
+   },
+   {
+    "n": 5,
+    "pct": 56.66578651265628
+   },
+   {
+    "n": 6,
+    "pct": 68.5289046259689
+   },
+   {
+    "n": 7,
+    "pct": 77.07211401542791
+   },
+   {
+    "n": 8,
+    "pct": 83.19079239172343
+   },
+   {
+    "n": 9,
+    "pct": 87.58617634600286
+   },
+   {
+    "n": 10,
+    "pct": 90.76536134987076
+   },
+   {
+    "n": 11,
+    "pct": 93.0841678565255
+   },
+   {
+    "n": 12,
+    "pct": 94.79000740189558
+   },
+   {
+    "n": 13,
+    "pct": 96.0551364747461
+   },
+   {
+    "n": 14,
+    "pct": 97.00029815575539
+   },
+   {
+    "n": 15,
+    "pct": 97.71093464115074
+   },
+   {
+    "n": 16,
+    "pct": 98.24815376649266
+   },
+   {
+    "n": 17,
+    "pct": 98.65613170266829
+   },
+   {
+    "n": 18,
+    "pct": 98.96713305262648
+   },
+   {
+    "n": 19,
+    "pct": 99.20494451574667
+   },
+   {
+    "n": 20,
+    "pct": 99.38724910698039
+   },
+   {
+    "n": 21,
+    "pct": 99.52728764466198
+   },
+   {
+    "n": 22,
+    "pct": 99.63503587877524
+   },
+   {
+    "n": 23,
+    "pct": 99.71804855476617
+   },
+   {
+    "n": 24,
+    "pct": 99.7820715406431
+   }
+  ],
+  "mean_bp": 6.042883483822374
+ },
+ "meta": {
+  "model": "The Venus Gate - first crafted Warframe",
+  "nodes": 9,
+  "plays_per_config": 30,
+  "step_cap": {
+   "A": 40,
+   "B": 40,
+   "C": 25
+  },
+  "max_steps_used": {
+   "A": 22,
+   "B": 13,
+   "C": 15
+  },
+  "drop_table": {
+   "Neuroptics": 38.72,
+   "Chassis": 38.72,
+   "Systems": 22.56
+  },
+  "circuits_required": 700,
+  "source": "Machinations.io simulation output, 2026-08-25"
+ }
+}</script>
+<script>
+(function(){
+"use strict";
+var D = JSON.parse(document.getElementById('chartdata').textContent);
+var css = function(n){ return getComputedStyle(document.documentElement).getPropertyValue(n).trim(); };
+
+/* ---------- Machinations model: one place to change the URLs ----------
+   MODEL_LINK  the page a reader opens in a new tab. Always works.
+   MODEL_EMBED the frame source. OFF by default, and here is why, so nobody
+               turns it back on and rediscovers this the hard way. Machinations
+               serves the diagram with `frame-ancestors *` and no
+               X-Frame-Options, on both authenticated and anonymous requests
+               (headers read 2026-08-29), so on paper any page may embed it.
+               In practice Chrome still reports "my.machinations.io refused to
+               connect" inside the frame. The refusal happens somewhere the
+               response headers do not explain, and a page that shows a broken
+               frame to a reader is worse than one that shows a button. Set it
+               back to the diagram URL only if Machinations ships a real embed
+               route and you have watched it load.
+   MODEL_IMAGE a PNG export of the diagram, dropped in next to the page.
+               Preferred when present: it always renders, in any browser. */
+var MODEL_LINK  = 'https://my.machinations.io/d/the-venus-gate--first-crafted-warframe/2cac653e9fc511f189880abc5ce0dcc9';
+var MODEL_EMBED = null;  // see the note above \u2014 framing does not work in practice
+var MODEL_IMAGE = 'assets/charts/machinations-model.png';
+var MODEL_IMAGE_DARK = 'assets/charts/machinations-model-dark.png';
+var RATES = [
+  {key:'A', cpr:36,  name:'36 per run', tag:'measured', ramp:'--r3'},
+  {key:'B', cpr:72,  name:'72 per run', tag:'modelled', ramp:'--r2'},
+  {key:'C', cpr:104, name:'104 per run',tag:'modelled', ramp:'--r1'}
+];
+var state = {rate:'A'};
+
+/* ---------- helpers ---------- */
+function el(t,a,c){var e=document.createElementNS('http://www.w3.org/2000/svg',t);
+  for(var k in a){if(a[k]!==null&&a[k]!==undefined)e.setAttribute(k,a[k]);}
+  if(c!==undefined)e.textContent=c; return e;}
+function svg(w,h){var s=el('svg',{viewBox:'0 0 '+w+' '+h,width:w,height:h,role:'img'});return s;}
+function fmt(n,d){return n.toFixed(d===undefined?0:d);}
+
+function tipFor(host){
+  var t=document.createElement('div'); t.className='tip'; host.appendChild(t);
+  return {
+    show:function(x,y,html){
+      t.innerHTML=html; t.style.opacity='1';
+      var hb=host.getBoundingClientRect(), tb=t.getBoundingClientRect();
+      var left=x+14; if(left+tb.width>hb.width) left=x-tb.width-14; if(left<0) left=0;
+      var top=y-tb.height-12; if(top<0) top=y+16;
+      t.style.left=left+'px'; t.style.top=top+'px';
+    },
+    hide:function(){t.style.opacity='0';}
+  };
+}
+function legend(host, items){
+  host.innerHTML='';
+  items.forEach(function(it){
+    var d=document.createElement('div'); d.className='item';
+    var k=document.createElement('span'); k.className='key'+(it.dot?' dot':''); k.style.background=it.color;
+    d.appendChild(k); d.appendChild(document.createTextNode(it.label));
+    host.appendChild(d);
+  });
+}
+function table(host, cols, rows){
+  var h='<table><thead><tr>'+cols.map(function(c){return '<th scope="col">'+c+'</th>';}).join('')+'</tr></thead><tbody>';
+  rows.forEach(function(r){ h+='<tr>'+r.map(function(v,i){return i===0?'<th scope="row" style="text-align:left;font-weight:500;color:var(--ink)">'+v+'</th>':'<td>'+v+'</td>';}).join('')+'</tr>'; });
+  host.innerHTML=h+'</tbody></table>';
+}
+
+/* ---------- stat tiles ---------- */
+function tiles(){
+  var host=document.getElementById('tiles'); host.innerHTML='';
+  RATES.forEach(function(r){
+    var d=D.runs[r.key];
+    var c=document.createElement('div'); c.className='tile';
+    c.innerHTML='<div class="lbl"><span class="swatch" style="background:'+css(r.ramp)+'"></span>'+
+      d.cpr+' Circuits per run &middot; '+r.tag+'</div>'+
+      '<div class="val">'+d.mean.toFixed(1)+' runs</div>'+
+      '<div class="sub">Drop table decided '+d.bound+' of '+d.n+' plays &middot; range '+d.mn+'&ndash;'+d.mx+' runs</div>';
+    host.appendChild(c);
+  });
+}
+
+/* ---------- CHART 1: the race ---------- */
+function chart1(){
+  var host=document.getElementById('p1'); host.innerHTML='';
+  var r=RATES.filter(function(x){return x.key===state.rate;})[0];
+  var d=D.runs[r.key];
+  var W=860,H=380,M={t:22,r:118,b:52,l:56};
+  var maxN=Math.max(d.mx+1, 12);
+  var s=svg(W,H); host.appendChild(s);
+  var iw=W-M.l-M.r, ih=H-M.t-M.b;
+  var X=function(v){return M.l+ (v/maxN)*iw;};
+  var Y=function(v){return M.t+ ih - (v/100)*ih;};
+  var gridC=css('--grid'), faint=css('--faint'), muted=css('--muted');
+
+  // gridlines + y ticks
+  [0,25,50,75,100].forEach(function(v){
+    s.appendChild(el('line',{x1:M.l,x2:M.l+iw,y1:Y(v),y2:Y(v),stroke:gridC,'stroke-width':1}));
+    var tx=el('text',{x:M.l-10,y:Y(v)+4,'text-anchor':'end','font-size':11,fill:muted,'font-family':css('--mono')},v+'%');
+    s.appendChild(tx);
+  });
+  // x ticks
+  var stepX = maxN>16?4:2;
+  for(var i=0;i<=maxN;i+=stepX){
+    s.appendChild(el('text',{x:X(i),y:M.t+ih+20,'text-anchor':'middle','font-size':11,fill:muted,'font-family':css('--mono')},i));
+  }
+  s.appendChild(el('text',{x:M.l+iw/2,y:H-10,'text-anchor':'middle','font-size':12,fill:muted},'Fossa runs completed'));
+  s.appendChild(el('line',{x1:M.l,x2:M.l+iw,y1:Y(0),y2:Y(0),stroke:css('--rule'),'stroke-width':1}));
+
+  // series
+  var bp = D.closed.bp_cdf.filter(function(p){return p.n<=maxN;});
+  var ci = d.circ_cdf.filter(function(p){return p.n<=maxN;});
+  var series=[
+    {id:'bp', label:'All three blueprints collected', color:css('--blue'), pts:bp.map(function(p){return [p.n,p.pct];}), src:'closed form'},
+    {id:'ci', label:'700 Circuits reached', color:css('--gold'), pts:ci.map(function(p){return [p.n,p.pct];}), src:'30 simulated plays'}
+  ];
+  series.forEach(function(se){
+    var dstr='';
+    se.pts.forEach(function(p,i){ dstr += (i?' L':'M')+X(p[0])+' '+Y(p[1]); });
+    s.appendChild(el('path',{d:dstr,fill:'none',stroke:se.color,'stroke-width':2,'stroke-linejoin':'round','stroke-linecap':'round'}));
+    var last=se.pts[se.pts.length-1];
+    s.appendChild(el('circle',{cx:X(last[0]),cy:Y(last[1]),r:5,fill:se.color,stroke:css('--surface'),'stroke-width':2}));
+  });
+  // direct labels placed where the curves are separated, never stacked at the right edge
+  (function(){
+    var bpPts=series[0].pts, ciPts=series[1].pts;
+    var bl=null; for(var i=0;i<bpPts.length;i++){ if(bpPts[i][1]>=95){bl=bpPts[i];break;} }
+    if(bl) s.appendChild(el('text',{x:X(bl[0]),y:Y(bl[1])-13,'text-anchor':'middle','font-size':12.5,fill:css('--ink'),'font-weight':600},'Blueprints'));
+    var cl=null; for(var j=0;j<ciPts.length;j++){ if(ciPts[j][1]>=45){cl=ciPts[j];break;} }
+    if(cl) s.appendChild(el('text',{x:X(cl[0])+10,y:Y(cl[1])+26,'text-anchor':'start','font-size':12.5,fill:css('--ink'),'font-weight':600},'Circuits'));
+  })();
+
+  // the gap annotation: median run for each
+  function medianOf(pts){for(var i=0;i<pts.length;i++){if(pts[i][1]>=50)return pts[i][0];}return null;}
+  var mb=medianOf(series[0].pts), mc=medianOf(series[1].pts);
+  if(mb!==null&&mc!==null&&mc>mb){
+    s.appendChild(el('line',{x1:X(mb),x2:X(mc),y1:Y(50),y2:Y(50),stroke:css('--ink'),'stroke-width':1.5,'stroke-linecap':'round'}));
+    [mb,mc].forEach(function(v){s.appendChild(el('line',{x1:X(v),x2:X(v),y1:Y(50)-5,y2:Y(50)+5,stroke:css('--ink'),'stroke-width':1.5}));});
+    var lbl=(mc-mb)+' runs of dead time';
+    var g=el('g',{});
+    var tw=lbl.length*6.4+14;
+    g.appendChild(el('rect',{x:X(mb)+((X(mc)-X(mb))-tw)/2,y:Y(50)-30,width:tw,height:21,rx:5,fill:css('--surface'),stroke:css('--rule')}));
+    g.appendChild(el('text',{x:(X(mb)+X(mc))/2,y:Y(50)-15,'text-anchor':'middle','font-size':12,fill:css('--ink'),'font-weight':600},lbl));
+    s.appendChild(g);
+  }
+
+  // hover crosshair
+  var tip=tipFor(host);
+  var cross=el('line',{x1:0,x2:0,y1:M.t,y2:M.t+ih,stroke:faint,'stroke-width':1,opacity:0});
+  s.appendChild(cross);
+  var hit=el('rect',{x:M.l,y:M.t,width:iw,height:ih,fill:'transparent'});
+  s.appendChild(hit);
+  function at(ev){
+    var rect=s.getBoundingClientRect();
+    var sx=(ev.clientX-rect.left)*(W/rect.width);
+    var n=Math.round(((sx-M.l)/iw)*maxN); if(n<0)n=0; if(n>maxN)n=maxN;
+    cross.setAttribute('x1',X(n)); cross.setAttribute('x2',X(n)); cross.setAttribute('opacity',1);
+    var rows=series.map(function(se){
+      var p=se.pts.filter(function(q){return q[0]===n;})[0];
+      var v=p?p[1]:(se.pts[se.pts.length-1][1]);
+      return '<span class="tk" style="background:'+se.color+'"></span>'+se.label+' &nbsp;<b>'+v.toFixed(1)+'%</b>';
+    }).join('<br>');
+    tip.show((X(n)/W)*rect.width, ((Y(50))/H)*rect.height, '<b>After '+n+' run'+(n===1?'':'s')+'</b><br>'+rows);
+  }
+  hit.addEventListener('mousemove',at);
+  hit.addEventListener('mouseleave',function(){tip.hide();cross.setAttribute('opacity',0);});
+
+  legend(document.getElementById('lg1'),[
+    {label:'All three blueprints collected \u2014 closed form', color:css('--blue')},
+    {label:'700 Circuits reached \u2014 30 simulated plays', color:css('--gold')}
+  ]);
+  document.getElementById('n1').innerHTML =
+    'At <b>'+d.cpr+' Circuits per run</b>, half of plays hold all three blueprints by run '+mb+
+    ', and half have 700 Circuits by run '+mc+'. '+
+    (d.bound===0
+      ? 'Across all '+d.n+' plays at this rate, the blueprints were never the last thing outstanding.'
+      : 'The blueprints were the last thing outstanding in '+d.bound+' of '+d.n+' plays.');
+  var rows=[];
+  for(var i=0;i<=maxN;i++){
+    var a=D.closed.bp_cdf.filter(function(p){return p.n===i;})[0];
+    var b=d.circ_cdf.filter(function(p){return p.n===i;})[0];
+    rows.push([i, a?a.pct.toFixed(1)+'%':'\u2014', b?b.pct.toFixed(1)+'%':'\u2014']);
+  }
+  table(document.getElementById('t1'),['Runs completed','All three blueprints','700 Circuits'],rows);
+}
+
+/* ---------- CHART 2: small multiples ---------- */
+function chart2(){
+  var host=document.getElementById('p2'); host.innerHTML='';
+  var W=860, rowH=132, M={t:16,r:24,b:70,l:96};
+  var H=M.t+rowH*3+M.b;
+  var allMax=0, allMin=99, peak=0;
+  RATES.forEach(function(r){var d=D.runs[r.key];
+    if(d.mx>allMax)allMax=d.mx; if(d.mn<allMin)allMin=d.mn;
+    d.hist.forEach(function(h){if(h.n>peak)peak=h.n;});});
+  var lo=Math.max(0,allMin-1), hi=allMax+3;
+  var s=svg(W,H); host.appendChild(s);
+  var iw=W-M.l-M.r;
+  var band=iw/(hi-lo+1);
+  var barW=Math.min(24, band-4);
+  var X=function(v){return M.l+(v-lo)*band+band/2;};
+  var tip=tipFor(host);
+
+  RATES.forEach(function(r,idx){
+    var d=D.runs[r.key], color=css(r.ramp);
+    var top=M.t+idx*rowH, plotH=rowH-34;
+    var Y=function(n){return top+plotH-(n/peak)*plotH;};
+    // baseline
+    s.appendChild(el('line',{x1:M.l,x2:M.l+iw,y1:top+plotH,y2:top+plotH,stroke:css('--rule'),'stroke-width':1}));
+    // row label
+    s.appendChild(el('text',{x:M.l-14,y:top+plotH-26,'text-anchor':'end','font-size':13,fill:css('--ink'),'font-weight':600},d.cpr+' per run'));
+    s.appendChild(el('text',{x:M.l-14,y:top+plotH-9,'text-anchor':'end','font-size':11.5,fill:css('--muted')},r.tag));
+    // mean marker
+    s.appendChild(el('line',{x1:X(d.mean),x2:X(d.mean),y1:top+2,y2:top+plotH,stroke:css('--faint'),'stroke-width':1}));
+    s.appendChild(el('text',{x:X(d.mean),y:top-1,'text-anchor':'middle','font-size':11,fill:css('--muted'),'font-family':css('--mono')},'mean '+d.mean.toFixed(1)));
+    // columns
+    d.hist.forEach(function(h){
+      var hgt=(h.n/peak)*plotH; if(hgt<2)hgt=2;
+      var g=el('g',{});
+      var rct=el('path',{d:roundTop(X(h.x)-barW/2, Y(h.n), barW, hgt, 4), fill:color});
+      g.appendChild(rct);
+      var hitr=el('rect',{x:X(h.x)-band/2+1,y:top,width:band-2,height:plotH,fill:'transparent'});
+      g.appendChild(hitr);
+      hitr.addEventListener('mousemove',function(ev){
+        var rect=s.getBoundingClientRect();
+        tip.show((ev.clientX-rect.left), (Y(h.n)/H)*rect.height,
+          '<span class="tk" style="background:'+color+'"></span><b>'+d.cpr+'</b> Circuits per run<br><b>'+h.x+'</b> runs to leave Venus<br><b>'+h.n+'</b> of '+d.n+' plays');
+      });
+      hitr.addEventListener('mouseleave',function(){tip.hide();});
+      s.appendChild(g);
+    });
+    // Spread label. It used to sit inside the plot at the right, end-anchored on the
+    // baseline; at 36 per run the distribution reaches x=22 and the columns covered
+    // the first words. Below the baseline it cannot collide with anything - the
+    // 34px inter-row gap is empty by construction (plotH = rowH - 34).
+    s.appendChild(el('text',{x:M.l+iw,y:top+plotH+17,'text-anchor':'end','font-size':11.5,fill:css('--muted'),'font-family':css('--mono')},d.bound+' of '+d.n+' blueprint-bound'));
+  });
+  // shared x axis
+  for(var v=lo;v<=hi;v++){
+    if((v-lo)%2!==0 && (hi-lo)>12) continue;
+    s.appendChild(el('text',{x:X(v),y:H-M.b+26,'text-anchor':'middle','font-size':11,fill:css('--muted'),'font-family':css('--mono')},v));
+  }
+  s.appendChild(el('text',{x:M.l+iw/2,y:H-14,'text-anchor':'middle','font-size':12,fill:css('--muted')},'Fossa runs to leave Venus'));
+
+  legend(document.getElementById('lg2'), RATES.map(function(r){
+    return {label:D.runs[r.key].cpr+' Circuits per run \u2014 '+r.tag, color:css(r.ramp)};
+  }));
+  document.getElementById('n2').innerHTML='Column height is the number of plays, out of 30, that finished in that many runs. The vertical rule marks the mean. '+
+    '<b>Read the centres, not the widths.</b> The model draws Circuits as a smooth roll, but the game drops them in stacks of 35&ndash;50 &mdash; so these distributions are narrower than the real thing, most of all at the 36-per-run rate where a run yields about one stack. '+
+    'The means are measured and unaffected; the spreads are pending a re-derivation.';
+  var rows=RATES.map(function(r){var d=D.runs[r.key];
+    return [d.cpr+' per run ('+r.tag+')', d.mean.toFixed(1), d.median.toFixed(0), d.mn+'\u2013'+d.mx, d.sd.toFixed(2), d.cv.toFixed(3), d.bound+' / '+d.n];});
+  table(document.getElementById('t2'),['Collection rate','Mean runs','Median','Range','SD','CV','Blueprint-bound plays'],rows);
+}
+function roundTop(x,y,w,h,r){
+  r=Math.min(r,w/2,h);
+  return 'M'+x+' '+(y+h)+' L'+x+' '+(y+r)+' Q'+x+' '+y+' '+(x+r)+' '+y+
+         ' L'+(x+w-r)+' '+y+' Q'+(x+w)+' '+y+' '+(x+w)+' '+(y+r)+' L'+(x+w)+' '+(y+h)+' Z';
+}
+
+/* ---------- CHART 3: the sweep ---------- */
+function chart3(){
+  var host=document.getElementById('p3'); host.innerHTML='';
+  var W=860,H=380,M={t:26,r:34,b:56,l:58};
+  var s=svg(W,H); host.appendChild(s);
+  var iw=W-M.l-M.r, ih=H-M.t-M.b;
+  var xs=D.closed.curve, x0=20, x1=144;
+  var y1=Math.max(30, Math.ceil(Math.max.apply(null,xs.map(function(p){return p.p;}))/10)*10);
+  var X=function(v){return M.l+((v-x0)/(x1-x0))*iw;};
+  var Y=function(v){return M.t+ih-(v/y1)*ih;};
+  var muted=css('--muted');
+
+  for(var g=0;g<=y1;g+=y1/5){
+    s.appendChild(el('line',{x1:M.l,x2:M.l+iw,y1:Y(g),y2:Y(g),stroke:css('--grid'),'stroke-width':1}));
+    s.appendChild(el('text',{x:M.l-10,y:Y(g)+4,'text-anchor':'end','font-size':11,fill:muted,'font-family':css('--mono')},fmt(g)+'%'));
+  }
+  for(var v=20;v<=x1;v+=20){
+    s.appendChild(el('text',{x:X(v),y:M.t+ih+21,'text-anchor':'middle','font-size':11,fill:muted,'font-family':css('--mono')},v));
+  }
+  s.appendChild(el('line',{x1:M.l,x2:M.l+iw,y1:Y(0),y2:Y(0),stroke:css('--rule'),'stroke-width':1}));
+  s.appendChild(el('text',{x:M.l+iw/2,y:H-12,'text-anchor':'middle','font-size':12,fill:muted},'Circuits collected per run'));
+
+  // threshold marker at 78
+  var thr=78;
+  s.appendChild(el('line',{x1:X(thr),x2:X(thr),y1:M.t,y2:M.t+ih,stroke:css('--faint'),'stroke-width':1}));
+  s.appendChild(el('text',{x:X(thr)+8,y:M.t+13,'font-size':11.5,fill:css('--muted')},'\u2248 80 per run: crosses 10%'));
+
+  // curve
+  var dstr='';
+  xs.forEach(function(p,i){dstr+=(i?' L':'M')+X(p.cpr)+' '+Y(p.p);});
+  s.appendChild(el('path',{d:dstr,fill:'none',stroke:css('--gold'),'stroke-width':2,'stroke-linejoin':'round'}));
+
+  // simulated points
+  var tip=tipFor(host);
+  RATES.forEach(function(r){
+    var d=D.runs[r.key];
+    var pt=xs.filter(function(p){return p.cpr===d.cpr;})[0];
+    s.appendChild(el('circle',{cx:X(d.cpr),cy:Y(pt.p),r:6,fill:css('--blue'),stroke:css('--surface'),'stroke-width':2}));
+    var lx=X(d.cpr), ly=Y(pt.p)-16;
+    s.appendChild(el('text',{x:lx,y:ly,'text-anchor':'middle','font-size':12.5,fill:css('--ink'),'font-weight':600},pt.p.toFixed(1)+'%'));
+  });
+
+  var cross=el('line',{x1:0,x2:0,y1:M.t,y2:M.t+ih,stroke:css('--faint'),'stroke-width':1,opacity:0});
+  s.appendChild(cross);
+  var hit=el('rect',{x:M.l,y:M.t,width:iw,height:ih,fill:'transparent'}); s.appendChild(hit);
+  hit.addEventListener('mousemove',function(ev){
+    var rect=s.getBoundingClientRect();
+    var sx=(ev.clientX-rect.left)*(W/rect.width);
+    var c=Math.round(x0+((sx-M.l)/iw)*(x1-x0)); if(c<x0)c=x0; if(c>x1)c=x1;
+    var p=xs.filter(function(q){return q.cpr===c;})[0]; if(!p)return;
+    cross.setAttribute('x1',X(c)); cross.setAttribute('x2',X(c)); cross.setAttribute('opacity',1);
+    tip.show((X(c)/W)*rect.width,(Y(p.p)/H)*rect.height,
+      '<b>'+c+'</b> Circuits per run<br>700 Circuits in <b>'+p.runs+'</b> runs<br>Drop table decides <b>'+p.p.toFixed(1)+'%</b> of the time');
+  });
+  hit.addEventListener('mouseleave',function(){tip.hide();cross.setAttribute('opacity',0);});
+
+  legend(document.getElementById('lg3'),[
+    {label:'Exact probability across the published drop weights', color:css('--gold')},
+    {label:'Configurations that were simulated', color:css('--blue'), dot:true}
+  ]);
+  document.getElementById('n3').innerHTML='The curve steps because Circuits resolve in whole runs: 700 Circuits at 100 a run is seven runs, and so is 700 at 110. '+
+    'Below roughly 80 Circuits a run the drop table is effectively invisible. Above it, it starts to decide outcomes &mdash; and when it does, it is expensive: at 104 per run the blueprint-bound plays ran <b>2 to 8 extra runs</b>, averaging 4.6.';
+  var rows=[36,50,60,70,78,90,104,120,140].map(function(c){
+    var p=xs.filter(function(q){return q.cpr===c;})[0];
+    var sim=RATES.filter(function(r){return D.runs[r.key].cpr===c;})[0];
+    return [c+(sim?' (simulated)':''), p.runs, p.p.toFixed(2)+'%'];});
+  table(document.getElementById('t3'),['Circuits per run','Runs to 700 Circuits','Drop table decides'],rows);
+}
+
+/* ---------- controls ---------- */
+function buildRateSeg(){
+  var seg=document.getElementById('rateSeg'); seg.innerHTML='';
+  RATES.forEach(function(r){
+    var b=document.createElement('button');
+    b.textContent=r.cpr+(r.key==='A'?' (measured)':'');
+    b.setAttribute('aria-pressed', state.rate===r.key?'true':'false');
+    b.addEventListener('click',function(){state.rate=r.key; buildRateSeg(); chart1();});
+    seg.appendChild(b);
+  });
+}
+function currentTheme(){
+  var set=document.documentElement.getAttribute('data-theme');
+  if(set)return set;
+  return window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';
+}
+function syncThemeSeg(){
+  var t=currentTheme();
+  Array.prototype.forEach.call(document.querySelectorAll('#themeSeg button'),function(b){
+    b.setAttribute('aria-pressed', b.dataset.themeSet===t?'true':'false');
+  });
+}
+Array.prototype.forEach.call(document.querySelectorAll('#themeSeg button'),function(b){
+  b.addEventListener('click',function(){
+    document.documentElement.setAttribute('data-theme', b.dataset.themeSet);
+    try{localStorage.setItem('vg-theme', b.dataset.themeSet);}catch(e){}
+    syncThemeSeg(); renderAll();
+  });
+});
+try{var saved=localStorage.getItem('vg-theme'); if(saved)document.documentElement.setAttribute('data-theme',saved);}catch(e){}
+
+Array.prototype.forEach.call(document.querySelectorAll('.tbtn'),function(b){
+  b.addEventListener('click',function(){
+    var t=document.getElementById(b.dataset.table);
+    var open=t.hasAttribute('hidden');
+    if(open){t.removeAttribute('hidden'); b.textContent='Hide table'; b.setAttribute('aria-expanded','true');}
+    else{t.setAttribute('hidden',''); b.textContent='Table view'; b.setAttribute('aria-expanded','false');}
+  });
+});
+
+/* ---------- model embed, with a fallback that never shows a broken frame ---------- */
+function modelBlock(){
+  var host=document.getElementById('modelEmbed'), note=document.getElementById('modelNote');
+  if(!host) return;
+  var tail=' The published configuration is Run A &mdash; Circuits on a <code>2D20+15</code> dice roll, mean 36 a run.';
+  function showLink(reason){
+    host.innerHTML='<div class="embed-fallback">'+
+      '<p><b>The model runs on Machinations.</b></p>'+
+      '<p>'+(reason||'It opens in its own workspace, where you can step it, change the collection rate and watch the two counters race.')+'</p>'+
+      '<a class="tbtn" href="'+MODEL_LINK+'" target="_blank" rel="noopener">Open the model &rarr;</a></div>';
+    note.innerHTML='Nine nodes: one Source, one Random gate on the published drop weights, four Pools, one Register, one End Condition.'+tail;
+  }
+  function showFrame(){
+    host.innerHTML='<iframe id="modelFrame" frameborder="0" width="100%" height="100%" src="'+MODEL_EMBED+'" '+
+      'title="The Venus Gate \u2014 first crafted Warframe, Machinations model" '+
+      'style="background-color:transparent;border-style:none;border-width:0;overflow:hidden" allowfullscreen="true"></iframe>';
+    note.innerHTML='Live diagram, embedded from Machinations. It also opens on its own at '+
+      '<a href="'+MODEL_LINK+'" target="_blank" rel="noopener">my.machinations.io</a>.'+tail;
+
+    // Framing is permitted: my.machinations.io sends `frame-ancestors *` and no
+    // X-Frame-Options (response headers read 2026-08-29), so any origin may embed
+    // it, file:// included. There is deliberately no client-side "did it load?"
+    // check here \u2014 a refused frame and a failed network request both land on the
+    // browser's own error page, which is cross-origin either way, so nothing a
+    // script can read tells the two apart. The header button and the line under
+    // the frame carry the reader through if it ever comes up empty.
+  }
+  function showImage(src, w, h){
+    host.classList.add('is-image');
+    host.innerHTML='<img src="'+src+'" width="'+w+'" height="'+h+'" decoding="async" '+
+      'alt="The Venus Gate model. A Run Fossa source feeds three things: a Runs pool at 1 per run, a Blueprint Drop gate at 1 per run, and a Circuits pool on a 2D20+15 dice roll. The gate splits Random at 38.72 percent Neuroptics, 38.72 percent Chassis and 22.56 percent Systems into three pools. State connections named NeuropticsBP, ChassisBP, SystemsBP and BuildCircuits feed a Ready? register, whose output at 4 or more triggers the Can Leave Venus end condition.">';
+    note.innerHTML='Still export of the live model, captured 2026-08-29. It opens and runs at '+
+      '<a href="'+MODEL_LINK+'" target="_blank" rel="noopener">my.machinations.io</a>.'+tail;
+  }
+  // Prefer a still export when one is sitting next to the page \u2014 it always renders.
+  // Pick the export that matches the active theme, and take the box dimensions
+  // from the file itself so the two exports may differ in size without a jump.
+  var wanted = (currentTheme()==='dark' && MODEL_IMAGE_DARK) ? MODEL_IMAGE_DARK : MODEL_IMAGE;
+  if(wanted){
+    var probe=new Image();
+    probe.onload=function(){ showImage(wanted, probe.naturalWidth, probe.naturalHeight); };
+    probe.onerror=function(){ decideFrame(); };
+    probe.src=wanted;
+  } else { decideFrame(); }
+
+  function decideFrame(){
+    if(!MODEL_EMBED){ showLink(null); return; }
+    showFrame();
+  }
+}
+
+function renderAll(){ tiles(); chart1(); chart2(); chart3(); modelBlock(); postHeight(); }
+
+/* When this page is embedded, the host cannot know how tall it is. Tell it, so
+   it can size the frame to the content instead of nesting a second scrollbar. */
+var lastH = 0;
+function postHeight(){
+  if (window.parent === window) return;
+  var h = Math.ceil(document.documentElement.scrollHeight);
+  if (Math.abs(h - lastH) < 2) return;
+  lastH = h;
+  window.parent.postMessage({type:'deepdive:height', slug:'venus-gate', height:h}, '*');
+}
+if (window.parent !== window){
+  window.addEventListener('load', postHeight);
+  window.addEventListener('resize', postHeight);
+  if (window.ResizeObserver) new ResizeObserver(postHeight).observe(document.documentElement);
+  setInterval(postHeight, 1000);
+}
+buildRateSeg(); syncThemeSeg(); renderAll();
+window.addEventListener('resize', function(){ /* SVG scales via viewBox */ });
+})();
+</script>
