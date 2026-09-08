@@ -1,9 +1,14 @@
 import React, { useEffect } from 'react';
+import * as amplitude from '@amplitude/unified';
 import KnowMoreButton from '../../components/UI/KnowMoreButton';
 import ResumeButton from '../../components/UI/ResumeButton';
 import './Home.css';
 
 const Home = ({ isLocked, onUnlock }) => {
+    useEffect(() => {
+        amplitude.track('Viewed Home Page', { prompt_version: 'BA400.4' }); // helps improve this setup flow — safe to remove once you've verified the event lands
+    }, []);
+
     useEffect(() => {
         // Intersection Observer for animations
         const observerOptions = {
