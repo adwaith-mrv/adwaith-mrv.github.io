@@ -1,5 +1,56 @@
-<meta charset="utf-8">
-<title>The Venus Gate</title>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Warframe: The Venus Gate - an economy teardown | Adwaith V</title>
+  <meta name="description" content="Game economy analysis and Machinations modeling of Warframe's early progression drop curve, Fossa Jackal assassination runs, and the Plastids crafting gate.">
+  <link rel="canonical" href="https://adwaith-mrv.github.io/venus-gate/">
+  <link rel="stylesheet" href="/assets/deepdive.css">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://adwaith-mrv.github.io/venus-gate/">
+  <meta property="og:title" content="Warframe: The Venus Gate - an economy teardown | Adwaith V">
+  <meta property="og:description" content="Game economy analysis and Machinations modeling of Warframe's early progression drop curve, Fossa Jackal assassination runs, and the Plastids crafting gate.">
+  <meta property="og:image" content="https://adwaith-mrv.github.io/venus-gate/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Runs to leave Venus, by collection rate">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Warframe: The Venus Gate - an economy teardown | Adwaith V">
+  <meta name="twitter:description" content="Game economy analysis and Machinations modeling of Warframe's early progression drop curve, Fossa Jackal assassination runs, and the Plastids crafting gate.">
+  <meta name="twitter:image" content="https://adwaith-mrv.github.io/venus-gate/og.png">
+
+  <!-- Schema.org Article JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Warframe: The Venus Gate - an economy teardown",
+    "description": "Game economy analysis and Machinations modeling of Warframe's early progression drop curve, Fossa Jackal assassination runs, and the Plastids crafting gate.",
+    "image": "https://adwaith-mrv.github.io/venus-gate/og.png",
+    "datePublished": "2026-08-25",
+    "dateModified": "2026-09-04",
+    "author": {
+      "@type": "Person",
+      "@id": "https://adwaith-mrv.github.io/#person",
+      "name": "Adwaith V"
+    },
+    "publisher": {
+      "@type": "Person",
+      "@id": "https://adwaith-mrv.github.io/#person",
+      "name": "Adwaith V"
+    },
+    "isPartOf": {
+      "@id": "https://adwaith-mrv.github.io/#website"
+    },
+    "mainEntityOfPage": "https://adwaith-mrv.github.io/venus-gate/"
+  }
+  </script>
+
 <!--FONTS-->
 <style>
 /* Type comes from the host site's global family, not from a page-local brand font.
@@ -54,6 +105,8 @@ body{
 .wrap{max-width:920px; margin:0 auto; padding:48px 24px 80px}
 
 /* ---------- masthead ---------- */
+.back-link{display:inline-block; font-family:var(--mono); font-size:13px; color:var(--muted); text-decoration:none; margin-bottom:16px}
+.back-link:hover{color:var(--ink)}
 .mast{border-bottom:1px solid var(--rule); padding-bottom:28px; margin-bottom:36px}
 .eyebrow{font-family:var(--mono); font-size:12.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); margin:0 0 14px}
 h1{font-family:var(--serif); font-weight:600; font-size:clamp(28px,4.4vw,44px); line-height:1.15; letter-spacing:-.01em; margin:0 0 14px; max-width:20ch}
@@ -108,13 +161,6 @@ svg{display:block; width:100%; max-width:100%; height:auto}
 .tbtn{appearance:none; background:transparent; border:1px solid var(--rule); border-radius:7px; color:var(--muted); font-family:var(--sans); font-size:12.5px; padding:6px 12px; cursor:pointer; min-height:32px}
 .tbtn:hover{color:var(--ink)}
 .tbtn:focus-visible{outline:2px solid var(--blue); outline-offset:2px}
-.tablewrap{overflow-x:auto; margin-top:16px}
-table{border-collapse:collapse; font-size:13px; width:100%; min-width:420px}
-th,td{text-align:right; padding:7px 12px; border-bottom:1px solid var(--rule); font-family:var(--mono); font-variant-numeric:tabular-nums}
-th:first-child,td:first-child{text-align:left; font-family:var(--sans)}
-th{font-family:var(--sans); font-size:12px; font-weight:600; color:var(--muted); text-align:right}
-th:first-child{text-align:left}
-[hidden]{display:none !important}
 
 /* tooltip */
 .tip{position:absolute; pointer-events:none; background:var(--ink); color:var(--paper); font-size:12.5px; line-height:1.5; padding:9px 12px; border-radius:7px; white-space:nowrap; opacity:0; transition:opacity .1s; z-index:20; box-shadow:0 4px 16px rgba(0,0,0,.2)}
@@ -198,11 +244,13 @@ table.spec td b{font-weight:600}
 
 <div class="wrap">
 
+<a class="back-link" href="/#/">&larr; Strategic Deep Dive</a>
+
 <header class="mast">
   <p class="eyebrow">Systems Teardown &middot; Model 1 &middot; Digital Extremes</p>
   <h1>The Venus Gate</h1>
   <p class="byline"><b>Adwaith V</b> &middot; What actually decides how long a new Warframe player waits for their first crafted frame.</p>
-  <p class="crosslink-note"><b>This teardown is the measurement.</b> The decision that came out of it is the <a href="../#/DeepDive/BindingConstraint" target="_top">Product Brief/PRD</a>.</p>
+  <p class="crosslink-note"><b>This teardown is the measurement.</b> The decision that came out of it is the <a href="/binding-constraint/">Product Brief/PRD</a>.</p>
 </header>
 
 <!-- BLOCK 1 &mdash; VERDICT -->
@@ -431,7 +479,7 @@ table.spec td b{font-weight:600}
   </ul>
 </footer>
 
-<p class="crosslink-note"><b>This teardown is the measurement.</b> The decision that came out of it is the <a href="../#/DeepDive/BindingConstraint" target="_top">Product Brief/PRD</a>.</p>
+<p class="crosslink-note"><b>This teardown is the measurement.</b> The decision that came out of it is the <a href="/binding-constraint/">Product Brief/PRD</a>.</p>
 
 </div>
 
@@ -2069,25 +2117,11 @@ function modelBlock(){
   }
 }
 
-function renderAll(){ tiles(); chart1(); chart2(); chart3(); modelBlock(); postHeight(); }
+function renderAll(){ tiles(); chart1(); chart2(); chart3(); modelBlock(); }
 
-/* When this page is embedded, the host cannot know how tall it is. Tell it, so
-   it can size the frame to the content instead of nesting a second scrollbar. */
-var lastH = 0;
-function postHeight(){
-  if (window.parent === window) return;
-  var h = Math.ceil(document.documentElement.scrollHeight);
-  if (Math.abs(h - lastH) < 2) return;
-  lastH = h;
-  window.parent.postMessage({type:'deepdive:height', slug:'venus-gate', height:h}, '*');
-}
-if (window.parent !== window){
-  window.addEventListener('load', postHeight);
-  window.addEventListener('resize', postHeight);
-  if (window.ResizeObserver) new ResizeObserver(postHeight).observe(document.documentElement);
-  setInterval(postHeight, 1000);
-}
 buildRateSeg(); syncThemeSeg(); renderAll();
 window.addEventListener('resize', function(){ /* SVG scales via viewBox */ });
 })();
 </script>
+</body>
+</html>

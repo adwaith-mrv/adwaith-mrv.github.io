@@ -1,5 +1,56 @@
-<meta charset="utf-8">
-<title>Publish the Bill Before the Grind</title>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Publish the Bill Before the Grind - a product brief | Adwaith V</title>
+  <meta name="description" content="Product brief on surfacing the binding constraint in crafting economics and player transparency.">
+  <link rel="canonical" href="https://adwaith-mrv.github.io/binding-constraint/">
+  <link rel="stylesheet" href="/assets/deepdive.css">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://adwaith-mrv.github.io/binding-constraint/">
+  <meta property="og:title" content="Publish the Bill Before the Grind - a product brief | Adwaith V">
+  <meta property="og:description" content="Product brief on surfacing the binding constraint in crafting economics and player transparency.">
+  <meta property="og:image" content="https://adwaith-mrv.github.io/binding-constraint/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Surface the binding constraint">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Publish the Bill Before the Grind - a product brief | Adwaith V">
+  <meta name="twitter:description" content="Product brief on surfacing the binding constraint in crafting economics and player transparency.">
+  <meta name="twitter:image" content="https://adwaith-mrv.github.io/binding-constraint/og.png">
+
+  <!-- Schema.org Article JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Publish the Bill Before the Grind - a product brief",
+    "description": "Product brief on surfacing the binding constraint in crafting economics and player transparency.",
+    "image": "https://adwaith-mrv.github.io/binding-constraint/og.png",
+    "datePublished": "2026-09-01",
+    "dateModified": "2026-09-04",
+    "author": {
+      "@type": "Person",
+      "@id": "https://adwaith-mrv.github.io/#person",
+      "name": "Adwaith V"
+    },
+    "publisher": {
+      "@type": "Person",
+      "@id": "https://adwaith-mrv.github.io/#person",
+      "name": "Adwaith V"
+    },
+    "isPartOf": {
+      "@id": "https://adwaith-mrv.github.io/#website"
+    },
+    "mainEntityOfPage": "https://adwaith-mrv.github.io/binding-constraint/"
+  }
+  </script>
+
 <!--FONTS-->
 <style>
 /* Type comes from the host site's global family, not from a page-local brand font.
@@ -20,10 +71,6 @@
   --r1:#C9A840; --r2:#9C7618; --r3:#5A470D;
   --shadow:0 1px 2px rgba(20,22,26,.05), 0 8px 24px rgba(20,22,26,.05);
   --modelbg:#F8F9FB;
-  /* One family, matching the portfolio's global stack in App.css. --serif is kept
-     as a token so existing rules do not have to be rewritten; it now resolves to
-     the same face as --sans. --mono stays a system monospace because the tables
-     and chart labels need tabular figures, and no brand font here supplies them. */
   --sans:'BF Modernista','Futura','Avenir Next','Helvetica Neue',Arial,sans-serif;
   --serif:'BF Modernista','Futura','Avenir Next','Helvetica Neue',Arial,sans-serif;
   --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace;
@@ -51,33 +98,23 @@ body{
   font-family:var(--sans); font-size:16px; line-height:1.55;
   -webkit-font-smoothing:antialiased;
 }
+.back-link{display:inline-block; font-family:var(--mono); font-size:13px; color:var(--muted); margin-bottom:24px; text-decoration:none}
+.back-link:hover{color:var(--ink)}
 .wrap{max-width:920px; margin:0 auto; padding:48px 24px 80px}
 
 /* ---------- masthead ---------- */
 .mast{border-bottom:1px solid var(--rule); padding-bottom:28px; margin-bottom:36px}
 .eyebrow{font-family:var(--mono); font-size:12.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); margin:0 0 14px}
-h1{font-family:var(--serif); font-weight:600; font-size:clamp(28px,4.4vw,44px); line-height:1.15; letter-spacing:-.01em; margin:0 0 14px; max-width:20ch}
+h1{font-family:var(--serif); font-weight:600; font-size:clamp(28px,4.4vw,44px); line-height:1.15; letter-spacing:-.01em; margin:0 0 14px; max-width:24ch}
 .byline{font-size:14px; color:var(--muted); margin:0}
 .byline b{color:var(--ink); font-weight:600}
 
-/* ---------- hero ---------- */
-.hero{display:flex; flex-wrap:wrap; gap:32px; align-items:center; margin:0 0 40px; padding:28px 30px; background:var(--surface); border:1px solid var(--rule); border-radius:10px; box-shadow:var(--shadow)}
-.hero-fig{font-family:var(--sans); font-weight:700; font-size:64px; line-height:.92; letter-spacing:-.03em; color:var(--gold)}
-.hero-body{flex:1 1 320px; min-width:260px}
-.hero-body p{margin:0 0 10px; font-size:15.5px; font-weight:300; line-height:1.6; color:var(--ink)}
+/* ---------- hero / 90-second read ---------- */
+.hero{display:flex; flex-wrap:wrap; gap:32px; align-items:flex-start; margin:0 0 40px; padding:28px 30px; background:var(--surface); border:1px solid var(--rule); border-radius:10px; box-shadow:var(--shadow)}
+.hero-fig{font-family:var(--sans); font-weight:700; font-size:56px; line-height:1; letter-spacing:-.03em; color:var(--gold); flex:0 0 auto; min-width:140px; padding-top:4px}
+.hero-body{flex:1 1 360px; min-width:260px}
+.hero-body p{margin:0 0 12px; font-size:15.5px; font-weight:300; line-height:1.6; color:var(--ink)}
 .hero-body p b{color:var(--ink); font-weight:700}
-.hero-body .blocklabel{color:var(--gold)}
-
-/* ---------- filter row / theme segment ---------- */
-.filters{display:flex; flex-wrap:wrap; gap:10px 22px; align-items:center; padding:14px 18px; background:var(--surface); border:1px solid var(--rule); border-radius:10px; margin:0 0 28px; box-shadow:var(--shadow)}
-.fgroup{display:flex; align-items:center; gap:9px}
-.fgroup>span{font-size:12px; color:var(--muted); letter-spacing:.02em}
-.seg{display:flex; border:1px solid var(--rule); border-radius:7px; overflow:hidden}
-.seg button{appearance:none; border:0; background:transparent; color:var(--muted); font-family:var(--sans); font-size:13px; font-weight:500; padding:7px 13px; cursor:pointer; border-right:1px solid var(--rule); min-height:34px}
-.seg button:last-child{border-right:0}
-.seg button[aria-pressed="true"]{background:var(--ink); color:var(--paper)}
-.seg button:focus-visible{outline:2px solid var(--blue); outline-offset:-2px}
-
 /* ---------- cards ---------- */
 .card{background:var(--surface); border:1px solid var(--rule); border-radius:10px; padding:26px 28px 22px; margin:0 0 26px; box-shadow:var(--shadow)}
 .card h2{font-family:var(--sans); font-size:20px; font-weight:600; letter-spacing:-.01em; line-height:1.3; margin:0 0 14px; color:var(--ink)}
@@ -154,11 +191,13 @@ table.spec td b{font-weight:700}
 
 <div class="wrap">
 
+<a class="back-link" href="/#/">&larr; Strategic Deep Dive</a>
+
 <header class="mast">
   <p class="eyebrow">Product Brief &middot; Model 1 &middot; Digital Extremes</p>
   <h1>Publish the bill before the grind</h1>
   <p class="byline"><b>Adwaith V</b> &middot; What a new Warframe player is never told about the cost of their first frame.</p>
-  <p class="crosslink-note"><b>This brief is the decision.</b> The measurement behind it is the teardown: <a href="../#/DeepDive/VenusGate" target="_top">The Venus Gate</a>.</p>
+  <p class="crosslink-note"><b>This brief is the decision.</b> The measurement behind it is the teardown: <a href="/venus-gate/">The Venus Gate</a>.</p>
 </header>
 
 <!-- ============ THE 90-SECOND READ ============ -->
@@ -359,31 +398,11 @@ table.spec td b{font-weight:700}
 
   <p class="note">Model: nine nodes, Machinations.io, 30 plays per configuration; no play truncated by a step cap. Drop weights from Digital Extremes' published tables, 2026-06-25 revision. Play data measured 2026-08-19, Legendary Rank 1 account, Normal mode, solo, no boosters. Build costs and timers verified in client 2026-09-01: components 12 hours and 15,000 credits each, parent assembly 24 hours and 25,000, market blueprint 35,000. That is 105,000 credits and 36 hours in total, matching the published recipe.</p>
 
-  <p class="crosslink-note"><b>This brief is the decision.</b> The measurement behind it is the teardown: <a href="../#/DeepDive/VenusGate" target="_top">The Venus Gate</a>.</p>
+  <p class="crosslink-note"><b>This brief is the decision.</b> The measurement behind it is the teardown: <a href="/venus-gate/">The Venus Gate</a>.</p>
 </section>
 
 </div><!-- /.wrap -->
 
-<script>
-(function(){
-"use strict";
+</body>
+</html>
 
-/* When this page is embedded, the host cannot know how tall it is. Tell it, so
-   it can size the frame to the content instead of nesting a second scrollbar. */
-var lastH = 0;
-function postHeight(){
-  if (window.parent === window) return;
-  var h = Math.ceil(document.documentElement.scrollHeight);
-  if (Math.abs(h - lastH) < 2) return;
-  lastH = h;
-  window.parent.postMessage({type:'deepdive:height', slug:'binding-constraint', height:h}, '*');
-}
-if (window.parent !== window){
-  window.addEventListener('load', postHeight);
-  window.addEventListener('resize', postHeight);
-  if (window.ResizeObserver) new ResizeObserver(postHeight).observe(document.documentElement);
-  setInterval(postHeight, 1000);
-}
-postHeight();
-})();
-</script>

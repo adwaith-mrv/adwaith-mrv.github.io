@@ -1,0 +1,18 @@
+﻿# Adwaith V
+
+> Product Manager - Game Economy & LiveOps
+
+- Website: https://adwaith-mrv.github.io
+- LinkedIn: https://in.linkedin.com/in/adwaith-v
+- GitHub: https://github.com/adwaith-mrv
+- Email: adwaith.mrv@gmail.com
+
+## Overview
+Systems and Platform Product Manager specializing in live-service game economy, LiveOps, and player progression systems.
+- Proven metrics: 0-to-1 platform launch, +15% conversion, -40% transmission failure rates.
+- Certified Game Economy Designer (Machinations.io).
+- Warframe: Legendary Rank 1 at 938 tracked hours, Star Chart 238/238, Steel Path 238/238, 6,483 missions.
+
+## Strategic Deep Dives & Economy Teardowns
+- [Warframe: The Venus Gate](https://adwaith-mrv.github.io/venus-gate/): Game economy analysis and Machinations modeling of Warframe''s early progression drop curve, Fossa Jackal assassination runs, and the Plastids crafting gate.
+- [Publish the Bill Before the Grind](https://adwaith-mrv.github.io/binding-constraint/): Product brief on surfacing the binding constraint in crafting economics and player transparency.
