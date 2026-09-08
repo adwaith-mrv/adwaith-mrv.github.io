@@ -1,33 +1,87 @@
 .home-page {
     width: 100%;
     min-height: 100vh;
+    min-height: 100dvh;
 }
 
 .hero {
     background: transparent;
-    height: 100vh;
+    min-height: 100vh;
+    min-height: 100svh;
+    min-height: 100dvh;
+    height: auto;
     display: flex;
     align-items: center;
     justify-content: center;
     scroll-snap-align: start;
+    box-sizing: border-box;
 }
 
 /* Ensure sections only animate when they have the visible class */
 .section {
     min-height: 100vh;
+    min-height: 100dvh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     scroll-snap-align: start;
-    padding: 60px 0;
+    padding: 70px 0;
+}
+
+#deep-dives {
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    overflow-x: clip;
 }
 
 #contact {
-    min-height: auto;
-    display: block;
-    padding: 100px 0;
-    scroll-snap-align: center;
-    /* Still allow centering for snapping */
+    min-height: calc(100vh - var(--header-height, 70px));
+    min-height: calc(100dvh - var(--header-height, 70px));
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 80px 1.5rem 100px;
+    box-sizing: border-box;
+    scroll-snap-align: start;
+}
+
+@media (max-width: 1024px) {
+    .hero {
+        min-height: 100vh;
+        min-height: 100svh;
+        min-height: 100dvh;
+        scroll-snap-align: none;
+    }
+
+    .section {
+        min-height: auto;
+        scroll-snap-align: none;
+        padding: 50px 0 30px;
+    }
+
+    #deep-dives {
+        min-height: 100vh;
+        min-height: 100dvh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: calc(var(--header-height, 70px) + 20px) 0 40px;
+        box-sizing: border-box;
+    }
+
+    #contact {
+        min-height: calc(100vh - var(--header-height, 70px));
+        min-height: calc(100dvh - var(--header-height, 70px));
+        padding: 60px 1.5rem 80px;
+        scroll-snap-align: none;
+    }
 }
 
 /* Premium Reveal Animation for Sections */

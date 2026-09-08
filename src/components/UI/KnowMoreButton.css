@@ -2,24 +2,30 @@
 
 .know-more-btn {
     position: relative;
-    padding: 1.2rem 3rem;
-    font-family: 'Outfit', sans-serif;
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: #fff;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 1.1rem 2.8rem;
+    font-family: 'BF Modernista', 'Futura', 'Outfit', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #FFFFFF;
+    background: linear-gradient(135deg, rgba(255, 143, 0, 0.25) 0%, rgba(255, 112, 67, 0.35) 100%);
+    border: 1.5px solid #FF8F00;
     border-radius: 50px;
     cursor: pointer;
     overflow: hidden;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    backdrop-filter: blur(10px);
-    margin-top: 3rem;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    margin-top: 1.8rem;
     text-transform: uppercase;
     letter-spacing: 2px;
     z-index: 10;
-    opacity: 0;
-    animation: fadeIn 1s ease-out 2.2s forwards;
+    box-shadow: 0 0 25px rgba(255, 143, 0, 0.35), 0 8px 20px rgba(0, 0, 0, 0.4);
+    opacity: 1;
+}
+
+.know-more-btn:focus-visible {
+    outline: 3px solid #4FC3F7;
+    outline-offset: 4px;
 }
 
 .btn-text {
@@ -92,4 +98,18 @@
 .particle:nth-child(3) {
     --x: 10px;
     --y: -50px;
+}
+
+/* Contact Button specific styling */
+.contact-email-btn {
+    text-transform: lowercase;
+    letter-spacing: 0.5px;
+    font-size: clamp(0.95rem, 3.8vw, 1.05rem);
+    padding: 1rem clamp(1.5rem, 5vw, 2.5rem);
+    margin-top: 1.5rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    max-width: 90vw;
 }
