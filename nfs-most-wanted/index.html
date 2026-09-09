@@ -1,0 +1,1238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Need for Speed: Most Wanted (2005) - Systems & Live Economy Teardown | Adwaith V</title>
+  <meta name="description" content="Progression loop design, loss-aversion friction buffers, and live telemetry balancing teardown of Need for Speed: Most Wanted (2005) by Game Economy Designer Adwaith V.">
+  <link rel="canonical" href="https://adwaith-mrv.github.io/nfs-most-wanted/">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://adwaith-mrv.github.io/nfs-most-wanted/">
+  <meta property="og:title" content="Need for Speed: Most Wanted (2005) - Systems & Live Economy Teardown | Adwaith V">
+  <meta property="og:description" content="Progression loop design, loss-aversion friction buffers, and live telemetry balancing teardown of Need for Speed: Most Wanted (2005) by Game Economy Designer Adwaith V.">
+  <meta property="og:image" content="https://adwaith-mrv.github.io/assets/images/nfs-mw-bg.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Need for Speed: Most Wanted (2005) Systems Teardown">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Need for Speed: Most Wanted (2005) - Systems & Live Economy Teardown | Adwaith V">
+  <meta name="twitter:description" content="Progression loop design, loss-aversion friction buffers, and live telemetry balancing teardown of Need for Speed: Most Wanted (2005) by Game Economy Designer Adwaith V.">
+  <meta name="twitter:image" content="https://adwaith-mrv.github.io/assets/images/nfs-mw-bg.png">
+
+  <!-- Schema.org Article JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "@id": "https://adwaith-mrv.github.io/nfs-most-wanted/#article",
+    "headline": "Need for Speed: Most Wanted (2005) - Systems & Live Economy Teardown",
+    "description": "Progression loop design, loss-aversion friction buffers, and live telemetry balancing teardown of Need for Speed: Most Wanted (2005) by Game Economy Designer Adwaith V.",
+    "image": "https://adwaith-mrv.github.io/assets/images/nfs-mw-bg.png",
+    "datePublished": "2026-08-20",
+    "dateModified": "2026-09-09",
+    "author": {
+      "@type": "Person",
+      "@id": "https://adwaith-mrv.github.io/#person",
+      "name": "Adwaith V"
+    },
+    "publisher": {
+      "@type": "Person",
+      "@id": "https://adwaith-mrv.github.io/#person",
+      "name": "Adwaith V"
+    },
+    "isPartOf": {
+      "@id": "https://adwaith-mrv.github.io/#website"
+    },
+    "mainEntityOfPage": "https://adwaith-mrv.github.io/nfs-most-wanted/"
+  }
+  </script>
+
+  <!-- FONTS -->
+  <style>
+    @font-face {
+      font-family: 'BF Modernista';
+      src: url('assets/fonts/BF_Modernista-Light.ttf') format('truetype');
+      font-weight: 300;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'BF Modernista';
+      src: url('assets/fonts/BF_Modernista-Regular.ttf') format('truetype');
+      font-weight: 400;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'BF Modernista';
+      src: url('assets/fonts/BF_Modernista-Bold.ttf') format('truetype');
+      font-weight: 700;
+      font-display: swap;
+    }
+  </style>
+
+  <style>
+    :root {
+      --sans: 'BF Modernista', 'Futura', 'Avenir Next', 'Helvetica Neue', Arial, sans-serif;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;
+      --card-bg: linear-gradient(135deg, rgba(85, 37, 131, 0.65) 0%, rgba(20, 10, 30, 0.85) 50%, rgba(10, 10, 10, 0.95) 100%);
+      --orange-accent: #ff8f00;
+      --cyan-accent: #4fc3f7;
+      --red-accent: #ff1744;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      background: #050505;
+      color: #fff;
+      font-family: var(--sans);
+      font-size: 16px;
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    body.intro-active {
+      overflow: hidden;
+    }
+
+    /* Fixed Back Button */
+    .back-btn-fixed {
+      position: fixed;
+      top: 2rem;
+      left: 2rem;
+      z-index: 500;
+      background: rgba(10, 10, 10, 0.75);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: white;
+      padding: 10px 20px;
+      border-radius: 30px;
+      cursor: pointer;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 600;
+      font-family: var(--sans);
+      text-decoration: none;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+      transition: all 0.25s ease;
+    }
+
+    .back-btn-fixed:hover,
+    .back-btn-fixed:focus-visible {
+      border-color: rgba(255, 143, 0, 0.5);
+      box-shadow: 0 4px 25px rgba(255, 143, 0, 0.25);
+      outline: none;
+    }
+
+    @media (max-width: 600px) {
+      .back-btn-fixed {
+        top: 1rem;
+        left: 1rem;
+        padding: 8px 16px;
+        font-size: 0.85rem;
+      }
+    }
+
+    /* Cinematic Intro Overlay */
+    .cinematic-intro-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(5, 5, 5, 0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.7s ease-in-out, visibility 0.7s ease-in-out;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .cinematic-intro-overlay.fade-out {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .cinematic-title {
+      font-size: clamp(1.8rem, 5vw, 2.5rem);
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 6px;
+      margin-bottom: 1.5rem;
+      color: #fff;
+      text-shadow: 0 0 20px rgba(255, 143, 0, 0.6);
+    }
+
+    .cinematic-subtitle {
+      color: #aaa;
+      margin-bottom: 2.5rem;
+      font-size: clamp(0.95rem, 3vw, 1.1rem);
+      letter-spacing: 2px;
+    }
+
+    .skip-btn {
+      background: rgba(255, 143, 0, 0.2);
+      border: 1px solid rgba(255, 143, 0, 0.6);
+      color: #fff;
+      padding: 12px 30px;
+      border-radius: 30px;
+      cursor: pointer;
+      font-family: var(--sans);
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      transition: all 0.25s ease;
+    }
+
+    .skip-btn:hover {
+      background: rgba(255, 143, 0, 0.4);
+      box-shadow: 0 0 20px rgba(255, 143, 0, 0.4);
+    }
+
+    /* Fixed Background Video */
+    .bg-video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      object-position: center center;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* Ambient Dark Overlay */
+    .ambient-overlay {
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle, rgba(5, 5, 5, 0.72) 0%, rgba(5, 5, 5, 0.92) 100%);
+      z-index: 1;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.8s ease;
+    }
+
+    .ambient-overlay.active {
+      opacity: 1;
+    }
+
+    /* Content wrapper */
+    .content-wrapper {
+      position: relative;
+      z-index: 10;
+      padding: 80px 20px 100px;
+      opacity: 0;
+      transition: opacity 0.8s ease;
+      visibility: hidden;
+    }
+
+    .content-wrapper.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 15px;
+      box-sizing: border-box;
+    }
+
+    .section {
+      padding: 60px 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    @media (max-width: 768px) {
+      .section {
+        padding: 40px 0;
+      }
+    }
+
+    /* Unified Card Styles */
+    .unified-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      border-radius: 24px;
+      padding: clamp(1.5rem, 5vw, 3rem);
+      max-width: 750px;
+      margin: 0 auto;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+      position: relative;
+      width: 100%;
+      box-sizing: border-box;
+      min-width: 0;
+    }
+
+    .section-header {
+      color: var(--orange-accent);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-size: clamp(1.5rem, 4.5vw, 2rem);
+      font-weight: 800;
+      margin-bottom: 1.5rem;
+      text-align: center;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .card-body-text {
+      line-height: 1.8;
+      font-size: 1.1rem;
+      color: #ddd;
+      margin-bottom: 1.2rem;
+    }
+
+    .card-body-text:last-of-type {
+      margin-bottom: 0;
+    }
+
+    .meta-tags {
+      margin-top: 2rem;
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      color: #888;
+      font-size: 0.9rem;
+      font-family: var(--mono);
+      flex-wrap: wrap;
+    }
+
+    /* Faction switcher */
+    .faction-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      border-radius: 24px;
+      padding: clamp(1.5rem, 5vw, 3rem);
+      max-width: 750px;
+      margin: 0 auto;
+      box-sizing: border-box;
+      width: 100%;
+      min-width: 0;
+      transition: border-color 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .faction-card[data-faction="racer"] {
+      border: 1px solid rgba(255, 143, 0, 0.35);
+      box-shadow: 0 15px 40px rgba(255, 143, 0, 0.08);
+    }
+
+    .faction-card[data-faction="cop"] {
+      border: 1px solid rgba(79, 195, 247, 0.35);
+      box-shadow: 0 15px 40px rgba(79, 195, 247, 0.08);
+    }
+
+    .faction-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+    }
+
+    .faction-btn {
+      padding: 10px 24px;
+      border-radius: 30px;
+      cursor: pointer;
+      font-family: var(--sans);
+      font-weight: 700;
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: all 0.25s ease;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #aaa;
+    }
+
+    .faction-btn[data-target="racer"].active {
+      background: rgba(255, 143, 0, 0.2);
+      border: 1px solid #ff8f00;
+      color: #fff;
+    }
+
+    .faction-btn[data-target="cop"].active {
+      background: rgba(79, 195, 247, 0.2);
+      border: 1px solid #4fc3f7;
+      color: #fff;
+    }
+
+    .faction-panel {
+      display: none;
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 16px;
+      padding: clamp(1.25rem, 4vw, 2rem);
+      flex-direction: column;
+      gap: 1.5rem;
+      animation: fadeIn 0.35s ease-out forwards;
+    }
+
+    .faction-panel.active {
+      display: flex;
+    }
+
+    .faction-panel.racer {
+      border: 1px solid rgba(255, 143, 0, 0.25);
+    }
+
+    .faction-panel.cop {
+      border: 1px solid rgba(79, 195, 247, 0.25);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Carousel */
+    .carousel-equal-height {
+      display: grid;
+      grid-template-columns: 1fr;
+      align-items: center;
+      width: 100%;
+      min-height: 160px;
+    }
+
+    .carousel-ghost-sizer {
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-area: 1 / 1;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .carousel-ghost-item {
+      grid-area: 1 / 1;
+    }
+
+    .carousel-active-container {
+      grid-area: 1 / 1;
+      width: 100%;
+    }
+
+    .carousel-slide {
+      display: none;
+      animation: slideIn 0.25s ease-out forwards;
+    }
+
+    .carousel-slide.active {
+      display: block;
+    }
+
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateX(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .carousel-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 2.5rem;
+    }
+
+    .carousel-btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: white;
+      padding: 8px 16px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-family: var(--sans);
+      font-size: 0.9rem;
+      transition: all 0.2s ease;
+    }
+
+    .carousel-btn:hover {
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    .carousel-dots {
+      display: flex;
+      gap: 8px;
+    }
+
+    .carousel-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.2);
+      cursor: pointer;
+      transition: background 0.25s ease;
+    }
+
+    .carousel-dot.active {
+      background: #ff8f00;
+    }
+
+    /* Flip cards (Section 3.6) */
+    .flip-card-outer {
+      perspective: 1200px;
+      width: 100%;
+      max-width: 320px;
+      height: 290px;
+    }
+
+    .flip-card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transform-style: preserve-3d;
+      transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
+    }
+
+    .flip-card-outer.flipped .flip-card-inner {
+      transform: rotateY(180deg);
+    }
+
+    .flip-card-face {
+      position: absolute;
+      inset: 0;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      background: linear-gradient(135deg, rgba(30, 14, 45, 0.98) 0%, rgba(12, 8, 20, 0.99) 100%);
+      border-radius: 20px;
+      padding: clamp(1.5rem, 4vw, 2rem);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      cursor: pointer;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+      box-sizing: border-box;
+    }
+
+    .flip-card-front {
+      border: 1px solid rgba(79, 195, 247, 0.3);
+      visibility: visible;
+      pointer-events: auto;
+    }
+
+    .flip-card-outer.flipped .flip-card-front {
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .flip-card-back {
+      transform: rotateY(180deg);
+      border: 1px solid rgba(79, 195, 247, 0.4);
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .flip-card-outer.flipped .flip-card-back {
+      visibility: visible;
+      pointer-events: auto;
+    }
+
+    .flip-action-label {
+      font-size: 0.8rem;
+      color: #4fc3f7;
+      font-family: var(--mono);
+      font-weight: bold;
+      letter-spacing: 0.5px;
+    }
+
+    /* LiveOps Dashboard */
+    .dashboard-table-wrap {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(0, 0, 0, 0.25);
+      width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
+      min-width: 0;
+    }
+
+    .dashboard-table {
+      width: 100%;
+      min-width: 600px;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.95rem;
+    }
+
+    .dashboard-table th {
+      padding: 15px;
+      color: #ff8f00;
+      font-family: var(--mono);
+      font-weight: bold;
+      background: rgba(79, 195, 247, 0.08);
+    }
+
+    .dashboard-table td {
+      padding: 15px;
+    }
+
+    .dashboard-table tr {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .tag-primary {
+      border-left: 4px solid #ff8f00;
+      color: #ff8f00;
+      font-weight: bold;
+      font-family: var(--mono);
+    }
+
+    .tag-counter {
+      border-left: 4px solid #ff1744;
+      color: #ff1744;
+      font-weight: bold;
+      font-family: var(--mono);
+    }
+
+    /* In-view fade-in helper */
+    .reveal-on-scroll {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .reveal-on-scroll.revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body class="intro-active">
+
+  <!-- Fixed Back Button -->
+  <a href="/#/" class="back-btn-fixed" aria-label="Back to Portfolio">
+    &larr; Back to Portfolio
+  </a>
+
+  <!-- Cinematic Intro Title Card -->
+  <div id="cinematic-overlay" class="cinematic-intro-overlay">
+    <h2 class="cinematic-title">Need for Speed: Most Wanted (2005)</h2>
+    <p class="cinematic-subtitle">Experiencing Cinematic Overview...</p>
+    <button id="skip-intro-btn" class="skip-btn" type="button">Skip Intro</button>
+  </div>
+
+  <!-- Fixed Background Video -->
+  <video 
+    id="bg-video" 
+    class="bg-video" 
+    src="/assets/video/Most Wanted Style Background.mp4" 
+    playsinline 
+    preload="auto"
+  ></video>
+
+  <!-- Ambient Dark Overlay -->
+  <div id="ambient-overlay" class="ambient-overlay"></div>
+
+  <!-- Content Sections -->
+  <div id="content-wrapper" class="content-wrapper">
+    
+    <!-- Section 1: Executive Summary -->
+    <section class="section">
+      <div class="container">
+        <div style="display: flex; justify-content: center; width: 100%;">
+          <article class="unified-card reveal-on-scroll" style="border: 1px solid rgba(255, 143, 0, 0.3);">
+            <h2 class="section-header">Executive Summary</h2>
+            <p class="card-body-text">
+              Need for Speed: Most Wanted (2005) stands as the ultimate golden benchmark of arcade racing games. By combining tuner customization culture with intense police pursuits, EA crafted an engaging player progression loop that laid the foundations of a franchise.
+            </p>
+            <p class="card-body-text">
+              Modern PMs might want to sanitize these experiences to protect D7 retention for the 2026 and markets beyond.
+            </p>
+            <p class="card-body-text">
+              That’s a product mistake.
+            </p>
+            <div class="meta-tags">
+              <span>🔑 PROGRESSION LOOP</span>
+              <span>⚡ RISK MANAGEMENT</span>
+              <span>🔥 HIGH RETENTION</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 2: The Legacy Framework -->
+    <section class="section">
+      <div class="container">
+        <div style="display: flex; justify-content: center; width: 100%;">
+          <article class="unified-card reveal-on-scroll" style="border: 1px solid rgba(255, 23, 68, 0.35);">
+            <h2 class="section-header">The Legacy Framework</h2>
+            <p class="card-body-text">
+              The original <em>Most Wanted</em> featured an antagonistic, linear loop. The police force functioned as an interruptive layer designed to disrupt the player's racing flow state.
+            </p>
+            <p class="card-body-text">
+              <strong>Friction &amp; Loss Aversion:</strong> Progression required completing specific milestones and earning Bounty via pursuits. However, a "Busted" event triggered a severe session wipe—losing all accrued Bounty, Milestones, and risking cash-gated impound strikes.
+            </p>
+            <div class="meta-tags" style="color: #ef5350; font-weight: bold;">
+              <span>⚠️ HIGH FRICTION</span>
+              <span>💥 PROGRESS WIPE</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 3: Setting up The Modernized Framework - Unified Switcher Card -->
+    <section class="section">
+      <div class="container">
+        <article id="faction-card" class="faction-card reveal-on-scroll" data-faction="racer">
+          <div style="text-align: center; margin-bottom: 2.5rem;">
+            <h2 class="section-header">Setting up The Modernized Framework</h2>
+            <p style="color: #fff; font-size: 1.05rem; line-height: 1.7; margin: 0 auto 2rem; max-width: 650px;">
+              To resolve the persona conflict where cops disrupt racers, the new product design synthesizes the factions into a sequential narrative and gameplay structure through two distinct protagonists: Phoenix (Racer) and Lazarus (Cop).
+            </p>
+
+            <!-- Faction Tab Selector -->
+            <div class="faction-tabs">
+              <button id="btn-faction-racer" class="faction-btn active" data-target="racer" type="button">
+                🏎️ Racer Faction (Phoenix)
+              </button>
+              <button id="btn-faction-cop" class="faction-btn" data-target="cop" type="button">
+                🚔 Cop Faction (Lazarus)
+              </button>
+            </div>
+          </div>
+
+          <!-- Racer Faction Panel -->
+          <div id="panel-racer" class="faction-panel racer active">
+            <div>
+              <h3 style="color: #ff8f00; font-size: 1.4rem; text-transform: uppercase; letter-spacing: 1px; margin: 0 0 1rem;">
+                Racer Story &amp; Progression (Phoenix)
+              </h3>
+              <p style="line-height: 1.7; color: #ccc; font-size: 1rem; margin-bottom: 1rem;">
+                <strong>Phoenix</strong> (late teens/early 20s) is the disciplined, cold, and calculated son to the Captain of an elite street-racing law enforcement unit. To prove his father was framed, he must enter the illegal street racing scene.
+              </p>
+              <p style="line-height: 1.7; color: #ccc; font-size: 1rem; margin: 0;">
+                He races to find evidence from Blacklist racers. Unique personality-driven pre/post-race interactions foster unexpected friendships, which unlock custom tuning guides as rivals grow more challenging.
+              </p>
+            </div>
+
+            <div style="background: rgba(255, 143, 0, 0.05); border: 1px solid rgba(255, 143, 0, 0.2); border-radius: 12px; padding: 1.25rem; display: flex; flex-direction: column; gap: 8px;">
+              <span style="color: #ff8f00; font-family: var(--mono); font-weight: bold; font-size: 0.85rem;">
+                🎮 ACT 1 GAMEPLAY &amp; METRICS
+              </span>
+              <ul style="margin: 0; padding-left: 20px; color: #bbb; font-size: 0.95rem; display: flex; flex-direction: column; gap: 5px;">
+                <li><strong>Objective:</strong> Defeat Blacklist rivals in Sprints, Circuits, Speed Traps, and Drag Races.</li>
+                <li><strong>Progression Metric:</strong> Infamy &amp; Cost to State.</li>
+                <li><strong>Systemic Reward:</strong> Unlocks vehicle tiers and Blacklist boss challenges.</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Cop Faction Panel -->
+          <div id="panel-cop" class="faction-panel cop">
+            <div>
+              <h3 style="color: #4fc3f7; font-size: 1.4rem; text-transform: uppercase; letter-spacing: 1px; margin: 0 0 1rem;">
+                Cop Story &amp; Progression (Lazarus)
+              </h3>
+              <p style="line-height: 1.7; color: #ccc; font-size: 1rem; margin-bottom: 1rem;">
+                <strong>Lazarus</strong> (early 30s) is a hot-blooded, jaded rookie recently transferred to the unit after exposing a coverup. He wants to do the right thing and rises through the ranks after noticing Phoenix fighting Cain, the corrupt captain who framed Phoenix's father.
+              </p>
+              <p style="line-height: 1.7; color: #ccc; font-size: 1rem; margin: 0;">
+                Lazarus investigates from within the PD. Once Phoenix climbs to the top 10 of the Blacklist, their paths collide in a solitary chase, leading to an alliance.
+              </p>
+            </div>
+
+            <div style="background: rgba(79, 195, 247, 0.05); border: 1px solid rgba(79, 195, 247, 0.2); border-radius: 12px; padding: 1.25rem; display: flex; flex-direction: column; gap: 8px;">
+              <span style="color: #4fc3f7; font-family: var(--mono); font-weight: bold; font-size: 0.85rem;">
+                🎮 ACT 2 GAMEPLAY &amp; METRICS
+              </span>
+              <ul style="margin: 0; padding-left: 20px; color: #bbb; font-size: 0.95rem; display: flex; flex-direction: column; gap: 5px;">
+                <li><strong>Objective:</strong> Seamlessly switch perspective post-race to intercept and arrest the rival you just defeated.</li>
+                <li><strong>Progression Metric:</strong> Departmental Respect.</li>
+                <li><strong>Systemic Reward:</strong> Unlocks tactical deployment calls (Spike strips, Rhino units, Helicopters).</li>
+              </ul>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Section 3.5: Storyline Universe & Online Carousel (Unified Card) -->
+    <section class="section">
+      <div class="container">
+        <div style="display: flex; justify-content: center; width: 100%;">
+          <article class="unified-card reveal-on-scroll" style="border: 1px solid rgba(255, 143, 0, 0.3);">
+            <div style="text-align: center; margin-bottom: 2.5rem;">
+              <h2 class="section-header">Universe &amp; Online Integration</h2>
+            </div>
+
+            <!-- Carousel Content (Equal Height Grid Container) -->
+            <div class="carousel-equal-height">
+              <!-- Ghost Sizer: All slides stacked in the same cell locks height dynamically -->
+              <div class="carousel-ghost-sizer" aria-hidden="true">
+                <div class="carousel-ghost-item">
+                  <h3 style="color: #ff8f00; margin: 0 0 1rem; font-size: 1.25rem; font-family: var(--mono);">
+                    📖 The Storyline &amp; Universe
+                  </h3>
+                  <p style="line-height: 1.7; font-size: 1.05rem; color: #ddd; margin: 0;">
+                    Cars are unlocked based on tiers and infamy within the rankings of The Blacklist, as the corrupt racers control the city's car stock. Phoenix climbs the ranks of street racers while Lazarus gathers evidence from within the police department. Their paths cross in a solitary confrontation before joining forces to expose the corrupt Police Captain, Cain.
+                  </p>
+                </div>
+                <div class="carousel-ghost-item">
+                  <h3 style="color: #ff8f00; margin: 0 0 1rem; font-size: 1.25rem; font-family: var(--mono);">
+                    🌐 Online Sandbox Experience
+                  </h3>
+                  <p style="line-height: 1.7; font-size: 1.05rem; color: #ddd; margin: 0;">
+                    Seamlessly transition from offline story mode to shared region-based servers. Engage in classic Online Races, high-stakes Cops vs Racers chases, co-op heist modes, and free roam with friends.
+                  </p>
+                </div>
+                <div class="carousel-ghost-item">
+                  <h3 style="color: #ff8f00; margin: 0 0 1rem; font-size: 1.25rem; font-family: var(--mono);">
+                    📊 Shared Leaderboard Tracking
+                  </h3>
+                  <p style="line-height: 1.7; font-size: 1.05rem; color: #ddd; margin: 0;">
+                    Progress is tracked globally across both factions. Cops earn prestige through the 'Exemplary Service Record', while Racers build notoriety through the 'Infamy System / Rap Sheet'.
+                  </p>
+                </div>
+              </div>
+
+              <!-- Active Slide Presentation -->
+              <div class="carousel-active-container">
+                <div class="carousel-slide active" data-slide="0">
+                  <h3 style="color: #ff8f00; margin: 0 0 1rem; font-size: 1.25rem; font-family: var(--mono);">
+                    📖 The Storyline &amp; Universe
+                  </h3>
+                  <p style="line-height: 1.7; font-size: 1.05rem; color: #ddd; margin: 0;">
+                    Cars are unlocked based on tiers and infamy within the rankings of The Blacklist, as the corrupt racers control the city's car stock. Phoenix climbs the ranks of street racers while Lazarus gathers evidence from within the police department. Their paths cross in a solitary confrontation before joining forces to expose the corrupt Police Captain, Cain.
+                  </p>
+                </div>
+                <div class="carousel-slide" data-slide="1">
+                  <h3 style="color: #ff8f00; margin: 0 0 1rem; font-size: 1.25rem; font-family: var(--mono);">
+                    🌐 Online Sandbox Experience
+                  </h3>
+                  <p style="line-height: 1.7; font-size: 1.05rem; color: #ddd; margin: 0;">
+                    Seamlessly transition from offline story mode to shared region-based servers. Engage in classic Online Races, high-stakes Cops vs Racers chases, co-op heist modes, and free roam with friends.
+                  </p>
+                </div>
+                <div class="carousel-slide" data-slide="2">
+                  <h3 style="color: #ff8f00; margin: 0 0 1rem; font-size: 1.25rem; font-family: var(--mono);">
+                    📊 Shared Leaderboard Tracking
+                  </h3>
+                  <p style="line-height: 1.7; font-size: 1.05rem; color: #ddd; margin: 0;">
+                    Progress is tracked globally across both factions. Cops earn prestige through the 'Exemplary Service Record', while Racers build notoriety through the 'Infamy System / Rap Sheet'.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Slider Controls -->
+            <div class="carousel-controls">
+              <button id="carousel-prev" class="carousel-btn" type="button">&larr; Prev</button>
+              <div class="carousel-dots">
+                <div class="carousel-dot active" data-index="0"></div>
+                <div class="carousel-dot" data-index="1"></div>
+                <div class="carousel-dot" data-index="2"></div>
+              </div>
+              <button id="carousel-next" class="carousel-btn" type="button">Next &rarr;</button>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 3.6: Retention Mechanics - Flipped Cards -->
+    <section class="section">
+      <div class="container">
+        <article class="unified-card reveal-on-scroll" style="border: 1px solid rgba(79, 195, 247, 0.3);">
+          <div style="text-align: center; margin-bottom: 2.5rem;">
+            <h2 class="section-header">Retention &amp; Friction Buffers</h2>
+            <p style="color: #fff; font-size: 1.05rem; line-height: 1.7; margin: 0 auto; max-width: 650px;">
+              Decoupling progression stakes to protect Day 7 retention. Click either card and view the detailed mechanics.
+            </p>
+          </div>
+
+          <div style="display: flex; gap: 25px; justify-content: center; flex-wrap: wrap; width: 100%;">
+            <!-- Payback Buffer Card -->
+            <div class="flip-card-outer" id="card-payback">
+              <div class="flip-card-inner">
+                <!-- Front -->
+                <div class="flip-card-face flip-card-front" onclick="toggleFlip('card-payback', true)">
+                  <div>
+                    <span style="font-size: 2rem; display: block; margin-bottom: 1rem;">🔄</span>
+                    <h3 style="color: #ff8f00; margin: 0 0 0.5rem; font-size: 1.25rem;">"Payback" Friction Buffer</h3>
+                    <p style="font-size: 0.95rem; color: #bbb; margin: 0; line-height: 1.5;">
+                      A soft-landing mechanism to protect players from severe loss aversion while preserving stakes.
+                    </p>
+                  </div>
+                  <span class="flip-action-label" style="align-self: flex-end;">CLICK TO FLIP ➔</span>
+                </div>
+                <!-- Back -->
+                <div class="flip-card-face flip-card-back" onclick="toggleFlip('card-payback', false)">
+                  <p style="font-size: 0.95rem; color: #ddd; margin: 0; line-height: 1.6;">
+                    A failed pursuit tags the responsible AI cop unit. In the next session, players launch a <strong>"Payback" run</strong> to hunt down that unit, recovering lost session stats at the cost of double the standard Heat level (capped by tier maximum).
+                  </p>
+                  <span class="flip-action-label" style="align-self: flex-start;">⬅ CLICK TO RETURN</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Impound Strike Tokens Card -->
+            <div class="flip-card-outer" id="card-impound">
+              <div class="flip-card-inner">
+                <!-- Front -->
+                <div class="flip-card-face flip-card-front" onclick="toggleFlip('card-impound', true)">
+                  <div>
+                    <span style="font-size: 2rem; display: block; margin-bottom: 1rem;">🎟️</span>
+                    <h3 style="color: #ff8f00; margin: 0 0 0.5rem; font-size: 1.25rem;">Impound Strike Tokens</h3>
+                    <p style="font-size: 0.95rem; color: #bbb; margin: 0; line-height: 1.5;">
+                      Expanding safety margins to protect vehicles and shield users from premature progress wipes.
+                    </p>
+                  </div>
+                  <span class="flip-action-label" style="align-self: flex-end;">CLICK TO FLIP ➔</span>
+                </div>
+                <!-- Back -->
+                <div class="flip-card-face flip-card-back" onclick="toggleFlip('card-impound', false)">
+                  <p style="font-size: 0.95rem; color: #ddd; margin: 0; line-height: 1.6;">
+                    Players earn temporary <strong>strike tokens</strong> by defeating Blacklist members or via mystery rewards. These allow them to expand their safety margin up to <strong>6 total strikes</strong> before a vehicle is fully impounded.
+                  </p>
+                  <span class="flip-action-label" style="align-self: flex-start;">⬅ CLICK TO RETURN</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Section 4: Current Market Dynamics -->
+    <section class="section">
+      <div class="container">
+        <article class="unified-card reveal-on-scroll" style="border: 1px solid rgba(255, 143, 0, 0.3);">
+          <div style="text-align: center; margin-bottom: 2.5rem;">
+            <h2 class="section-header">Current Market Dynamics</h2>
+          </div>
+
+          <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; width: 100%;">
+            <!-- Dynamic 1: Accessibility -->
+            <div style="background: rgba(0, 0, 0, 0.25); border: 1px solid rgba(255, 143, 0, 0.15); border-radius: 20px; padding: 2rem; flex: 1 1 280px; box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
+              <h3 style="color: #ff8f00; font-size: 1.25rem; margin: 0 0 1rem; text-transform: uppercase; letter-spacing: 1px;">
+                Onboarding &amp; Tutorial
+              </h3>
+              <p style="line-height: 1.7; font-size: 0.95rem; color: #ccc; margin: 0;">
+                Modern games often assume players are pre-versed in racing mechanics. To resolve this, our model introduces an interactive basic controls tutorial. Difficulty adjusts automatically in real-time by detecting user input patterns and steering mistakes.
+              </p>
+            </div>
+
+            <!-- Dynamic 2: Polarization -->
+            <div style="background: rgba(0, 0, 0, 0.25); border: 1px solid rgba(255, 143, 0, 0.15); border-radius: 20px; padding: 2rem; flex: 1 1 280px; box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
+              <h3 style="color: #ff8f00; font-size: 1.25rem; margin: 0 0 1rem; text-transform: uppercase; letter-spacing: 1px;">
+                Genre Polarization
+              </h3>
+              <p style="line-height: 1.7; font-size: 0.95rem; color: #ccc; margin: 0;">
+                The racing genre faces severe division: track simulators vs infinite sandboxes. Need for Speed personas split between <em>Street Racers</em> (precision) and <em>Urban Guerillas</em> (destruction). We challenge this by designing a self-contained premium title that bridges both worlds.
+              </p>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Section 5: Live-Ops Strategy -->
+    <section class="section" style="width: 100%; overflow-x: hidden;">
+      <div class="container" style="width: 100%; max-width: 1200px; box-sizing: border-box;">
+        <div style="display: flex; justify-content: center; width: 100%; max-width: 100%; box-sizing: border-box; margin-bottom: 2.5rem;">
+          <article class="unified-card reveal-on-scroll" style="width: 100%; max-width: min(950px, 100%); min-width: 0; box-sizing: border-box; margin: 0 auto; border: 1px solid rgba(79, 195, 247, 0.3);">
+            <div style="text-align: center; margin-bottom: 2.5rem; width: 100%; box-sizing: border-box;">
+              <h2 class="section-header" style="font-size: clamp(1.35rem, 4vw, 2rem); word-break: break-word;">
+                Live-Ops &amp; Exploit Mitigation
+              </h2>
+              <p style="color: #fff; font-size: 1.05rem; line-height: 1.7; margin: 0 auto; max-width: 650px; width: 100%; box-sizing: border-box;">
+                Removing systemic vulnerabilities and tracking telemetry to optimize player retention and balance economy loops.
+              </p>
+            </div>
+
+            <div style="background: rgba(0, 0, 0, 0.25); border: 1px solid rgba(79, 195, 247, 0.15); border-radius: 16px; padding: clamp(1.25rem, 4vw, 2rem); margin-bottom: 3rem; width: 100%; max-width: 100%; box-sizing: border-box; min-width: 0;">
+              <h3 style="color: #ff8f00; font-size: clamp(1.1rem, 3.5vw, 1.3rem); margin: 0 0 1rem; text-transform: uppercase; letter-spacing: 1px; word-break: break-word;">
+                🚫 Eliminating Systemic Vulnerabilities
+              </h3>
+              <p style="line-height: 1.8; font-size: 1.05rem; color: #ccc; margin: 0;">
+                The original game allowed players to abuse a systemic vulnerability: hitting "Restart" mid-race or mid-pursuit to escape tight corners or impending busts. This modernized installation removes fixed tutorial boundaries and introduces dynamic rolling starts. Pursuits can trigger seamlessly in the free-roam sandbox based on proximity to rivals, eliminating predictable safety zones.
+              </p>
+            </div>
+
+            <!-- Analytics Dashboard Title -->
+            <h3 style="text-align: center; color: #fff; font-size: clamp(1.15rem, 3.5vw, 1.4rem); text-transform: uppercase; letter-spacing: 2px; margin: 0 0 1rem; word-break: break-word;">
+              📊 Closed-Beta Analytics Dashboard
+            </h3>
+            <p style="text-align: center; color: #aaa; margin: 0 auto 2rem; max-width: 600px; font-size: 0.95rem; width: 100%; box-sizing: border-box;">
+              Core health indicators and telemetry parameters tracked during playtesting to balance loops.
+            </p>
+
+            <!-- Dashboard Metrics Table -->
+            <div class="dashboard-table-wrap">
+              <table class="dashboard-table">
+                <thead>
+                  <tr>
+                    <th>CATEGORY</th>
+                    <th>METRIC NAME</th>
+                    <th>DEFINITION / FORMULA</th>
+                    <th>PRODUCT HEALTH INDICATOR</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- Row 1 -->
+                  <tr>
+                    <td class="tag-primary">PRIMARY</td>
+                    <td style="color: #fff; font-weight: 600;">Faction Playtime Ratio</td>
+                    <td style="color: #ccc; font-size: 0.9rem;">Total Time Spent as Cop / Total Time Spent as Racer</td>
+                    <td style="color: #aaa; font-size: 0.9rem;">Targets a stable 1:1 ratio. If skewed heavily toward one side, it indicates a feature balance failure.</td>
+                  </tr>
+                  <!-- Row 2 -->
+                  <tr>
+                    <td class="tag-primary">PRIMARY</td>
+                    <td style="color: #fff; font-weight: 600;">Core Loop Velocity</td>
+                    <td style="color: #ccc; font-size: 0.9rem;">Avg. Time (Hours) to progress from Blacklist N to N-1</td>
+                    <td style="color: #aaa; font-size: 0.9rem;">Measures pacing. Spikes in this metric highlight progression roadblocks or economy bottlenecks.</td>
+                  </tr>
+                  <!-- Row 3 -->
+                  <tr>
+                    <td class="tag-primary">PRIMARY</td>
+                    <td style="color: #fff; font-weight: 600;">Payback Conversion Rate</td>
+                    <td style="color: #ccc; font-size: 0.9rem;">Payback Runs Initiated / Total Busted Events</td>
+                    <td style="color: #aaa; font-size: 0.9rem;">Validates the adoption of your loss-aversion buffer. Low conversion means players find the mechanic unrewarding.</td>
+                  </tr>
+                  <!-- Row 4 -->
+                  <tr>
+                    <td class="tag-primary">PRIMARY</td>
+                    <td style="color: #fff; font-weight: 600;">Economy Velocity</td>
+                    <td style="color: #ccc; font-size: 0.9rem;">Total Currency Spent in Shop / Total Currency Earned</td>
+                    <td style="color: #aaa; font-size: 0.9rem;">Ensures currency isn't pooling unspent, validating that players are forced to upgrade to stay competitive.</td>
+                  </tr>
+                  <!-- Row 5 -->
+                  <tr>
+                    <td class="tag-counter">COUNTER</td>
+                    <td style="color: #fff; font-weight: 600;">Faction-Specific Churn</td>
+                    <td style="color: #ccc; font-size: 0.9rem;">Session Drops segmented by Faction (Cop vs. Racer)</td>
+                    <td style="color: #aaa; font-size: 0.9rem;">Identifies which side of the two-act loop is triggering friction-based churn.</td>
+                  </tr>
+                  <!-- Row 6 -->
+                  <tr>
+                    <td class="tag-counter">COUNTER</td>
+                    <td style="color: #fff; font-weight: 600;">The Rage-Quit Vector</td>
+                    <td style="color: #ccc; font-size: 0.9rem;">% of App Closures within 60s of a Busted/Failed Screen</td>
+                    <td style="color: #aaa; font-size: 0.9rem;">The ultimate metric for loss aversion. If this spikes, the soft landing features are failing.</td>
+                  </tr>
+                  <!-- Row 7 -->
+                  <tr>
+                    <td class="tag-counter">COUNTER</td>
+                    <td style="color: #fff; font-weight: 600;">Upgrade Bypass Rate</td>
+                    <td style="color: #ccc; font-size: 0.9rem;">% of Players clearing a tier with zero Shop purchases</td>
+                    <td style="color: #aaa; font-size: 0.9rem;">Validates the Pink Slip balancing. If this is high, the gifted cars are still too powerful for the next tier.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 6: The PM Verdict -->
+    <section class="section">
+      <div class="container">
+        <article class="unified-card reveal-on-scroll" style="max-width: 850px; border: 1px solid rgba(255, 143, 0, 0.3);">
+          <div style="text-align: center; margin-bottom: 2.5rem;">
+            <h2 class="section-header">The PM Verdict</h2>
+          </div>
+
+          <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; width: 100%;">
+            <!-- Card A: Major Feature Bet -->
+            <div style="background: rgba(0, 0, 0, 0.25); border: 1px solid rgba(79, 195, 247, 0.35); border-radius: 20px; padding: 2.5rem; flex: 1 1 280px; box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
+              <h3 style="color: #4fc3f7; font-size: 1.25rem; margin: 0 0 1rem; text-transform: uppercase; letter-spacing: 1px;">
+                🚀 Major Feature Bet
+              </h3>
+              <p style="line-height: 1.7; font-size: 0.95rem; color: #ccc; margin: 0;">
+                The <strong>Two-Act Faction Shift sequence</strong>. Forcing an immediate transition into the Cop role to bust the rival you just defeated as a Racer converts a competing design conflict into a unified gameplay pipeline. This directly optimizes the North Star Metric of a balanced 1:1 Faction Playtime Ratio.
+              </p>
+            </div>
+
+            <!-- Card B: Biggest Risk to LTV -->
+            <div style="background: rgba(0, 0, 0, 0.25); border: 1px solid rgba(255, 143, 0, 0.35); border-radius: 20px; padding: 2.5rem; flex: 1 1 280px; box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
+              <h3 style="color: #ff8f00; font-size: 1.25rem; margin: 0 0 1rem; text-transform: uppercase; letter-spacing: 1px;">
+                ⚠️ Biggest Risk to LTV
+              </h3>
+              <p style="line-height: 1.7; font-size: 0.95rem; color: #ccc; margin: 0;">
+                The <strong>Compounding Failure Loop</strong> within the Payback mechanic. If a player fails a Payback run, the double-Heat difficulty modifier may scale past their mechanical skill ceiling, transforming an intended retention mechanic into an aggressive churn vector. Decoupling aggressive AI is planned if the Rage-Quit Vector spikes.
+              </p>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- Interactive Scripts -->
+  <script>
+    (function() {
+      // 1. Video & Cinematic Intro Controller
+      const video = document.getElementById('bg-video');
+      const cinematicOverlay = document.getElementById('cinematic-overlay');
+      const ambientOverlay = document.getElementById('ambient-overlay');
+      const contentWrapper = document.getElementById('content-wrapper');
+      const skipBtn = document.getElementById('skip-intro-btn');
+      let introEnded = false;
+      let titleTimer = null;
+
+      function finishIntro() {
+        if (introEnded) return;
+        introEnded = true;
+        if (titleTimer) clearTimeout(titleTimer);
+
+        // Hide cinematic overlay
+        cinematicOverlay.classList.add('fade-out');
+
+        // Show content & ambient dark backdrop
+        ambientOverlay.classList.add('active');
+        contentWrapper.classList.add('active');
+        document.body.classList.remove('intro-active');
+
+        // Mute video and pause/set to end frame
+        if (video) {
+          video.muted = true;
+          if (video.duration) {
+            video.currentTime = video.duration;
+          }
+          video.pause();
+        }
+
+        window.scrollTo(0, 0);
+
+        // Trigger intersection observer for revealing cards
+        initScrollObserver();
+      }
+
+      function onVideoPlay() {
+        // Hide title card after 1.05s as in original React component
+        titleTimer = setTimeout(function() {
+          cinematicOverlay.classList.add('fade-out');
+        }, 1050);
+      }
+
+      video.addEventListener('play', onVideoPlay);
+      video.addEventListener('ended', finishIntro);
+      skipBtn.addEventListener('click', finishIntro);
+
+      // Attempt unmuted autoplay with fallback to muted
+      video.muted = false;
+      const playPromise = video.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(function(err) {
+          console.log('Unmuted autoplay blocked, attempting muted autoplay:', err);
+          video.muted = true;
+          video.play().catch(function(e) {
+            console.log('Autoplay fully blocked:', e);
+          });
+        });
+      }
+
+      // 2. Faction Switcher Controller
+      const factionCard = document.getElementById('faction-card');
+      const btnRacer = document.getElementById('btn-faction-racer');
+      const btnCop = document.getElementById('btn-faction-cop');
+      const panelRacer = document.getElementById('panel-racer');
+      const panelCop = document.getElementById('panel-cop');
+
+      btnRacer.addEventListener('click', function() {
+        btnRacer.classList.add('active');
+        btnCop.classList.remove('active');
+        panelRacer.classList.add('active');
+        panelCop.classList.remove('active');
+        factionCard.setAttribute('data-faction', 'racer');
+      });
+
+      btnCop.addEventListener('click', function() {
+        btnCop.classList.add('active');
+        btnRacer.classList.remove('active');
+        panelCop.classList.add('active');
+        panelRacer.classList.remove('active');
+        factionCard.setAttribute('data-faction', 'cop');
+      });
+
+      // 3. Carousel Controller
+      let currentSlide = 0;
+      const slides = document.querySelectorAll('.carousel-slide');
+      const dots = document.querySelectorAll('.carousel-dot');
+      const prevBtn = document.getElementById('carousel-prev');
+      const nextBtn = document.getElementById('carousel-next');
+
+      function showSlide(index) {
+        currentSlide = (index + slides.length) % slides.length;
+        slides.forEach(function(s, idx) {
+          s.classList.toggle('active', idx === currentSlide);
+        });
+        dots.forEach(function(d, idx) {
+          d.classList.toggle('active', idx === currentSlide);
+        });
+      }
+
+      prevBtn.addEventListener('click', function() { showSlide(currentSlide - 1); });
+      nextBtn.addEventListener('click', function() { showSlide(currentSlide + 1); });
+      dots.forEach(function(dot) {
+        dot.addEventListener('click', function() {
+          const idx = parseInt(dot.getAttribute('data-index'), 10);
+          showSlide(idx);
+        });
+      });
+
+      // 4. Flip Card Controller
+      window.toggleFlip = function(cardId, isFlipped) {
+        const card = document.getElementById(cardId);
+        if (card) {
+          if (isFlipped) {
+            card.classList.add('flipped');
+          } else {
+            card.classList.remove('flipped');
+          }
+        }
+      };
+
+      // 5. Scroll Reveal Observer
+      function initScrollObserver() {
+        const revealEls = document.querySelectorAll('.reveal-on-scroll');
+        if ('IntersectionObserver' in window) {
+          const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('revealed');
+              }
+            });
+          }, { threshold: 0.1 });
+
+          revealEls.forEach(function(el) {
+            observer.observe(el);
+          });
+        } else {
+          revealEls.forEach(function(el) {
+            el.classList.add('revealed');
+          });
+        }
+      }
+    })();
+  </script>
+</body>
+</html>

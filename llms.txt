@@ -1,4 +1,4 @@
-﻿# Adwaith V
+# Adwaith V
 
 > Product Manager - Game Economy & LiveOps
 
@@ -16,3 +16,4 @@ Systems and Platform Product Manager specializing in live-service game economy, 
 ## Strategic Deep Dives & Economy Teardowns
 - [Warframe: The Venus Gate](https://adwaith-mrv.github.io/venus-gate/): Game economy analysis and Machinations modeling of Warframe''s early progression drop curve, Fossa Jackal assassination runs, and the Plastids crafting gate.
 - [Publish the Bill Before the Grind](https://adwaith-mrv.github.io/binding-constraint/): Product brief on surfacing the binding constraint in crafting economics and player transparency.
+- [Need for Speed: Most Wanted (2005)](https://adwaith-mrv.github.io/nfs-most-wanted/): Progression loop design, loss-aversion friction buffers, and live telemetry balancing teardown.

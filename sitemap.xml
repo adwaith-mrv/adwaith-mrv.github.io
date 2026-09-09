@@ -1,4 +1,4 @@
-﻿<?xml version=" 1.0\ encoding=\UTF-8\?>
+<?xml version=" 1.0\ encoding=\UTF-8\?>
 <urlset xmlns=\http://www.sitemaps.org/schemas/sitemap/0.9\>
  <url>
  <loc>https://adwaith-mrv.github.io/</loc>
@@ -15,6 +15,12 @@
  <url>
  <loc>https://adwaith-mrv.github.io/binding-constraint/</loc>
  <lastmod>2026-09-01</lastmod>
+ <changefreq>monthly</changefreq>
+ <priority>0.9</priority>
+ </url>
+ <url>
+ <loc>https://adwaith-mrv.github.io/nfs-most-wanted/</loc>
+ <lastmod>2026-09-09</lastmod>
  <changefreq>monthly</changefreq>
  <priority>0.9</priority>
  </url>
