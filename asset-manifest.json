@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.6fbcfb64.css",
-    "main.js": "/static/js/main.89a40f75.js",
+    "main.css": "/static/css/main.fb762a30.css",
+    "main.js": "/static/js/main.412130ef.js",
     "static/js/638.d54f8a44.chunk.js": "/static/js/638.d54f8a44.chunk.js",
     "static/js/264.9d28438d.chunk.js": "/static/js/264.9d28438d.chunk.js",
     "static/js/480.3798b159.chunk.js": "/static/js/480.3798b159.chunk.js",
@@ -9,12 +9,20 @@
     "static/js/418.9935cdb0.chunk.js": "/static/js/418.9935cdb0.chunk.js",
     "static/media/Battlefield 1 The Flight of the Pigeon.mp3": "/static/media/Battlefield 1 The Flight of the Pigeon.a9b69ae0ab7aad3dca44.mp3",
     "static/media/background-image.jpg": "/static/media/background-image.88433431e1d45b90f5c6.jpg",
+    "static/media/McKinsey-Forward-Program.svg": "/static/media/McKinsey-Forward-Program.3018850bf069827fb35ecb96f483c81d.svg",
     "static/media/BF_Modernista-Bold.ttf": "/static/media/BF_Modernista-Bold.4ae1b6b27ac11aef94cd.ttf",
     "static/media/BF_Modernista-Light.ttf": "/static/media/BF_Modernista-Light.207844590a06bfbd676c.ttf",
     "static/media/BF_Modernista-Regular.ttf": "/static/media/BF_Modernista-Regular.077be9a08c0aecb65f19.ttf",
+    "static/media/Electronic-Arts-Logo.svg": "/static/media/Electronic-Arts-Logo.9f91c8895e0f0e19295ac08cb1b97a29.svg",
+    "static/media/Anthropic.webp": "/static/media/Anthropic.bcf5e5364d4ef7be92ed.webp",
+    "static/media/Pendo_idc1rR1vR5_1.svg": "/static/media/Pendo_idc1rR1vR5_1.18d4ecd22e69e40384fe18b55386bb6f.svg",
+    "static/media/n8n_pink+white_logo.svg": "/static/media/n8n_pink+white_logo.665dc35919910846b106bcebdb7a53c3.svg",
+    "static/media/google-cloud-logo.svg": "/static/media/google-cloud-logo.a648fc726009aa782ad59b003b454f57.svg",
     "index.html": "/index.html",
-    "main.6fbcfb64.css.map": "/static/css/main.6fbcfb64.css.map",
-    "main.89a40f75.js.map": "/static/js/main.89a40f75.js.map",
+    "static/media/machinationsLogo.svg": "/static/media/machinationsLogo.1ebcf117ba22ee1ac6040c98c7807525.svg",
+    "static/media/JPMC.svg": "/static/media/JPMC.c111944bfd19eb5c3aaf3720cde16858.svg",
+    "main.fb762a30.css.map": "/static/css/main.fb762a30.css.map",
+    "main.412130ef.js.map": "/static/js/main.412130ef.js.map",
     "638.d54f8a44.chunk.js.map": "/static/js/638.d54f8a44.chunk.js.map",
     "264.9d28438d.chunk.js.map": "/static/js/264.9d28438d.chunk.js.map",
     "480.3798b159.chunk.js.map": "/static/js/480.3798b159.chunk.js.map",
@@ -22,7 +30,7 @@
     "418.9935cdb0.chunk.js.map": "/static/js/418.9935cdb0.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.6fbcfb64.css",
-    "static/js/main.89a40f75.js"
+    "static/css/main.fb762a30.css",
+    "static/js/main.412130ef.js"
   ]
 }
