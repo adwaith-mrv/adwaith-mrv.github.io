@@ -306,5 +306,237 @@ export default ContactButton;
     *   Tuned observer options to `threshold: 0.05` and `rootMargin: '0px 0px -20px 0px'` so the section reveals immediately without requiring deep scrolling.
 *   **Result**: When clicking "Contact" in the navigation bar on any device (mobile or desktop), `#contact` smoothly aligns under the header with the title, subtitle, and Contact button prominently centered and 100% visible.
 
+---
+
+## Upgrade 4: Need for Speed: Most Wanted (2005) Clean Canonical Path Unification
+
+### 1. Architectural Motivation
+*   **Goal**: Unify the URL routing architecture across all Strategic Deep Dives. Previously, *Warframe: The Venus Gate* and *Publish the Bill Before the Grind* resided on clean, indexable static paths (`/venus-gate/` and `/binding-constraint/`), whereas *NFS Most Wanted (2005)* used a legacy client-side hash router path (`/#/DeepDive/NFS_MW_2005`).
+*   **Solution**: Migrated *NFS Most Wanted (2005)* to a standalone, server-rendered static directory at `/nfs-most-wanted/` (`public/nfs-most-wanted/index.html`), while preserving full backwards compatibility through React Router redirects.
+
+### 2. Standalone Page Architecture (`public/nfs-most-wanted/index.html`)
+*   **SEO, AEO & Crawlability**: Full semantic `<head>` with OpenGraph metadata, Twitter cards, and Schema.org `Article` JSON-LD. Complete prose and metric formulas are 100% present in initial HTML view-source without requiring JavaScript execution.
+*   **Aesthetics & Fidelity**: Preserved all visual mechanics and styling:
+    *   Cinematic video background (`/assets/video/Most Wanted Style Background.mp4`) with overlay, title card, and "Skip Intro" button.
+    *   Section 1: Executive Summary with monospace tags.
+    *   Section 2: Legacy Framework with friction breakdown.
+    *   Section 3: Modernized Framework with interactive Faction Switcher tabs (`Phoenix (Racer)` vs `Lazarus (Cop)`).
+    *   Section 3.5: Universe & Online Integration with equal-height CSS grid ghost-sizer carousel and dot pagination.
+    *   Section 3.6: Retention Buffers with 3D flip cards for `"Payback"` and `Impound Strike Tokens` (featuring unified `#4fc3f7` bold monospace action labels).
+    *   Section 4: Current Market Dynamics cards.
+    *   Section 5: Closed-Beta Analytics Dashboard with telemetry formulas and responsive horizontal scrolling.
+    *   Section 6: The PM Verdict panels with cyan and orange accents.
+*   **Navigation**: Fixed top-left `&larr; Back to Portfolio` button cleanly pointing back to `/#/`.
+
+### 3. Portfolio & Router Integration
+*   **Carousel Direct Routing** (`src/pages/Home/Home.jsx`): Updated the `deepDiveItems` entry for NFS to route directly to `/nfs-most-wanted/`.
+*   **Backwards Compatibility Redirect** (`src/App.jsx`): Added `RedirectToNfsMostWanted` component which triggers `window.location.replace('/nfs-most-wanted/')` when `/DeepDive/NFS_MW_2005` is accessed, ensuring historical bookmarks and external links never break.
+*   **Search & LLM Index Registration**:
+    *   Added canonical entry `<loc>https://adwaith-mrv.github.io/nfs-most-wanted/</loc>` to `public/sitemap.xml`.
+    *   Added entry with complete teardown description to `public/llms.txt`.
+
+---
+
+## Upgrade 5: Elimination of Duplicate Vertical Scrollbar & Scroll-Snap Lock Stabilization
+
+### 1. Root Cause & Browser Behavior
+*   **Location**: `src/App.css` (lines 77–90) and `src/pages/DeepDive/NFS_MW_2005.jsx` (lines 59, 70).
+*   **The Issue**: Users observed a second, inner vertical scrollbar appearing along the right edge of the screen, and scrolling frequently became stuck or unresponsive, requiring multiple repeated wheel scrolls to move past sections.
+*   **Technical Root Cause**:
+    *   `html` had `overflow-x: hidden; scroll-snap-type: y mandatory;`.
+    *   `body` also had `overflow-x: hidden;`.
+    *   Under the CSS Overflow Level 3 specification, specifying `overflow-x: hidden` on an element whose `overflow-y` is unset/visible forces the browser to compute `overflow-y: auto`.
+    *   Because `html` was already the primary viewport scroll container, `body` was promoted into an *independent inner scroll container* with its own 15px-wide vertical scrollbar track directly adjacent to the browser window scrollbar.
+    *   When the user scrolled via wheel or touch gestures, scroll events were intercepted by the inner `body` container rather than `html`. Because `body` lacked scroll snapping while `html` awaited snap threshold deltas, the two scroll containers desynchronized, causing scrolling to freeze or get stuck.
+    *   Additionally, in `NFS_MW_2005.jsx`, video unlock logic executed `document.body.style.overflow = 'auto'`, dynamically re-injecting inline scroll container styles on `body`.
+
+### 2. Architectural Solution
+*   **`src/App.css`**: Changed `body` from `overflow-x: hidden;` to `overflow: visible;`. This ensures `body` remains completely transparent to the layout flow and never establishes an independent scroll context.
+*   **`src/pages/DeepDive/NFS_MW_2005.jsx`**: Changed `document.body.style.overflow = 'auto'` to `document.body.style.overflow = ''` so that post-video cleanup restores the clean stylesheet cascade rather than forcing an inline `'auto'`.
+*   **Viewport Delegation**: `html` retains `overflow-x: hidden;` and `scroll-snap-type: y mandatory;`, keeping all vertical and horizontal scroll management strictly at the root window level.
+
+### 3. Verification & Metrics
+*   **Width Alignment**: `bodyClientWidth` now exactly matches `htmlClientWidth` (`1409px === 1409px` on 1440x900 desktop; `485px === 485px` on mobile), with 0px difference.
+*   **Scrollbar Elimination**: Verified using headless Chrome CDP screenshots that the secondary vertical white scrollbar track is completely removed across all screen sizes.
+*   **Smooth Navigation**: Tested smooth scrolling and snapping to `#about`, `#deep-dives`, and subsequent sections; scrolling responds smoothly on the first wheel tick without any sticking or snap lock.
+
+---
+
+## Upgrade 6: Unified Action Button Theming, Animations, and Contact Form Fallback
+
+### 1. Requirements & Overview
+*   **Requirement 1**: Copy the "Resume" button's color scheme onto the "adwaith.mrv@gmail.com" button while maintaining its rich hover animations.
+*   **Requirement 2**: Copy the "adwaith.mrv@gmail.com" button's expanding glow and particle explosion animation onto the "Resume" button (desktop navbar, mobile drawer, and standalone components).
+*   **Requirement 3**: Clicking "adwaith.mrv@gmail.com" should attempt to open the user's default email client; if no client opens or takes over, it should smoothly open the previous direct Contact Form.
+*   **Requirement 4**: Add a "LinkedIn" button matching the color scheme and animations of the corrected email button, linking directly to `https://www.linkedin.com/in/adwaith-v/`.
+
+### 2. Architectural Implementation
+*   **Unified Color Scheme** (`src/components/UI/KnowMoreButton.css`):
+    *   Defined `.contact-action-btn` with resting background `linear-gradient(135deg, rgba(255, 112, 67, 0.25) 0%, rgba(79, 195, 247, 0.25) 100%)`, `1.5px solid rgba(255, 143, 0, 0.55)`, and dual-tint box-shadow.
+    *   Hover state transitions to `linear-gradient(135deg, #FF7043 0%, #4FC3F7 100%)` with cyan border accents and `translateY(-5px)` lift.
+*   **Shared Interactive Animations** (`src/components/UI/Navbar.jsx` & `src/components/UI/Navbar.css`):
+    *   Equipped both desktop `.navbar-resume-btn` and drawer `.drawer-resume-btn` with `.btn-text`, `.btn-glow`, and `.btn-particles`.
+    *   Added `@keyframes explodeNavbar` so hover bursts three distinct particles (coral `#FF7043`, cyan `#4FC3F7`, and amber `#FFB74D`) alongside radial center glow expansion.
+*   **Dual-Mode Email Handler & Contact Form Fallback** (`src/pages/Home/Home.jsx` & `src/components/UI/ContactButton.jsx`):
+    *   `ContactButton` invokes `window.location.href = 'mailto:' + email` and sets an asynchronous blur listener. If `window.blur` does not fire within 900ms, it automatically opens the Contact Form.
+    *   A direct toggle button allows users without desktop email clients to open the form with one click.
+    *   The Contact Form provides validation for Name, Email, Company, Role, and Message, pre-populates mailto links, copies the text directly to the user's clipboard for webmail convenience, and presents an in-page confirmation screen with "Done" dismissal.
+*   **New LinkedIn Button Component** (`src/components/UI/LinkedInButton.jsx`):
+    *   Modular button opening `https://www.linkedin.com/in/adwaith-v/` in a new tab with `target="_blank" rel="noopener noreferrer"`.
+    *   Rendered alongside the Email button inside `.contact-button-group` with responsive flexbox centering.
+
+---
+
+## Upgrade 7: Temporary Audio and Sound Control Deactivation (Feature Flagged)
+
+### 1. Requirements & Overview
+*   **Requirement 1**: Deactivate background audio playback and all interaction-based audio triggers across the entire application.
+*   **Requirement 2**: Hide the "Sound On / Sound Off" toggle buttons from both desktop navigation and the mobile drawer.
+*   **Requirement 3**: Retain 100% of the code, markup, handlers, and styles intact in the codebase, enabling instantaneous re-enablement upon request.
+
+### 2. Architectural Implementation
+*   **Central Feature Flag** (`src/config/audioConfig.js`):
+    *   Created single source of truth `AUDIO_ENABLED = false`.
+    *   Setting `AUDIO_ENABLED = true` instantly restores all background audio, autoplay event listeners, and sound toggle buttons without code refactoring.
+*   **Audio Element & User Gesture Listeners** (`src/App.jsx`):
+    *   The `<audio id="bg-music">` element is conditionally rendered based on `AUDIO_ENABLED`.
+    *   The `useEffect` user gesture listeners (`scroll`, `wheel`, `touchmove`, `touchstart`, `pointerdown`, `mousedown`, `keydown`, `click`) return immediately when `!AUDIO_ENABLED`, preventing any audio playback attempts or console errors.
+*   **Hero Section CTA Guard** (`src/pages/Home/Home.jsx`):
+    *   Guarded `scrollToAbout` background audio play trigger with `if (AUDIO_ENABLED)`.
+*   **Navigation & Mobile Drawer Controls** (`src/components/UI/Navbar.jsx`):
+    *   Guarded audio state sync listeners and `toggleSound` handler with `if (!AUDIO_ENABLED) return;`.
+    *   Conditionally rendered desktop `.navbar-sound-btn` and mobile `.drawer-sound-btn` using `{AUDIO_ENABLED && ( ... )}`, cleanly hiding the buttons while preserving all markup, aria labels, and icons in place.
+
+---
+
+## Upgrade 8: Self-Hosted Certification Assets & Playwright End-to-End Verification
+
+### 1. Requirements & Problem Statement
+*   **The Issue**: Five key certification cards (Machinations Game Economy Designer, Machinations Essentials, EA Product Management, McKinsey Forward, JPMorgan Chase Agile) previously pointed to Google Drive URLs (`usp=sharing` / `usp=drive_link`). These links frequently prompted visitors to sign in to a Google account, triggered permissions barriers, and loaded Google's heavy preview UI.
+*   **Requirement 1**: Migrate the 5 certificates to self-hosted assets in `public/assets/certificates/` so that clicking any card opens the raw PDF or high-resolution PNG directly in the browser with zero login friction.
+*   **Requirement 2**: Leave the remaining 4 credential-provider certificates (Anthropic AI Fluency via Skilljar, Pendo via Credly, GCP via Credly, n8n via community.n8n.io) untouched.
+*   **Requirement 3**: Use Playwright for automated verification of asset delivery (HTTP 200, valid Content-Type, file sizes) and card popup click behaviors.
+
+### 2. Architectural Implementation
+*   **Asset Ingestion** (`public/assets/certificates/`):
+    *   `machinations-certified-game-economy-designer.pdf` (184,160 bytes)
+    *   `machinations-essentials.pdf` (161,550 bytes)
+    *   `ea-product-management.png` (103,004 bytes)
+    *   `mckinsey-forward-program.pdf` (353,359 bytes)
+    *   `jpmorgan-chase-agile-program.png` (103,228 bytes)
+*   **Home Component Route Updating** (`src/pages/Home/Home.jsx`):
+    *   Updated the `url` property for each of the 5 cards from Google Drive URLs to the canonical relative paths (`/assets/certificates/...`).
+*   **Playwright Verification Suite** (`scratch/test-certificates-playwright.js`):
+    *   Launched headless Chromium using the system Chrome channel.
+    *   Asserted all 9 cards render in `#certifications`.
+    *   Asserted HTTP status 200 and non-empty payload for all 5 self-hosted assets.
+    *   Simulated user clicks on each card and asserted the resulting popup opens directly to the self-hosted asset rather than Google Drive or a login page.
+
+---
+
+## Upgrade 9: Certification Card Text Centering Alignment Fix
+
+### 1. Requirements & Problem Statement
+*   **The Issue**: The text on the "Certified Game Economy Designer" card wrapped onto two lines ("Certified Game Economy" / "Designer"). Because `.cert-title` lacked an explicit `text-align: center`, multi-line titles defaulted to left-alignment (`text-align: left`), causing "Designer" to be flush to the left of the card text container rather than centered under "Certified Game Economy".
+*   **Requirement**: Center "Certified Game Economy Designer" and all certificate card titles and issuer text horizontally within their cards.
+
+### 2. Architectural Implementation
+*   **`src/App.css`**:
+    *   Added `text-align: center;` to `.cert-card .comet-card-content`.
+    *   Added `text-align: center; width: 100%;` to `.cert-title` so that wrapped multi-line headings are strictly centered line-by-line.
+    *   Added `text-align: center; width: 100%;` to `.cert-issuer` to maintain symmetry with the title.
+*   **Playwright Automated Verification**:
+    *   Asserted that `window.getComputedStyle(titleEl).textAlign === 'center'` and `window.getComputedStyle(issuerEl).textAlign === 'center'` across all 9 certification cards.
+    *   Captured close-up artifact screenshot `cert_card_centered_machinations.png` and full section screenshot `certifications_grid.png`.
+
+---
+
+## Upgrade 10: Official Brand Logo Integration for Certifications
+
+### 1. Requirements & Problem Statement
+*   **The Issue**: The 9 certification cards previously used generic emoji placeholders (`🎮`, `⚙️`, `🧠`, `🕹️`, `🎯`, `⚡`, `🤖`, `☁️`, `🔧`) in `.cert-icon` above each credential title.
+*   **Requirement**: Replace the emojis with official brand logos/emblems for:
+    1. Machinations.io (Certified Game Economy Designer)
+    2. Machinations.io (Machinations Essentials)
+    3. Anthropic (AI Fluency)
+    4. Electronic Arts (EA Product Management)
+    5. McKinsey & Company (McKinsey Forward Program)
+    6. JP Morgan Chase (Agile Program)
+    7. Pendo (AI for Product Management)
+    8. Google Cloud (Google Cloud Platform)
+    9. n8n (n8n Automation Level 1)
+*   **Constraints**:
+    *   Preserve exact text centering on all cards.
+    *   Maintain direct links to self-hosted certificate assets and credential platforms.
+    *   Ensure crisp contrast and visual hierarchy on the dark navy card background (`#131D31`).
+    *   Harmonize vertical rhythm across square badges, circular emblems, and wide wordmarks.
+
+### 2. Architectural Implementation
+*   **Asset Ingestion & Preparation** (`src/assets/icons/`):
+    *   `machinationsLogo.svg`: Official purple geometric `M` glyph (`#5A55F4`) used for Cards 1 & 2.
+    *   `Anthropic.webp`: High-resolution transparent wordmark, paired with CSS `filter: brightness(0) invert(1)` to render crisp white on the dark theme.
+    *   `Electronic-Arts-Logo.svg`: Official red/white circular emblem.
+    *   `McKinsey-Forward-Program.svg`: Official origami bird mark on royal blue square.
+    *   `JPMC.svg`: Iconic Chase Octagon vector in Chase Blue (`#117ACA`), providing clean contrast and avoiding raw black box sticker artifacts.
+    *   `Pendo_idc1rR1vR5_1.svg`: Official pink folded diamond mark (`#EC2059`) with white wordmark text paths for dark mode clarity.
+    *   `google-cloud-logo.svg`: Official 4-color Google mark paired with white "Cloud" text.
+    *   `n8n_pink+white_logo.svg`: Official pink nodes (`#EA4B71`) paired with white text.
+*   **Container & Layout Standardization** (`src/App.css`):
+    *   Introduced `.cert-icon-container` (`height: 52px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.2rem; width: 100%;`). Locks all cards to identical vertical baselines regardless of logo aspect ratios.
+    *   Added `.cert-logo` styles with `object-fit: contain`, subtle hover scaling (`scale(1.08)`), and ambient drop shadow (`drop-shadow(0 2px 8px rgba(0, 0, 0, 0.4))`).
+    *   Added logo-specific tuning classes (`.cert-logo-anthropic`, `.cert-logo-ea`, `.cert-logo-mckinsey`, `.cert-logo-jpmc`, `.cert-logo-pendo`, `.cert-logo-gcp`, `.cert-logo-n8n`).
+*   **Component Rendering** (`src/pages/Home/Home.jsx`):
+    *   Imported all 8 logo assets at module level.
+    *   Replaced `icon` emoji properties with `logo` and `logoClass` across the array.
+    *   Rendered `<div className="cert-icon-container"><img className={`cert-logo ${cert.logoClass || ''}`} src={cert.logo} alt={cert.issuer} /></div>`.
+
+### 3. Playwright Automated Verification
+*   **Test Suite** (`scratch/test-certificates-playwright.js`):
+    *   Verified all 9 cards render with `img.cert-logo`.
+    *   Asserted `img.complete === true`, `naturalWidth > 0`, and `naturalHeight > 0` across all 9 logos.
+    *   Asserted `titleAlign === 'center'` and `issuerAlign === 'center'` across all cards.
+    *   Verified HTTP 200 and Content-Type on all 5 self-hosted assets.
+    *   Asserted popup click targets open canonical `/assets/certificates/` files without redirecting to Google Drive.
+    *   Captured visual proof artifacts: `certifications_with_official_logos.png` and `cert_card_official_logo_machinations.png`.
+
+---
+
+## Upgrade 11: Warframe: Tau Standalone Static Teardown Page & Carousel Integration
+
+### 1. Requirements & Problem Statement
+*   **The Issue**: The Tau deep dive was previously a heavy Canva embed under `/#/DeepDive/TauReadiness`: image-only slides, zero readable text, un-crawlable by search engines, and missing from the Home page 3D carousel.
+*   **Requirement 1**: Rebuild Tau as a pure pre-rendered standalone static page at canonical path `/tau-readiness/` following the Amendment 8 architecture (`/venus-gate/`, `/binding-constraint/`, `/nfs-most-wanted/`), using the design tokens from `public/venus-gate/index.html` and shared `/assets/deepdive.css`.
+*   **Requirement 2**: Preserve the dated pre-launch read banner linking to the original LinkedIn post of 13 July 2026.
+*   **Requirement 3**: Provide a seamless hash-route redirect from `/#/DeepDive/TauReadiness` to `/tau-readiness/` with zero third-party Canva requests.
+*   **Requirement 4**: Add Warframe: Tau as the 3rd card in the Home page 3D carousel (`deepDiveItems`) using the TennoCon 2026 attendee badge image (`/tau-readiness/assets/tau-card.webp`).
+*   **Requirement 5**: Register canonical entries in `public/sitemap.xml` and `public/llms.txt`.
+
+### 2. Architectural Implementation
+*   **Standalone Page Build** (`public/tau-readiness/index.html`):
+    *   Complete SEO `<head>` matching `public/assets/deepdive-template.html`: `<title>Warframe: Tau - a launch-readiness read | Adwaith V</title>`, description, canonical link, OpenGraph metadata, Twitter card, and `Article` JSON-LD (`datePublished: 2026-07-13`).
+    *   Pre-rendered body fragment containing: back-link (`/#/`), masthead, Appearance toggle (shared `vg-theme` localStorage key), dated pre-launch read banner, key art with `<picture>` WebP/PNG fallback, 90-second D30 read block, Pillar 01 (Behavioural loop & telemetry), Pillar 02 (Economic stabilisation & Bloom value capture), Pillar 03 (Tech/ops infrastructure & concurrency bars), Pillar 04 (Balanced strategic matrix), closing Tau logo panel with attendee badge, and Sources & Method provenance.
+*   **Asset Ingestion** (`public/tau-readiness/assets/` & `og.png`):
+    *   Copied 8 assets from source vault (`tau-card.webp`/`.png`, `tau-key-art.webp`/`.png`, `tau-logo.webp`/`.png`, `tennocon-2026-badge.webp`/`.png`) and copied `tau-readiness-og.png` to `public/tau-readiness/og.png` (1200x630, uncompressed).
+    *   Provided local fonts in `public/tau-readiness/assets/fonts/`.
+*   **Hash-Route Redirect Component** (`src/App.jsx`):
+    *   Replaced Canva embed route with `RedirectToTauReadiness` executing `window.location.replace('/tau-readiness/')`. Eliminated all Canva script and iframe dependencies.
+*   **3D DepthCarousel 4-Card Cascade** (`src/pages/Home/Home.jsx`):
+    *   Inserted Warframe: Tau as the 3rd item in `deepDiveItems` (Venus Gate, Publish the Bill, Tau, NFS Most Wanted) with semantic `<motion.a>` linking to `/tau-readiness/` and portrait media `/tau-readiness/assets/tau-card.webp` (`fit: 'cover'`).
+*   **Index Updates** (`public/sitemap.xml` & `public/llms.txt`):
+    *   Added `<loc>https://adwaith-mrv.github.io/tau-readiness/</loc>` to `sitemap.xml`.
+    *   Enriched `llms.txt` with the factual briefing entry for Warframe: Tau.
+
+### 3. Playwright Automated Verification
+*   **Test Suite** (`scratch/test-tau-readiness.js`):
+    *   **HTTP 200 & View-Source**: Full article prose visible in DOM, all 4 pillar headings present, valid title, description, and canonical URL.
+    *   **OG Preview Image**: `og.png` returned HTTP 200 with 414,855 bytes.
+    *   **Images & Alt Tags**: All 3 images loaded as WebP with fallback and verified natural dimensions > 0 and non-empty alt tags.
+    *   **Appearance Toggle**: Tested switching Light <-> Dark, verified DOM attribute `data-theme` and `localStorage.vg-theme`, and verified persistence across page reload.
+    *   **Mobile Responsiveness**: Zero horizontal overflow (`scrollWidth === clientWidth`) at 390px and 360px viewports; responsive concurrency bars.
+    *   **Navigation**: Verified back link points to `/#/` and LinkedIn banner opens original post in a new tab.
+    *   **Hash-Route Redirect**: Verified `/#/DeepDive/TauReadiness` redirects to `/tau-readiness/` with zero requests to `canva.com`.
+    *   **4-Card Carousel**: Verified all 4 cards render in order; active card centering and zero horizontal overflow held at 430px and 390px.
+    *   **Sitemap & LLM Manifest**: Verified presence in both files.
+
 
 

@@ -1,0 +1,146 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{TITLE}} - {{TYPE}} | Adwaith V</title>
+  <meta name="description" content="{{DESCRIPTION}}">
+  <link rel="canonical" href="https://adwaith-mrv.github.io/{{SLUG}}/">
+  <link rel="stylesheet" href="/assets/deepdive.css">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://adwaith-mrv.github.io/{{SLUG}}/">
+  <meta property="og:title" content="{{TITLE}} - {{TYPE}} | Adwaith V">
+  <meta property="og:description" content="{{DESCRIPTION}}">
+  <meta property="og:image" content="https://adwaith-mrv.github.io/{{SLUG}}/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="{{IMAGE_ALT}}">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{{TITLE}} - {{TYPE}} | Adwaith V">
+  <meta name="twitter:description" content="{{DESCRIPTION}}">
+  <meta name="twitter:image" content="https://adwaith-mrv.github.io/{{SLUG}}/og.png">
+
+  <!-- Schema.org Article JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "@id": "https://adwaith-mrv.github.io/{{SLUG}}/#article",
+    "headline": "{{TITLE}}",
+    "description": "{{DESCRIPTION}}",
+    "image": "https://adwaith-mrv.github.io/{{SLUG}}/og.png",
+    "datePublished": "{{DATE_PUBLISHED}}",
+    "dateModified": "{{DATE_MODIFIED}}",
+    "author": {
+      "@type": "Person",
+      "@id": "https://adwaith-mrv.github.io/#person",
+      "name": "Adwaith V"
+    },
+    "publisher": {
+      "@type": "Person",
+      "@id": "https://adwaith-mrv.github.io/#person",
+      "name": "Adwaith V"
+    },
+    "isPartOf": {
+      "@id": "https://adwaith-mrv.github.io/#website"
+    },
+    "mainEntityOfPage": "https://adwaith-mrv.github.io/{{SLUG}}/"
+  }
+  </script>
+</head>
+<body>
+
+<div class="wrap">
+
+<a class="back-link" href="/#/">&larr; Strategic Deep Dive</a>
+
+<header class="mast">
+  <p class="eyebrow">{{SUBTITLE_EYEBROW}} &middot; Model {{MODEL_NUM}} &middot; {{STUDIO}}</p>
+  <h1>{{TITLE}}</h1>
+  <p class="byline"><b>Adwaith V</b> &middot; {{BYLINE_SUMMARY}}</p>
+  <p class="crosslink-note"><b>This brief is the decision.</b> The measurement behind it is the teardown: <a href="{{TEARDOWN_HREF}}">{{TEARDOWN_TITLE}}</a>.</p>
+</header>
+
+<!-- ============ BLOCK 1: DECISION (HERO READ) ============ -->
+<section class="hero" id="block-decision">
+  <div class="hero-fig">{{HERO_METRIC}}</div>
+  <div class="hero-body">
+    <p class="blocklabel">Decision</p>
+    <h2>{{DECISION_HEADLINE}}</h2>
+    <p class="dek">{{DECISION_BODY}}</p>
+  </div>
+</section>
+
+<!-- ============ BLOCK 2: DERIVATION ============ -->
+<section class="card prose" id="block-derivation">
+  <p class="blocklabel">Derivation</p>
+  <h2>Why does this bottleneck occur?</h2>
+  <p class="dek">{{DERIVATION_DEK}}</p>
+  <p>{{DERIVATION_PROSE}}</p>
+</section>
+
+<!-- ============ BLOCK 3: OPTIONS ============ -->
+<section class="card prose" id="block-options">
+  <p class="blocklabel">Option evaluation</p>
+  <h2>What alternative interventions were considered?</h2>
+  <p class="dek">{{OPTIONS_DEK}}</p>
+  <!-- Spec table or option comparison cards -->
+</section>
+
+<!-- ============ BLOCK 4: TRADEOFFS ============ -->
+<section class="card prose" id="block-tradeoffs">
+  <p class="blocklabel">Trade-offs & Second-Order Effects</p>
+  <h2>What breaks if we fix this?</h2>
+  <p class="dek">{{TRADEOFFS_DEK}}</p>
+  <p>{{TRADEOFFS_PROSE}}</p>
+</section>
+
+<!-- ============ BLOCK 5: BUILD SPECIFICATION ============ -->
+<section class="card prose" id="block-build">
+  <p class="blocklabel">Implementation</p>
+  <h2>How is this built in the client?</h2>
+  <p class="dek">{{BUILD_DEK}}</p>
+  <p>{{BUILD_PROSE}}</p>
+</section>
+
+<!-- ============ BLOCK 6: AI & INSTRUMENTATION ============ -->
+<section class="card prose" id="block-ai">
+  <p class="blocklabel">Simulation & Modeling</p>
+  <h2>How was this modelled and tested?</h2>
+  <p class="dek">{{AI_DEK}}</p>
+  <p>{{AI_PROSE}}</p>
+</section>
+
+<!-- ============ BLOCK 7: METRICS & TELEMETRY ============ -->
+<section class="card prose" id="block-metrics">
+  <p class="blocklabel">Telemetry</p>
+  <h2>How do we verify whether the change solved the drop-off?</h2>
+  <p class="dek">{{METRICS_DEK}}</p>
+  <p>{{METRICS_PROSE}}</p>
+</section>
+
+<!-- ============ BLOCK 8: LIMITATIONS ============ -->
+<section class="card prose" id="block-limits">
+  <p class="blocklabel">Evidence Bar & Limitations</p>
+  <h2>What remains outside the external model?</h2>
+  <p class="dek">{{LIMITS_DEK}}</p>
+  <p>{{LIMITS_PROSE}}</p>
+</section>
+
+<!-- ============ BLOCK 9: PROVENANCE ============ -->
+<section class="card prose" id="block-provenance">
+  <p class="blocklabel">Provenance</p>
+  <h2>Ground-truth reproduction and telemetry sources</h2>
+  <p class="dek">{{PROVENANCE_DEK}}</p>
+  <p class="note">{{REPRODUCTION_NOTE}}</p>
+  <p class="crosslink-note"><b>This teardown is the measurement.</b> The decision that came out of it is the <a href="{{DECISION_HREF}}">{{DECISION_TITLE}}</a>.</p>
+</section>
+
+</div><!-- /.wrap -->
+
+</body>
+</html>

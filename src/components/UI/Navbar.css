@@ -1,0 +1,516 @@
+/* ==========================================================================
+   Responsive Glassmorphic Navigation Bar
+   Z-Index Hierarchy: 1100 (Navbar), 1150 (Backdrop), 1200 (Drawer)
+   ========================================================================== */
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1100;
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    background: rgba(11, 20, 38, 0.75);
+    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(255, 143, 0, 0.15);
+    padding-top: env(safe-area-inset-top, 0px);
+}
+
+.navbar.scrolled {
+    background: rgba(11, 20, 38, 0.92);
+    border-bottom: 1px solid rgba(255, 143, 0, 0.3);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.navbar-container {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 0.9rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* Brand Logo */
+.navbar-logo {
+    font-family: 'BF Modernista', 'Futura', sans-serif;
+    font-size: 1.45rem;
+    font-weight: 700;
+    color: #FFFFFF;
+    text-decoration: none;
+    letter-spacing: 1.5px;
+    text-shadow: 0 0 15px rgba(255, 143, 0, 0.4);
+    transition: opacity 0.2s ease;
+}
+
+.navbar-logo .logo-accent {
+    color: #FF8F00;
+}
+
+/* Desktop Navigation Links */
+.navbar-links-desktop {
+    display: flex;
+    align-items: center;
+    gap: 1.8rem;
+}
+
+.navbar-link {
+    font-family: 'BF Modernista', 'Futura', sans-serif;
+    color: rgba(255, 255, 255, 0.82);
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    transition: color 0.25s ease, text-shadow 0.25s ease;
+    position: relative;
+    padding: 0.3rem 0;
+}
+
+.navbar-link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background: linear-gradient(90deg, #FF8F00, #4FC3F7);
+    transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    border-radius: 2px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .navbar-link:hover {
+        color: #FFFFFF;
+        text-shadow: 0 0 10px rgba(255, 143, 0, 0.6);
+    }
+    .navbar-link:hover::after {
+        width: 100%;
+    }
+    .navbar-logo:hover {
+        opacity: 0.9;
+    }
+}
+
+/* Sound Toggle Button */
+.navbar-sound-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'BF Modernista', 'Futura', sans-serif;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: rgba(255, 255, 255, 0.85);
+    padding: 0.42rem 0.95rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    user-select: none;
+}
+
+.navbar-sound-btn:hover {
+    background: rgba(255, 143, 0, 0.15);
+    border-color: rgba(255, 143, 0, 0.5);
+    color: #FFFFFF;
+    box-shadow: 0 0 14px rgba(255, 143, 0, 0.3);
+}
+
+.navbar-sound-btn.playing {
+    background: rgba(255, 143, 0, 0.18);
+    border-color: #FF8F00;
+    color: #FFB74D;
+    box-shadow: 0 0 12px rgba(255, 143, 0, 0.35);
+}
+
+.navbar-sound-btn:focus-visible {
+    outline: 2px solid #FF8F00;
+    outline-offset: 2px;
+}
+
+.navbar-sound-btn .sound-icon {
+    font-size: 0.95rem;
+    line-height: 1;
+}
+
+.navbar-resume-btn {
+    position: relative;
+    overflow: hidden;
+    font-family: 'BF Modernista', 'Futura', sans-serif;
+    background: linear-gradient(135deg, rgba(255, 112, 67, 0.25) 0%, rgba(79, 195, 247, 0.25) 100%);
+    border: 1px solid rgba(255, 143, 0, 0.5);
+    color: #FFFFFF;
+    text-decoration: none;
+    padding: 0.45rem 1.1rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.navbar-resume-btn .btn-text {
+    position: relative;
+    z-index: 2;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+.navbar-resume-btn .btn-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: radial-gradient(circle, rgba(79, 195, 247, 0.6) 0%, rgba(255, 112, 67, 0.4) 40%, transparent 70%);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s ease, height 0.6s ease;
+    z-index: 1;
+}
+
+.navbar-resume-btn .btn-particles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 3;
+}
+
+.navbar-resume-btn .particle {
+    position: absolute;
+    width: 3.5px;
+    height: 3.5px;
+    border-radius: 50%;
+    pointer-events: none;
+    opacity: 0;
+}
+
+.navbar-resume-btn .particle:nth-child(1) {
+    background: rgba(255, 112, 67, 0.95);
+    --x: -25px;
+    --y: -15px;
+}
+
+.navbar-resume-btn .particle:nth-child(2) {
+    background: rgba(79, 195, 247, 0.95);
+    --x: 25px;
+    --y: -12px;
+}
+
+.navbar-resume-btn .particle:nth-child(3) {
+    background: rgba(255, 183, 77, 0.95);
+    --x: 5px;
+    --y: -22px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .navbar-resume-btn:hover {
+        background: linear-gradient(135deg, #FF7043 0%, #4FC3F7 100%);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3), 0 0 18px rgba(255, 112, 67, 0.55), 0 0 18px rgba(79, 195, 247, 0.45);
+        transform: translateY(-2px);
+        color: #FFFFFF;
+    }
+
+    .navbar-resume-btn:hover .btn-glow {
+        width: 180px;
+        height: 180px;
+    }
+
+    .navbar-resume-btn:hover .particle {
+        animation: explodeNavbar 0.8s ease-out forwards;
+    }
+}
+
+@keyframes explodeNavbar {
+    0% {
+        transform: translate(0, 0);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(var(--x), var(--y));
+        opacity: 0;
+    }
+}
+
+/* Mobile Hamburger Button */
+.navbar-hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 44px;
+    height: 44px;
+    padding: 10px 8px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 8px;
+    cursor: pointer;
+    z-index: 1250;
+    transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.navbar-hamburger:focus-visible {
+    outline: 2px solid #FF8F00;
+    outline-offset: 2px;
+}
+
+.hamburger-line {
+    width: 100%;
+    height: 2px;
+    background-color: #FFFFFF;
+    border-radius: 2px;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease;
+    transform-origin: center;
+}
+
+.navbar-hamburger.active .hamburger-line:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+}
+
+.navbar-hamburger.active .hamburger-line:nth-child(2) {
+    opacity: 0;
+}
+
+.navbar-hamburger.active .hamburger-line:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+}
+
+/* Mobile Drawer Backdrop */
+.navbar-drawer-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh;
+    background: rgba(5, 10, 20, 0.65);
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+    z-index: 1150;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.navbar-drawer-backdrop.open {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Mobile Navigation Drawer */
+.navbar-drawer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    max-height: 90vh;
+    max-height: 90dvh;
+    overflow-y: auto;
+    background: rgba(11, 20, 38, 0.94);
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+    border-bottom: 2px solid rgba(255, 143, 0, 0.4);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7);
+    z-index: 1200;
+    transform: translateY(-100%);
+    opacity: 0;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+    padding: calc(65px + env(safe-area-inset-top, 0px)) 1.5rem 2rem;
+}
+
+.navbar-drawer.open {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.navbar-drawer-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    align-items: stretch;
+    max-width: 480px;
+    margin: 0 auto;
+}
+
+.drawer-link {
+    font-family: 'BF Modernista', 'Futura', sans-serif;
+    color: #FFFFFF;
+    text-decoration: none;
+    font-size: 1.15rem;
+    font-weight: 500;
+    padding: 0.85rem 1rem;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 48px; /* Touch target accessibility */
+}
+
+.drawer-link::after {
+    content: '→';
+    font-size: 1.1rem;
+    color: #FF8F00;
+    opacity: 0.7;
+}
+
+.drawer-link:active {
+    background: rgba(255, 143, 0, 0.18);
+    border-color: rgba(255, 143, 0, 0.5);
+    color: #FF8F00;
+}
+
+.drawer-sound-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-family: 'BF Modernista', 'Futura', sans-serif;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #FFFFFF;
+    padding: 0.75rem 1.5rem;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    margin-top: 0.8rem;
+    width: 100%;
+    transition: all 0.25s ease;
+}
+
+.drawer-sound-btn.playing {
+    background: rgba(255, 143, 0, 0.2);
+    border-color: #FF8F00;
+    color: #FFB74D;
+}
+
+.drawer-resume-btn {
+    position: relative;
+    overflow: hidden;
+    font-family: 'BF Modernista', 'Futura', sans-serif;
+    background: linear-gradient(135deg, #FF7043 0%, #4FC3F7 100%);
+    color: #FFFFFF;
+    text-decoration: none;
+    text-align: center;
+    padding: 0.95rem 1.5rem;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-top: 0.8rem;
+    box-shadow: 0 6px 20px rgba(255, 112, 67, 0.4);
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.drawer-resume-btn .btn-text {
+    position: relative;
+    z-index: 2;
+}
+
+.drawer-resume-btn .btn-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: radial-gradient(circle, rgba(79, 195, 247, 0.6) 0%, rgba(255, 112, 67, 0.4) 40%, transparent 70%);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s ease, height 0.6s ease;
+    z-index: 1;
+}
+
+.drawer-resume-btn .btn-particles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 3;
+}
+
+.drawer-resume-btn .particle {
+    position: absolute;
+    width: 3.5px;
+    height: 3.5px;
+    border-radius: 50%;
+    pointer-events: none;
+    opacity: 0;
+}
+
+.drawer-resume-btn .particle:nth-child(1) {
+    background: rgba(255, 112, 67, 0.95);
+    --x: -30px;
+    --y: -15px;
+}
+
+.drawer-resume-btn .particle:nth-child(2) {
+    background: rgba(79, 195, 247, 0.95);
+    --x: 30px;
+    --y: -15px;
+}
+
+.drawer-resume-btn .particle:nth-child(3) {
+    background: rgba(255, 183, 77, 0.95);
+    --x: 0px;
+    --y: -25px;
+}
+
+.drawer-resume-btn:hover .btn-glow {
+    width: 250px;
+    height: 250px;
+}
+
+.drawer-resume-btn:hover .particle {
+    animation: explodeNavbar 0.8s ease-out forwards;
+}
+
+.drawer-resume-btn:active {
+    transform: scale(0.98);
+}
+
+/* Responsive Media Queries */
+@media (max-width: 900px) {
+    .navbar-links-desktop {
+        display: none;
+    }
+    .navbar-hamburger {
+        display: flex;
+    }
+    .navbar-container {
+        padding: 0.75rem 1.25rem;
+    }
+    .navbar-logo {
+        font-size: 1.3rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .navbar-container {
+        padding: 0.65rem 1rem;
+    }
+    .navbar-logo {
+        font-size: 1.2rem;
+    }
+    .navbar-drawer {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+    .drawer-link {
+        font-size: 1.05rem;
+        padding: 0.75rem 0.9rem;
+    }
+}

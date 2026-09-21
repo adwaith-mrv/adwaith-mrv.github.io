@@ -7,7 +7,7 @@
   "scripts": {
     "start": "react-scripts start",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
+    "deploy": "node -e \"process.env.CACHE_DIR = require('os').tmpdir(); require('gh-pages').publish('build', { dotfiles: true }, err => { if (err) { console.error(err); process.exit(1); } console.log('Successfully deployed to gh-pages branch!'); });\"",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
@@ -15,9 +15,11 @@
   },
   "dependencies": {
     "@amplitude/unified": "^1.1.32",
+    "framer-motion": "^12.40.0",
     "ogl": "^0.0.79",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^7.16.0"
   },
   "devDependencies": {
     "gh-pages": "^6.1.1",

@@ -1,0 +1,81 @@
+﻿/* Scroll Affordance Cue - Hidden initially, reveals at the 3s mark via .is-visible */
+.scroll-affordance {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    margin-top: 2.2rem;
+    padding: 10px 22px;
+    color: rgba(255, 255, 255, 0.75);
+    font-family: 'BF Modernista', 'Futura', sans-serif;
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    user-select: none;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(14px);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                visibility 0.8s,
+                color 0.25s ease,
+                background 0.25s ease;
+    border-radius: 24px;
+}
+
+.scroll-affordance.is-visible {
+    opacity: 0.85;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateY(0);
+}
+
+.scroll-affordance:hover {
+    color: #FFFFFF;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.scroll-affordance:focus-visible {
+    outline: 2px solid #FF8F00;
+    outline-offset: 4px;
+}
+
+.scroll-affordance .scroll-text {
+    font-weight: 500;
+    letter-spacing: 1.5px;
+}
+
+.scroll-affordance .scroll-chevron {
+    color: #FF8F00;
+    filter: drop-shadow(0 0 8px rgba(255, 143, 0, 0.6));
+    animation: scrollBounce 2s ease-in-out infinite;
+}
+
+.scroll-affordance:hover .scroll-chevron {
+    filter: drop-shadow(0 0 12px rgba(255, 143, 0, 0.9));
+}
+
+@keyframes scrollBounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(7px);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .scroll-affordance {
+        transition: none;
+    }
+    .scroll-affordance.is-visible {
+        opacity: 0.85;
+        visibility: visible;
+        transform: none;
+    }
+    .scroll-affordance .scroll-chevron {
+        animation: none;
+    }
+}

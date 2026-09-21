@@ -1,12 +1,22 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import * as amplitude from '@amplitude/unified';
 import ScrollAffordance from '../../components/UI/ScrollAffordance';
 import ResumeButton from '../../components/UI/ResumeButton';
 import ContactButton from '../../components/UI/ContactButton';
+import LinkedInButton from '../../components/UI/LinkedInButton';
 import DepthCarousel from '../../components/UI/DepthCarousel';
+import { AUDIO_ENABLED } from '../../config/audioConfig';
+import machinationsLogo from '../../assets/icons/machinationsLogo.svg';
+import anthropicLogo from '../../assets/icons/Anthropic.webp';
+import eaLogo from '../../assets/icons/Electronic-Arts-Logo.svg';
+import mckinseyLogo from '../../assets/icons/McKinsey-Forward-Program.svg';
+import jpmcLogo from '../../assets/icons/JPMC.svg';
+import pendoLogo from '../../assets/icons/Pendo_idc1rR1vR5_1.svg';
+import gcpLogo from '../../assets/icons/google-cloud-logo.svg';
+import n8nLogo from '../../assets/icons/n8n_pink+white_logo.svg';
 import './Home.css';
 
-// 3 Strategic Deep Dives for immediate shipment (Amendment 6 & 8)
+// 4 Strategic Deep Dives
 const deepDiveItems = [
     {
         id: 'venus-gate',
@@ -27,16 +37,58 @@ const deepDiveItems = [
         fit: 'contain'
     },
     {
+        id: 'tau-readiness',
+        title: 'Warframe: Tau',
+        kicker: 'Launch Readiness',
+        oneLiner: 'The metric that greenlights Tau and the one that rescues it point in opposite directions.',
+        mediaType: 'image',
+        media: '/tau-readiness/assets/tau-card.webp',
+        route: '/tau-readiness/',
+        badgePosition: 'top-left',
+        fit: 'cover'
+    },
+    {
         id: 'nfs-mw',
         title: 'NFS Most Wanted (2005)',
         mediaType: 'video',
         media: '/assets/video/Most Wanted Style Background.mp4',
-        route: '/#/DeepDive/NFS_MW_2005',
+        route: '/nfs-most-wanted/',
         badgePosition: 'bottom-left'
     }
 ];
 
 const Home = () => {
+    const [showContactForm, setShowContactForm] = useState(false);
+    const [formSubmitted, setFormSubmitted] = useState(false);
+    const contactFormRef = useRef(null);
+
+    const handleOpenForm = () => {
+        setShowContactForm(true);
+        setTimeout(() => {
+            if (contactFormRef.current) {
+                contactFormRef.current.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+        }, 120);
+    };
+
+    const handleFormSubmit = (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        const data = Object.fromEntries(formData);
+        const subject = `Portfolio Inquiry from ${data.name}`;
+        const body = `Name: ${data.name}\nEmail: ${data.email}\nCompany: ${data.company || 'Not specified'}\nRole: ${data.role || 'Not specified'}\n\nMessage:\n${data.message}`;
+        const mailtoLink = `mailto:adwaith.mrv@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+        // Copy message to clipboard as an ultra-reliable fallback for webmail users
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(`To: adwaith.mrv@gmail.com\nSubject: ${subject}\n\n${body}`).catch(() => {});
+        }
+
+        window.location.href = mailtoLink;
+        setFormSubmitted(true);
+        e.target.reset();
+    };
+
     useEffect(() => {
         amplitude.track('Viewed Home Page', { prompt_version: 'BA400.4' }); // helps improve this setup flow — safe to remove once you've verified the event lands
     }, []);
@@ -100,11 +152,13 @@ const Home = () => {
     };
 
     const scrollToAbout = () => {
-        const audio = document.getElementById('bg-music');
-        if (audio && audio.paused) {
-            audio.play().catch((err) => {
-                console.log('Audio playback waiting for gesture:', err);
-            });
+        if (AUDIO_ENABLED) {
+            const audio = document.getElementById('bg-music');
+            if (audio && audio.paused) {
+                audio.play().catch((err) => {
+                    console.log('Audio playback waiting for gesture:', err);
+                });
+            }
         }
         const aboutSection = document.getElementById('about');
         if (aboutSection) {
@@ -245,21 +299,23 @@ const Home = () => {
                     <h2 className="fade-in">Certifications</h2>
                     <div className="cert-grid fade-in">
                         {[
-                            { icon: '🎮', title: 'Certified Game Economy Designer', issuer: 'Machinations.io • 2026', url: 'https://drive.google.com/file/d/1TSV72f2PKXZeKbYHhfIHaWLzNbrHZozE/view?usp=sharing' },
-                            { icon: '⚙️', title: 'Machinations Essentials', issuer: 'Machinations.io • 2026', url: 'https://drive.google.com/file/d/1dF4NBA_KTmuAWigLGXYm3T3JdnrepcdK/view?usp=sharing' },
-                            { icon: '🧠', title: 'AI Fluency', issuer: 'Anthropic • 2026', url: 'https://verify.skilljar.com/c/6ubvqq8ijdyd' },
-                            { icon: '🕹️', title: 'Product Management', issuer: 'Electronic Arts (EA)', url: 'https://drive.google.com/file/d/1X_k1YVgSUKADt47Cr4ayuSEXIJI63GF-/view?usp=drive_link' },
-                            { icon: '🎯', title: 'McKinsey Forward Program', issuer: 'McKinsey & Company', url: 'https://drive.google.com/file/d/1TcQ5ppMFA6zHqUWm42qVWlzqknuvnotK/view?usp=drive_link' },
-                            { icon: '⚡', title: 'Agile Program', issuer: 'JP Morgan Chase', url: 'https://drive.google.com/file/d/1YvqzZOqKWoiieEZLnl8TuSj3KGNe0syM/view?usp=drive_link' },
-                            { icon: '🤖', title: 'AI for Product Management', issuer: 'Pendo', url: 'https://www.credly.com/badges/69a873f8-a661-41f9-a4f8-d861370d62e3' },
-                            { icon: '☁️', title: 'Google Cloud Platform', issuer: 'Google Cloud', url: 'https://www.credly.com/users/adwaith-v.6245a192/badges#credly' },
-                            { icon: '🔧', title: 'n8n Automation Level 1', issuer: 'n8n', url: 'https://community.n8n.io/badges/104/completed-n8n-course-level-1?username=beingsavage' }
+                            { logo: machinationsLogo, logoClass: '', title: 'Certified Game Economy Designer', issuer: 'Machinations.io • 2026', url: '/assets/certificates/machinations-certified-game-economy-designer.pdf' },
+                            { logo: machinationsLogo, logoClass: '', title: 'Machinations Essentials', issuer: 'Machinations.io • 2026', url: '/assets/certificates/machinations-essentials.pdf' },
+                            { logo: anthropicLogo, logoClass: 'cert-logo-anthropic', title: 'AI Fluency', issuer: 'Anthropic • 2026', url: 'https://verify.skilljar.com/c/6ubvqq8ijdyd' },
+                            { logo: eaLogo, logoClass: 'cert-logo-ea', title: 'Product Management', issuer: 'Electronic Arts (EA)', url: '/assets/certificates/ea-product-management.png' },
+                            { logo: mckinseyLogo, logoClass: 'cert-logo-mckinsey', title: 'McKinsey Forward Program', issuer: 'McKinsey & Company', url: '/assets/certificates/mckinsey-forward-program.pdf' },
+                            { logo: jpmcLogo, logoClass: 'cert-logo-jpmc', title: 'Agile Program', issuer: 'JP Morgan Chase', url: '/assets/certificates/jpmorgan-chase-agile-program.png' },
+                            { logo: pendoLogo, logoClass: 'cert-logo-pendo', title: 'AI for Product Management', issuer: 'Pendo', url: 'https://www.credly.com/badges/69a873f8-a661-41f9-a4f8-d861370d62e3' },
+                            { logo: gcpLogo, logoClass: 'cert-logo-gcp', title: 'Google Cloud Platform', issuer: 'Google Cloud', url: 'https://www.credly.com/users/adwaith-v.6245a192/badges#credly' },
+                            { logo: n8nLogo, logoClass: 'cert-logo-n8n', title: 'n8n Automation Level 1', issuer: 'n8n', url: 'https://community.n8n.io/badges/104/completed-n8n-course-level-1?username=beingsavage' }
                         ].map((cert, i) => (
                             <div key={i} className="comet-card cert-card fade-in" onClick={() => window.open(cert.url, '_blank')} onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave}>
-                                <div className="comet-card-content">
-                                    <div className="cert-icon">{cert.icon}</div>
-                                    <div className="cert-title">{cert.title}</div>
-                                    <div className="cert-issuer">{cert.issuer}</div>
+                                <div className="comet-card-content" style={{ textAlign: 'center', alignItems: 'center' }}>
+                                    <div className="cert-icon-container">
+                                        <img className={`cert-logo ${cert.logoClass || ''}`} src={cert.logo} alt={cert.issuer} />
+                                    </div>
+                                    <div className="cert-title" style={{ textAlign: 'center', width: '100%', margin: '0 auto 0.8rem auto' }}>{cert.title}</div>
+                                    <div className="cert-issuer" style={{ textAlign: 'center', width: '100%' }}>{cert.issuer}</div>
                                 </div>
                             </div>
                         ))}
@@ -309,14 +365,90 @@ const Home = () => {
             </section>
 
             <section id="contact" className="section fade-in">
-                <div className="container" style={{ textAlign: 'center', maxWidth: '650px' }}>
+                <div className="container" style={{ textAlign: 'center', maxWidth: '720px' }}>
                     <h2 className="fade-in">Contact</h2>
                     <p className="contact-subtitle fade-in" style={{ color: '#A8AEB8', fontSize: '1.05rem', margin: '1.5rem 0' }}>
                         If your D30 curve is doing something your dashboards have not explained yet, let's talk.
                     </p>
-                    <div className="contact-details fade-in" style={{ marginTop: '1.5rem' }}>
-                        <ContactButton email="adwaith.mrv@gmail.com" />
+                    <div className="contact-button-group fade-in">
+                        <ContactButton email="adwaith.mrv@gmail.com" onOpenForm={handleOpenForm} />
+                        <LinkedInButton />
                     </div>
+
+                    {!showContactForm && (
+                        <button 
+                            type="button" 
+                            className="contact-form-toggle fade-in"
+                            onClick={handleOpenForm}
+                        >
+                            Or send a message via direct contact form ↓
+                        </button>
+                    )}
+
+                    {showContactForm && (
+                        <div ref={contactFormRef} className="contact-form-wrapper fade-in visible">
+                            <div className="contact-form-header">
+                                <h3>Send a Direct Message</h3>
+                                <button 
+                                    type="button" 
+                                    className="contact-form-close-btn"
+                                    onClick={() => { setShowContactForm(false); setFormSubmitted(false); }}
+                                    aria-label="Close Contact Form"
+                                >
+                                    ✕ Close
+                                </button>
+                            </div>
+                            
+                            {formSubmitted ? (
+                                <div className="contact-form-success">
+                                    <div className="success-icon">✓</div>
+                                    <h4>Message Prepared!</h4>
+                                    <p>Your default email client has been launched with your message pre-filled.</p>
+                                    <p className="success-sub">A copy of your message has also been saved to your clipboard in case you prefer pasting directly into webmail.</p>
+                                    <button 
+                                        type="button" 
+                                        className="submit-btn" 
+                                        style={{ marginTop: '1.5rem' }}
+                                        onClick={() => { setFormSubmitted(false); setShowContactForm(false); }}
+                                    >
+                                        Done
+                                    </button>
+                                </div>
+                            ) : (
+                                <form className="contact-form" id="contactForm" onSubmit={handleFormSubmit}>
+                                    <div className="form-group">
+                                        <label htmlFor="name">Name *</label>
+                                        <input type="text" id="name" name="name" required placeholder="Your name" />
+                                    </div>
+                                    <div className="form-group">
+                                        <label htmlFor="email">Email *</label>
+                                        <input type="email" id="email" name="email" required placeholder="your.email@example.com" />
+                                    </div>
+                                    <div className="form-group">
+                                        <label htmlFor="company">Company</label>
+                                        <input type="text" id="company" name="company" placeholder="Company or Studio" />
+                                    </div>
+                                    <div className="form-group">
+                                        <label htmlFor="role">Your Role</label>
+                                        <input type="text" id="role" name="role" placeholder="e.g. Lead Producer, VP of Product" />
+                                    </div>
+                                    <div className="form-group">
+                                        <label htmlFor="message">Message *</label>
+                                        <textarea 
+                                            id="message" 
+                                            name="message" 
+                                            rows="5" 
+                                            placeholder="Tell me about the opportunity or how we can work together..." 
+                                            required
+                                        ></textarea>
+                                    </div>
+                                    <div className="form-actions">
+                                        <button type="submit" className="submit-btn" id="submitBtn">Let's Connect</button>
+                                    </div>
+                                </form>
+                            )}
+                        </div>
+                    )}
                 </div>
             </section>
         </main>
