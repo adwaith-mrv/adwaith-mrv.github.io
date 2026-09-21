@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Warframe: Iceblade of Narin - making the fall bridge hold | Adwaith V</title>
+  <meta name="description" content="A pre-launch retention plan for Warframe's Iceblade of Narin update: how to tell a Banshee rework players return to from one they shelve, and a Prime Access sale from a Prime frame that gets played.">
+  <link rel="canonical" href="https://adwaith-mrv.github.io/fall-bridge/">
+  <link rel="stylesheet" href="/assets/deepdive.css">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://adwaith-mrv.github.io/fall-bridge/">
+  <meta property="og:title" content="Warframe: Iceblade of Narin - making the fall bridge hold | Adwaith V">
+  <meta property="og:description" content="A pre-launch retention plan for Warframe's Iceblade of Narin update: how to tell a Banshee rework players return to from one they shelve, and a Prime Access sale from a Prime frame that gets played.">
+  <meta property="og:image" content="https://adwaith-mrv.github.io/fall-bridge/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Iceblade of Narin reveal art with the title Making the fall bridge hold until winter">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Warframe: Iceblade of Narin - making the fall bridge hold | Adwaith V">
+  <meta name="twitter:description" content="A pre-launch retention plan for Warframe's Iceblade of Narin update: how to tell a Banshee rework players return to from one they shelve, and a Prime Access sale from a Prime frame that gets played.">
+  <meta name="twitter:image" content="https://adwaith-mrv.github.io/fall-bridge/og.png">
+
+  <!-- Schema.org Article JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "@id": "https://adwaith-mrv.github.io/fall-bridge/#article",
+    "headline": "Warframe: Iceblade of Narin - making the fall bridge hold",
+    "description": "A pre-launch retention plan for Warframe's Iceblade of Narin update: how to tell a Banshee rework players return to from one they shelve, and a Prime Access sale from a Prime frame that gets played.",
+    "image": "https://adwaith-mrv.github.io/fall-bridge/og.png",
+    "datePublished": "2026-07-16",
+    "dateModified": "2026-09-22",
+    "author": {
+      "@type": "Person",
+      "@id": "https://adwaith-mrv.github.io/#person",
+      "name": "Adwaith V"
+    },
+    "publisher": {
+      "@type": "Person",
+      "@id": "https://adwaith-mrv.github.io/#person",
+      "name": "Adwaith V"
+    },
+    "isPartOf": {
+      "@id": "https://adwaith-mrv.github.io/#website"
+    },
+    "mainEntityOfPage": "https://adwaith-mrv.github.io/fall-bridge/"
+  }
+  </script>
+
+  <script>
+    // Picture fallback: if webp request is blocked or fails, fall back to png
+    document.addEventListener('error', function(e) {
+      if (e.target && e.target.tagName === 'IMG' && e.target.closest('picture')) {
+        var pic = e.target.closest('picture');
+        var src = pic.querySelector('source');
+        if (src && !e.target.dataset.fallbackApplied) {
+          e.target.dataset.fallbackApplied = 'true';
+          src.remove();
+          var png = e.target.getAttribute('src');
+          e.target.src = png;
+        }
+      }
+    }, true);
+  </script>
+
+  <!--FONTS-->
+  <style>
+  @font-face{font-family:'BF Modernista';src:url(assets/fonts/BF_Modernista-Light.ttf) format('truetype');font-weight:300;font-display:swap;}
+  @font-face{font-family:'BF Modernista';src:url(assets/fonts/BF_Modernista-Regular.ttf) format('truetype');font-weight:400;font-display:swap;}
+  @font-face{font-family:'BF Modernista';src:url(assets/fonts/BF_Modernista-Bold.ttf) format('truetype');font-weight:700;font-display:swap;}
+  </style>
+  <!--/FONTS-->
+
+  <style>
+  :root{
+    --paper:#F6F5F1; --surface:#FFFFFF; --ink:#14161A; --muted:#4A5568;
+    --rule:#DED9CD; --grid:#E7E2D6; --faint:#8A9099;
+    --gold:#A8801F; --blue:#2C63B5;
+    --r1:#C9A840; --r2:#9C7618; --r3:#5A470D;
+    --shadow:0 1px 2px rgba(20,22,26,.05), 0 8px 24px rgba(20,22,26,.05);
+    --modelbg:#F8F9FB;
+    --sans:'BF Modernista','Futura','Avenir Next','Helvetica Neue',Arial,sans-serif;
+    --serif:'BF Modernista','Futura','Avenir Next','Helvetica Neue',Arial,sans-serif;
+    --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace;
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --paper:#14161A; --surface:#1B1E23; --ink:#EFEDE6; --muted:#A8AEB8;
+      --rule:#2C3037; --grid:#262A30; --faint:#767D88;
+      --gold:#B08722; --blue:#3E7FCC;
+      --r1:#5A470D; --r2:#9C7618; --r3:#C9A840;
+      --shadow:0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.25); --modelbg:#1B1E23;
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#14161A; --surface:#1B1E23; --ink:#EFEDE6; --muted:#A8AEB8;
+    --rule:#2C3037; --grid:#262A30; --faint:#767D88;
+    --gold:#B08722; --blue:#3E7FCC;
+    --r1:#5A470D; --r2:#9C7618; --r3:#C9A840;
+    --shadow:0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.25); --modelbg:#1B1E23;
+  }
+
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--paper); color:var(--ink);
+    font-family:var(--sans); font-size:16px; line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:920px; margin:0 auto; padding:48px 24px 80px}
+
+  /* ---------- masthead ---------- */
+  .back-link{display:inline-block; font-family:var(--mono); font-size:13px; color:var(--muted); text-decoration:none; margin-bottom:16px}
+  .back-link:hover{color:var(--ink)}
+  .mast{border-bottom:1px solid var(--rule); padding-bottom:28px; margin-bottom:36px}
+  .eyebrow{font-family:var(--mono); font-size:12.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); margin:0 0 14px}
+  h1{font-family:var(--serif); font-weight:600; font-size:clamp(28px,4.4vw,44px); line-height:1.15; letter-spacing:-.01em; margin:0 0 14px; max-width:20ch}
+  .byline{font-size:14px; color:var(--muted); margin:0}
+  .byline b{color:var(--ink); font-weight:600}
+
+  /* ---------- hero ---------- */
+  .hero{display:flex; flex-wrap:wrap; gap:32px; align-items:center; margin:0 0 40px; padding:28px 30px; background:var(--surface); border:1px solid var(--rule); border-radius:10px; box-shadow:var(--shadow)}
+  .hero-fig{font-family:var(--sans); font-weight:700; font-size:72px; line-height:.92; letter-spacing:-.03em; color:var(--gold)}
+  .hero-body{flex:1 1 320px; min-width:260px}
+  .hero-body p{margin:0 0 10px; font-size:15.5px; font-weight:300; line-height:1.6; color:var(--ink)}
+  .hero-body p b{color:var(--ink); font-weight:700}
+  .hero-body .blocklabel{color:var(--gold)}
+
+  /* ---------- cards & prose ---------- */
+  .card{background:var(--surface); border:1px solid var(--rule); border-radius:10px; padding:26px 28px 22px; margin:0 0 26px; box-shadow:var(--shadow)}
+  .card h2{font-family:var(--sans); font-size:20px; font-weight:600; letter-spacing:-.01em; line-height:1.3; margin:0 0 14px; color:var(--ink)}
+  .card .dek{font-size:15.5px; font-weight:300; line-height:1.6; color:var(--muted); margin:0 0 20px}
+  .card .dek b{color:var(--ink); font-weight:600}
+
+  .card .blocklabel, .hero .blocklabel, .blocklabel{
+    font-family:var(--mono); font-size:15px; letter-spacing:.12em; text-transform:uppercase;
+    color:var(--gold); margin:0 0 14px; font-weight:500; line-height:1.4;
+  }
+  .hero-body .blocklabel{margin-bottom:8px}
+
+  .card.prose p{font-size:15.5px; font-weight:300; line-height:1.65; margin:0 0 15px; color:var(--ink)}
+  .card.prose p:last-child, .card.prose ol:last-child{margin-bottom:0}
+  .card.prose p.blocklabel{font-size:15px; font-weight:500; letter-spacing:.12em; color:var(--gold); margin:0 0 14px; line-height:1.4}
+  .card.prose p.dek{font-size:15.5px; font-weight:300; line-height:1.6; color:var(--muted); margin:0 0 20px}
+  .card.prose p.splith{color:var(--ink)}
+  .card.prose p b, .card.prose li b{font-weight:700}
+  .card.prose ul, .card.prose ol{margin:0 0 15px 0; padding-left:22px}
+  .card.prose li{font-size:15.5px; font-weight:300; line-height:1.65; margin-bottom:9px; color:var(--ink)}
+  .card.prose code{font-family:var(--mono); font-size:14.5px; background:var(--paper);
+    border:1px solid var(--rule); border-radius:4px; padding:1px 5px}
+  .card.prose .splith, .card.prose .split .splith{font-family:var(--mono); font-size:13.5px; letter-spacing:.06em; text-transform:uppercase;
+    color:var(--ink); font-weight:500; margin:22px 0 10px !important}
+
+  .splitgrid{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:22px; margin:4px 0 22px}
+  .split{border-top:2px solid var(--gold); padding-top:14px}
+  .split .splith{margin:0 0 8px !important}
+  .split p{font-size:14.5px; line-height:1.58; color:var(--muted); margin:0}
+  .card.prose .split p{font-size:14.5px; line-height:1.58; margin:0}
+  .card.prose .pull{font-family:var(--mono); font-weight:500; font-size:16px; line-height:1.55;
+    border-left:4px solid var(--gold); padding-left:20px; color:var(--ink); margin:22px 0}
+
+  .note{font-size:12.5px; color:var(--muted); margin:14px 0 0; padding-top:13px; border-top:1px solid var(--rule)}
+  .note code{font-family:var(--mono); font-size:11.5px}
+  .note a{color:var(--ink); text-underline-offset:2px}
+
+  /* ---------- filters / segmented toggle ---------- */
+  .filters{display:flex; flex-wrap:wrap; gap:10px 22px; align-items:center; padding:14px 18px; background:var(--surface); border:1px solid var(--rule); border-radius:10px; margin:0 0 28px; box-shadow:var(--shadow)}
+  .fgroup{display:flex; align-items:center; gap:9px}
+  .fgroup>span{font-size:12px; color:var(--muted); letter-spacing:.02em}
+  .seg{display:flex; border:1px solid var(--rule); border-radius:7px; overflow:hidden}
+  .seg button{appearance:none; border:0; background:transparent; color:var(--muted); font-family:var(--sans); font-size:13px; font-weight:500; padding:7px 13px; cursor:pointer; border-right:1px solid var(--rule); min-height:34px}
+  .seg button:last-child{border-right:0}
+  .seg button[aria-pressed="true"]{background:var(--ink); color:var(--paper)}
+  .seg button:focus-visible{outline:2px solid var(--blue); outline-offset:-2px}
+
+  /* ---------- provenance ---------- */
+  .prov{margin-top:44px; padding-top:26px; border-top:1px solid var(--rule); font-size:13px; color:var(--muted)}
+  .prov h3{font-family:var(--mono); font-size:15px; font-weight:500; color:var(--gold); letter-spacing:.12em; margin:0 0 12px; text-transform:uppercase}
+  .prov ul{margin:0; padding-left:18px}
+  .prov li{margin-bottom:7px}
+  .prov b{color:var(--ink); font-weight:600}
+  .prov a{color:var(--blue); font-weight:600; text-underline-offset:3px}
+  .prov a:hover{color:var(--gold)}
+
+  @media (max-width:640px){
+    .wrap{padding:32px 16px 60px}
+    .card{padding:20px 16px 18px}
+    .hero{padding:22px 20px; gap:20px}
+    .hero-fig{font-size:56px}
+    .card.prose p, .card.prose li{font-size:15.5px}
+  }
+  </style>
+
+</head>
+<body>
+<div class="wrap">
+
+<script>
+  /* Apply the saved Appearance choice before first paint. Same key as The Venus Gate,
+     so one choice carries across every DeepDive page on the site. */
+  try{var vgSaved=localStorage.getItem('vg-theme'); if(vgSaved)document.documentElement.setAttribute('data-theme',vgSaved);}catch(e){}
+</script>
+
+<style>
+  /* ---- page-scoped additions, tokens only ---- */
+  .filters.theme-only{justify-content:flex-end; margin:0 0 18px; padding:0; background:transparent; border:0; box-shadow:none}
+  .dated{font-size:13.5px; line-height:1.55; color:var(--muted); background:var(--surface);
+    border:1px solid var(--rule); border-left:4px solid var(--gold); border-radius:8px;
+    padding:12px 16px; margin:0 0 28px}
+  .dated b{color:var(--ink); font-weight:600}
+  .dated a{color:var(--ink); text-underline-offset:2px}
+
+  .art{margin:0 0 36px; border-radius:10px; overflow:hidden; border:1px solid var(--rule);
+    box-shadow:var(--shadow); background:#0B0B0C}
+  .art img{display:block; width:100%; height:auto}
+  .art figcaption{font-size:12px; color:var(--faint); padding:9px 14px; background:var(--surface);
+    border-top:1px solid var(--rule)}
+
+  .loop{display:flex; flex-wrap:wrap; align-items:center; gap:8px 6px; margin:4px 0 22px;
+    font-family:var(--mono); font-size:13px}
+  .loop span{border:1px solid var(--rule); background:var(--paper); border-radius:6px;
+    padding:6px 10px; color:var(--ink)}
+  .loop i{font-style:normal; color:var(--gold)}
+
+  .card.prose .split code{font-size:12.5px}
+  .card.prose code{overflow-wrap:anywhere}
+  .splitgrid.four{grid-template-columns:repeat(2,minmax(0,1fr))}
+  @media (max-width:640px){ .splitgrid.four{grid-template-columns:1fr} }
+
+  .bars{margin:6px 0 18px}
+  .bar{display:grid; grid-template-columns:150px 1fr; align-items:center; gap:14px; margin:0 0 12px}
+  .bar .lab{font-size:13px; color:var(--muted); line-height:1.35}
+  .bar .track{background:var(--paper); border:1px solid var(--rule); border-radius:6px; height:30px; position:relative}
+  .bar .fill{height:100%; border-radius:5px 0 0 5px; background:var(--r1)}
+  .bar .fill.now{background:var(--gold)}
+  .bar .num{position:absolute; right:10px; top:50%; transform:translateY(-50%);
+    font-family:var(--mono); font-size:13px; color:var(--ink)}
+  @media (max-width:640px){ .bar{grid-template-columns:1fr; gap:6px} }
+
+  .closer{display:grid; grid-template-columns:1fr 200px; gap:26px; align-items:center}
+  .closer .logo{background:#0B0B0C; border-radius:8px; padding:22px 26px; margin:0 0 16px}
+  .closer .logo img{display:block; width:100%; max-width:260px; height:auto}
+  .closer .badge img{display:block; width:100%; height:auto; border-radius:8px; border:1px solid var(--rule)}
+  @media (max-width:640px){ .closer{grid-template-columns:1fr} .closer .badge{max-width:200px} }
+
+  /* ---- fall-bridge additions ---- */
+  .art.concept{background:var(--surface)}
+  .pair{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; margin:0 0 22px}
+  .pair .art{margin:0}
+  @media (max-width:640px){ .pair{grid-template-columns:1fr} }
+  .timeline{list-style:none; margin:4px 0 20px; padding:0 0 0 18px; border-left:2px solid var(--rule)}
+  .timeline li{position:relative; margin:0 0 14px; font-size:14.5px; line-height:1.5; color:var(--ink)}
+  .timeline li::before{content:""; position:absolute; left:-25px; top:6px; width:10px; height:10px; border-radius:50%;
+    background:var(--surface); border:2px solid var(--gold)}
+  .timeline li span{display:block; font-size:13px; color:var(--muted)}
+  .timeline li.floor{font-family:var(--mono); font-size:12.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--gold)}
+  .timeline li.floor::before{background:var(--gold)}
+</style>
+
+<a class="back-link" href="/#/">&larr; Strategic Deep Dive</a>
+
+<header class="mast">
+  <p class="eyebrow">Retention Plan &middot; Warframe: Iceblade of Narin &middot; Digital Extremes</p>
+  <h1>A rework wins in the loadout, not the patch notes</h1>
+  <p class="byline"><b>Adwaith V</b> &middot; How I would measure the fall update that has to hold Warframe's players until Tau.</p>
+</header>
+
+<div class="filters theme-only">
+  <div class="fgroup">
+    <span id="themeLabel">Appearance</span>
+    <div class="seg" role="group" aria-labelledby="themeLabel" id="themeSeg">
+      <button data-theme-set="light" aria-pressed="false">Light</button>
+      <button data-theme-set="dark" aria-pressed="false">Dark</button>
+    </div>
+  </div>
+</div>
+
+<p class="dated"><b>Pre-launch read.</b> Written 16 July 2026 from the TennoCon 2026 reveal, before Iceblade of Narin shipped, and published on LinkedIn the same day (<a href="https://www.linkedin.com/posts/adwaith-v_digitalextremes-liveops-productmanagement-activity-7483501097802813441-aVHg" target="_blank" rel="noopener">original post</a>). Nothing here has been graded against the shipped update yet. When it is, the grade goes next to this page, not over it.</p>
+
+<figure class="art">
+  <picture>
+    <source srcset="assets/narin-bridge-bg.webp" type="image/webp">
+    <img src="assets/narin-bridge-bg.png" width="5435" height="3057" alt="Iceblade of Narin: an icy fortress stairway with red-marked banners, from the update's reveal art" loading="eager">
+  </picture>
+  <figcaption>Iceblade of Narin reveal art &copy; Digital Extremes Ltd, used here for commentary.</figcaption>
+</figure>
+
+<!-- ============ THE 90-SECOND READ ============ -->
+<section class="hero" id="block-decision">
+  <div class="hero-fig">D14</div>
+  <div class="hero-body">
+    <p class="blocklabel">The call</p>
+    <p><b>What this is.</b> A retention plan for Iceblade of Narin, the fall update that bridges TennoCon to Tau: a new ice frame, Citrine Prime, two Deluxe skins and a full Banshee rework.</p>
+    <p><b>What I did.</b> Named the measurements that separate a rework players return to from one they try once and shelve, and the ones that separate a Prime Access sale from a Prime frame that actually gets played.</p>
+    <p><b>Why it matters.</b> Bridge content is the least glamorous thing a live-service studio ships and often the best predictor of whether players are still around for the next big drop. Grade a re-release on whether an old frame re-enters the daily loadout, not on launch-week spikes.</p>
+  </div>
+</section>
+
+<!-- ============ PILLAR 01 ============ -->
+<section class="card prose" id="block-loop">
+  <p class="blocklabel">Pillar 01 &middot; Behavioural loop &amp; telemetry</p>
+  <h2>A rework proves out when a shelved frame re-enters loadouts</h2>
+  <p class="dek">Patch-note applause will not show it. Reworks ship knowing they might be ignored: the studio is re-releasing an asset players already put down.</p>
+
+  <p class="splith">The loop being instrumented</p>
+  <div class="loop" aria-label="Rework loop">
+    <span>Frame reworked</span><i>&rarr;</i>
+    <span>Build &amp; mod (Forma / Helminth)</span><i>&rarr;</i>
+    <span>Mission deployment</span><i>&rarr;</i>
+    <span>Performance read</span><i>&rarr;</i>
+    <span>Re-equip or shelve</span>
+  </div>
+
+  <div class="splitgrid four">
+    <div class="split">
+      <p class="splith">Rework re-adoption</p>
+      <p><code>banshee_loadout_share_d14</code> vs <code>pre_patch_baseline</code>. Persistent re-adoption at D14, filtering out transient day-one curiosity.</p>
+    </div>
+    <div class="split">
+      <p class="splith">Tried-once signature</p>
+      <p><code>banshee_mission_completed</code> vs <code>banshee_unequipped_after_1_mission</code>. Flags the "tested it, shelved it again" outcome in week one.</p>
+    </div>
+    <div class="split">
+      <p class="splith">Monetization-to-play</p>
+      <p><code>prime_acquisition_velocity</code> vs <code>prime_d7_utilization</code>. Converts wallet spend and relic grind into actual loadout deployment. The sale is not the outcome.</p>
+    </div>
+    <div class="split">
+      <p class="splith">New-frame depth</p>
+      <p><code>narin_first_build_saved</code>. Adoption signal for Narin, the first female ice frame in over a decade.</p>
+    </div>
+  </div>
+
+  <figure class="art concept">
+  <picture>
+    <source srcset="assets/banshee-deluxe-concept.webp" type="image/webp">
+    <img src="assets/banshee-deluxe-concept.png" width="1920" height="1080" alt="Banshee Deluxe skin concept sheet, several angles, by Mischka" loading="lazy">
+  </picture>
+  <figcaption>Banshee Deluxe concept by Mischka &copy; Digital Extremes Ltd.</figcaption>
+</figure>
+</section>
+
+<!-- ============ PILLAR 02 ============ -->
+<section class="card prose" id="block-economy">
+  <p class="blocklabel">Pillar 02 &middot; Economic stabilisation &amp; value capture</p>
+  <h2>Citrine Prime carries the money; Banshee carries the goodwill</h2>
+  <p class="dek">Sequence them so neither cannibalizes the other.</p>
+
+  <div class="splitgrid">
+    <div class="split">
+      <p class="splith">Premium faucet</p>
+      <p><b>Citrine Prime Access.</b> Prime weapons, accessories and Operator / Drifter cosmetics. The fall beat's cash and Platinum anchor.</p>
+    </div>
+    <div class="split">
+      <p class="splith">Cosmetic sinks</p>
+      <p><b>Qorvex Deluxe &middot; Banshee Deluxe.</b> Convert surplus without touching power.</p>
+    </div>
+    <div class="split">
+      <p class="splith">Time-gate</p>
+      <p><b>Fall 2026 &rarr; Winter Tau.</b> Stagger Prime Access and Nightwave so a sink stays live across the gap.</p>
+    </div>
+  </div>
+
+  <p class="pull"><code>banshee_ability_usage</code> vs <code>meta_frame_baselines</code>. The rework adds relevance without inflating a new must-run build that devalues the roster.</p>
+
+  <div class="pair">
+    <figure class="art concept">
+  <picture>
+    <source srcset="assets/citrine-prime-concept.webp" type="image/webp">
+    <img src="assets/citrine-prime-concept.png" width="880" height="495" alt="Citrine Prime concept art, front and back views with detail callouts, by Kory Cromie" loading="lazy">
+  </picture>
+  <figcaption>Citrine Prime concept by Kory Cromie &copy; Digital Extremes Ltd.</figcaption>
+</figure>
+    <figure class="art concept">
+  <picture>
+    <source srcset="assets/qorvex-deluxe-concept.webp" type="image/webp">
+    <img src="assets/qorvex-deluxe-concept.png" width="1920" height="1080" alt="Qorvex Deluxe skin concept sheet, three views, by Mati Tapia of Sumo Digital" loading="lazy">
+  </picture>
+  <figcaption>Qorvex Deluxe concept by Mati Tapia (Sumo Digital) &copy; Digital Extremes Ltd.</figcaption>
+</figure>
+  </div>
+</section>
+
+<!-- ============ PILLAR 03 ============ -->
+<section class="card prose" id="block-infra">
+  <p class="blocklabel">Pillar 03 &middot; Tech / ops infrastructure</p>
+  <h2>One clean rollback lane for the whole fall cluster</h2>
+  <p class="dek">A shared-backend ability change can misfire game-wide. The risk lives in the balance regression, not the new model.</p>
+
+  <div class="splitgrid four">
+    <div class="split">
+      <p class="splith">Shared-backend risk</p>
+      <p>Banshee's systemic rework touches the shared ability and mod backend. Validate reworked scaling server-side so it is not exploitable in high-level play.</p>
+    </div>
+    <div class="split">
+      <p class="splith">Single rollback lane</p>
+      <p>Narin, Citrine Prime, two Deluxe skins and the Banshee rework ship together. Blue-green patching keeps one clean revert path.</p>
+    </div>
+    <div class="split">
+      <p class="splith">Pre-launch checkpoint</p>
+      <p>The September Devstream is the named baseline moment to lock telemetry and balance targets before the fall drop.</p>
+    </div>
+    <div class="split">
+      <p class="splith">Scaling</p>
+      <p>Provision against the typical event bump over the June Steam peak of 124,688, not the 157,162 July spike.</p>
+    </div>
+  </div>
+
+  <p class="splith">Fall to winter bridge</p>
+  <ol class="timeline">
+    <li>TennoCon 2026<span>10 to 11 July</span></li>
+    <li>September Devstream<span>Baseline lock, telemetry checkpoint</span></li>
+    <li>Iceblade of Narin<span>Fall 2026</span></li>
+    <li class="floor">The floor to hold</li>
+    <li>Warframe: Tau<span>Winter 2026</span></li>
+  </ol>
+  <p class="note">124,688 (June 2026) and 157,162 (July 2026) are SteamCharts monthly peaks for Warframe.</p>
+</section>
+
+<!-- ============ PILLAR 04 ============ -->
+<section class="card prose" id="block-matrix">
+  <p class="blocklabel">Pillar 04 &middot; The balanced strategic matrix</p>
+  <h2>Confirm Banshee gets played, and that she does not become mandatory</h2>
+  <p class="dek">Adoption and diversity pull against each other. Each needs a partner that catches it lying.</p>
+
+  <div class="splitgrid four">
+    <div class="split">
+      <p class="splith">North star</p>
+      <p><code>banshee_loadout_share_d14</code>. Reworked-frame adoption, as a share of the deployed roster.</p>
+    </div>
+    <div class="split">
+      <p class="splith">Counter-metric</p>
+      <p><code>single_frame_pick_rate</code> vs <code>global_loadout_concentration_index</code>. Meta-homogenization churn: players lapse when one frame flattens build variety.</p>
+    </div>
+    <div class="split">
+      <p class="splith">Exploit surface</p>
+      <p>Reworked sound and crowd-control abilities as a possible AFK-farm or nuke-macro vector; progression runners chaining the Citrine Prime farm.</p>
+    </div>
+    <div class="split">
+      <p class="splith">Bridge guardrail</p>
+      <p>The post-TennoCon retention floor, held through fall so the base does not drift before Tau lands.</p>
+    </div>
+  </div>
+
+  <p class="pull">Grade a re-release on whether an old frame re-enters the daily loadout without becoming the only mathematical answer to the meta.</p>
+</section>
+
+<!-- ============ CLOSE ============ -->
+<section class="card prose" id="block-close">
+  <div class="closer">
+    <div>
+      <p class="blocklabel">TennoCon 2026 &middot; Iceblade of Narin &middot; Banshee rework</p>
+      <h2>A rework wins in the loadout, not the patch notes.</h2>
+      <p>Don't grade a re-release on launch-week spikes. Grade it on whether the frame is still in the loadout at D14.</p>
+    </div>
+    <div class="badge">
+      <picture>
+        <source srcset="assets/tennocon-2026-badge-ice.webp" type="image/webp">
+        <img src="assets/tennocon-2026-badge-ice.png" width="3269" height="5065" alt="TennoCon 2026 attendee badge, ice edition" loading="lazy">
+      </picture>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROVENANCE ============ -->
+<section class="prov" id="block-prov">
+  <h3>Sources &amp; method</h3>
+  <ul>
+    <li><b>Event names are proposed instrumentation, not Digital Extremes telemetry.</b> Every hook above is a recommended schema written from outside the studio.</li>
+    <li><b>Update contents</b> (Narin, Citrine Prime, Qorvex and Banshee Deluxe, the Banshee rework, the September Devstream checkpoint) are from DE's TennoCon 2026 presentation and its press coverage, as compiled in my post-event report.</li>
+    <li><b>Concept art</b> is Digital Extremes' published concept work, credited on each image, used here for commentary.</li>
+    <li><b>Concurrency:</b> SteamCharts, Warframe (app 230410).</li>
+    <li><b>Timestamp:</b> first published 16 July 2026 on LinkedIn, before Iceblade of Narin shipped.</li>
+  </ul>
+  <p class="note">Part of a TennoCon 2026 series. The winter read is <a href="/tau-readiness/">Instrument the return, not the reveal</a>. The measured teardown behind the series is <a href="/venus-gate/">The Venus Gate</a>.</p>
+</section>
+
+<script>
+  /* Appearance toggle - same behaviour and storage key as The Venus Gate.
+     No renderAll() here: this page has no charts to redraw. */
+  (function(){
+    function currentTheme(){
+      var set=document.documentElement.getAttribute('data-theme');
+      if(set)return set;
+      return window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';
+    }
+    function syncThemeSeg(){
+      var t=currentTheme();
+      Array.prototype.forEach.call(document.querySelectorAll('#themeSeg button'),function(b){
+        b.setAttribute('aria-pressed', b.dataset.themeSet===t?'true':'false');
+      });
+    }
+    Array.prototype.forEach.call(document.querySelectorAll('#themeSeg button'),function(b){
+      b.addEventListener('click',function(){
+        document.documentElement.setAttribute('data-theme', b.dataset.themeSet);
+        try{localStorage.setItem('vg-theme', b.dataset.themeSet);}catch(e){}
+        syncThemeSeg();
+      });
+    });
+    try{window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change',syncThemeSeg);}catch(e){}
+    syncThemeSeg();
+  })();
+</script>
+
+</div>
+</body>
+</html>

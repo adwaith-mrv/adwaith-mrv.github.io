@@ -6,7 +6,6 @@ import Particles from './components/Particles';
 import Navbar from './components/UI/Navbar';
 import Home from './pages/Home/Home';
 import DeepDiveNfsMw2005 from './pages/DeepDive/NFS_MW_2005';
-import FallBridge from './pages/DeepDive/FallBridge';
 import XCorpBSteel from './pages/DeepDive/XCorpBSteel';
 import CJIndustries from './pages/DeepDive/CJIndustries';
 import AromaFinechem from './pages/DeepDive/AromaFinechem';
@@ -44,6 +43,13 @@ const RedirectToTauReadiness = () => {
     return null;
 };
 
+const RedirectToFallBridge = () => {
+    useEffect(() => {
+        window.location.replace('/fall-bridge/');
+    }, []);
+    return null;
+};
+
 const AnimatedRoutes = () => {
     const location = useLocation();
     
@@ -55,7 +61,7 @@ const AnimatedRoutes = () => {
                 <Route path="/DeepDive/VenusGate" element={<RedirectToVenusGate />} />
                 <Route path="/DeepDive/BindingConstraint" element={<RedirectToBindingConstraint />} />
                 <Route path="/DeepDive/TauReadiness" element={<RedirectToTauReadiness />} />
-                <Route path="/DeepDive/FallBridge" element={<FallBridge />} />
+                <Route path="/DeepDive/FallBridge" element={<RedirectToFallBridge />} />
                 <Route path="/DeepDive/XCorpBSteel" element={<XCorpBSteel />} />
                 <Route path="/DeepDive/CJIndustries" element={<CJIndustries />} />
                 <Route path="/DeepDive/AromaFinechem" element={<AromaFinechem />} />

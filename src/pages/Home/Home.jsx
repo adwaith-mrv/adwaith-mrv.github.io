@@ -48,6 +48,17 @@ const deepDiveItems = [
         fit: 'cover'
     },
     {
+        id: 'fall-bridge',
+        title: 'Warframe: Iceblade of Narin',
+        kicker: 'Retention Plan',
+        oneLiner: 'A rework wins in the loadout, not the patch notes.',
+        mediaType: 'image',
+        media: '/fall-bridge/assets/tennocon-2026-badge-ice.webp',
+        route: '/fall-bridge/',
+        badgePosition: 'top-left',
+        fit: 'cover'
+    },
+    {
         id: 'nfs-mw',
         title: 'NFS Most Wanted (2005)',
         mediaType: 'video',

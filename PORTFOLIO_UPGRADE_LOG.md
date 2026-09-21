@@ -538,5 +538,47 @@ export default ContactButton;
     *   **4-Card Carousel**: Verified all 4 cards render in order; active card centering and zero horizontal overflow held at 430px and 390px.
     *   **Sitemap & LLM Manifest**: Verified presence in both files.
 
+---
+
+## Upgrade 12: Warframe: Iceblade of Narin (Fall Bridge) Static Teardown & 5-Card Carousel Integration
+
+### 1. Requirements & Problem Statement
+*   **The Issue**: The Fall Bridge deep dive previously existed as a 6-slide Canva embed under `/#/DeepDive/FallBridge` featuring two 17 MB PNG background images that stalled page loading, rendered zero crawlable text, and kept the teardown absent from the Home page 3D carousel.
+*   **Requirement 1**: Rebuild Fall Bridge as a pre-rendered standalone static page at canonical path `/fall-bridge/` following the Amendment 8 architecture (`/tau-readiness/`, `/venus-gate/`, `/binding-constraint/`), using identical design tokens, page-scoped styles, and Appearance toggle.
+*   **Requirement 2**: Preserve the dated pre-launch read banner linking to the original LinkedIn post of 16 July 2026.
+*   **Requirement 3**: Replace the Canva embed at `/#/DeepDive/FallBridge` with a client redirect component to `/fall-bridge/`, eliminating all requests to `canva.com`.
+*   **Requirement 4**: Add Warframe: Iceblade of Narin as the **5th card** in the Home page 3D carousel (`deepDiveItems`) directly after Tau, using the TennoCon 2026 Ice attendee badge media (`/fall-bridge/assets/tennocon-2026-badge-ice.webp`).
+*   **Requirement 5**: Register canonical entries in `public/sitemap.xml` and `public/llms.txt`.
+*   **Requirement 6**: Pass all 78 Playwright assertions with zero console errors and zero 404s across all pages.
+
+### 2. Architectural Implementation
+*   **Standalone Static Architecture** (`public/fall-bridge/index.html`):
+    *   Complete SEO `<head>` with unique `<title>Warframe: Iceblade of Narin - making the fall bridge hold | Adwaith V</title>`, description, canonical link, OpenGraph metadata, Twitter card, and `Article` JSON-LD (`datePublished: 2026-07-16`).
+    *   Pre-rendered body with back link (`/#/`), Appearance toggle (shared `vg-theme` localStorage key), dated pre-launch read banner, reveal art hero with `<picture>` WebP/PNG fallback, 90-second D14 read block, Pillar 01 (Behavioural loop & telemetry), Pillar 02 (Economic stabilisation & Citrine/Qorvex concept art pair), Pillar 03 (Tech/ops infrastructure, shared-backend risk, and fall-to-winter timeline), Pillar 04 (Balanced strategic matrix), closing badge panel, and Sources & Method provenance.
+    *   Capture-phase picture error listener ensuring seamless fallback to high-resolution PNGs if WebP is blocked.
+*   **Asset Ingestion** (`public/fall-bridge/assets/` & `og.png`):
+    *   Ingested 10 assets: `narin-bridge-bg`, `banshee-deluxe-concept`, `citrine-prime-concept`, `qorvex-deluxe-concept`, and `tennocon-2026-badge-ice` in both web-sized WebP and original untouched PNG formats.
+    *   Ingested uncompressed 1200x630 `public/fall-bridge/og.png` (1,018,482 bytes).
+    *   Supplied local `BF Modernista` font files matching Tau.
+*   **Legacy Route Client Redirect** (`src/App.jsx`):
+    *   Added `RedirectToFallBridge` executing `window.location.replace('/fall-bridge/')`.
+    *   Removed `FallBridge` Canva import and purged all Canva network calls.
+*   **5-Card DepthCarousel Integration** (`src/pages/Home/Home.jsx`):
+    *   Inserted Fall Bridge into `deepDiveItems` in 4th position (sequence: Venus Gate, Publish the Bill, Tau, **Fall Bridge**, NFS Most Wanted).
+    *   Structured identically to Tau's entry with `fit: 'cover'`, kicker `"Retention Plan"`, and media `/fall-bridge/assets/tennocon-2026-badge-ice.webp`.
+*   **Index Updates** (`public/sitemap.xml` & `public/llms.txt`):
+    *   Added `<loc>https://adwaith-mrv.github.io/fall-bridge/</loc>` to `sitemap.xml`.
+    *   Enriched `llms.txt` with factual briefing entry for Warframe: Iceblade of Narin.
+
+### 3. Playwright Automated Verification
+*   **Test Suite** (`scratch/test-fall-bridge-full.js`):
+    *   **78/78 assertions passed (100%)**.
+    *   **Cross-Page Theme Sync**: Verified choosing Dark on `/tau-readiness/` automatically opens `/fall-bridge/` in Dark via shared `vg-theme` key.
+    *   **WebP & PNG Fallback**: Verified all 5 images load as WebP naturally, and verified all 5 images fall back to full-resolution PNGs with `naturalWidth > 0` when WebP requests are blocked.
+    *   **Zero Mobile Overflow**: Verified `scrollWidth === clientWidth` at 390px (390px) and 360px (360px).
+    *   **Cross-Links & Redirects**: Verified Tau footer link `/#/DeepDive/FallBridge` seamlessly lands on `/fall-bridge/` with zero requests to `canva.com`.
+    *   **Regression Integrity**: Verified Home, Venus Gate, Binding Constraint, Tau, and NFS Most Wanted render with zero regressions, zero console errors, and zero 404s.
+
+
 
 
