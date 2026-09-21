@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.dd893d36.css",
-    "main.js": "/static/js/main.0ce98997.js",
+    "main.css": "/static/css/main.01a0272a.css",
+    "main.js": "/static/js/main.8b8302eb.js",
     "static/js/638.d54f8a44.chunk.js": "/static/js/638.d54f8a44.chunk.js",
     "static/js/264.9d28438d.chunk.js": "/static/js/264.9d28438d.chunk.js",
     "static/js/480.3798b159.chunk.js": "/static/js/480.3798b159.chunk.js",
@@ -13,8 +13,8 @@
     "static/media/BF_Modernista-Light.ttf": "/static/media/BF_Modernista-Light.207844590a06bfbd676c.ttf",
     "static/media/BF_Modernista-Regular.ttf": "/static/media/BF_Modernista-Regular.077be9a08c0aecb65f19.ttf",
     "index.html": "/index.html",
-    "main.dd893d36.css.map": "/static/css/main.dd893d36.css.map",
-    "main.0ce98997.js.map": "/static/js/main.0ce98997.js.map",
+    "main.01a0272a.css.map": "/static/css/main.01a0272a.css.map",
+    "main.8b8302eb.js.map": "/static/js/main.8b8302eb.js.map",
     "638.d54f8a44.chunk.js.map": "/static/js/638.d54f8a44.chunk.js.map",
     "264.9d28438d.chunk.js.map": "/static/js/264.9d28438d.chunk.js.map",
     "480.3798b159.chunk.js.map": "/static/js/480.3798b159.chunk.js.map",
@@ -22,7 +22,7 @@
     "418.9935cdb0.chunk.js.map": "/static/js/418.9935cdb0.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.dd893d36.css",
-    "static/js/main.0ce98997.js"
+    "static/css/main.01a0272a.css",
+    "static/js/main.8b8302eb.js"
   ]
 }
