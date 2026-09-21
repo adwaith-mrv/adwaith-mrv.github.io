@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.01a0272a.css",
-    "main.js": "/static/js/main.8c56126e.js",
+    "main.js": "/static/js/main.180e910c.js",
     "static/js/638.d54f8a44.chunk.js": "/static/js/638.d54f8a44.chunk.js",
     "static/js/264.9d28438d.chunk.js": "/static/js/264.9d28438d.chunk.js",
     "static/js/480.3798b159.chunk.js": "/static/js/480.3798b159.chunk.js",
@@ -14,7 +14,7 @@
     "static/media/BF_Modernista-Regular.ttf": "/static/media/BF_Modernista-Regular.077be9a08c0aecb65f19.ttf",
     "index.html": "/index.html",
     "main.01a0272a.css.map": "/static/css/main.01a0272a.css.map",
-    "main.8c56126e.js.map": "/static/js/main.8c56126e.js.map",
+    "main.180e910c.js.map": "/static/js/main.180e910c.js.map",
     "638.d54f8a44.chunk.js.map": "/static/js/638.d54f8a44.chunk.js.map",
     "264.9d28438d.chunk.js.map": "/static/js/264.9d28438d.chunk.js.map",
     "480.3798b159.chunk.js.map": "/static/js/480.3798b159.chunk.js.map",
@@ -23,6 +23,6 @@
   },
   "entrypoints": [
     "static/css/main.01a0272a.css",
-    "static/js/main.8c56126e.js"
+    "static/js/main.180e910c.js"
   ]
 }
