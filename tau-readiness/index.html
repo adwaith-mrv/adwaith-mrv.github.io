@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Warframe: Tau - a launch-readiness read | Adwaith V</title>
+  <meta name="description" content="A pre-launch instrumentation plan for Warframe's Tau: the day-one events, economy guardrails and metric pairs that tell a reactivation spike from a retained player.">
+  <link rel="canonical" href="https://adwaith-mrv.github.io/tau-readiness/">
+  <link rel="stylesheet" href="/assets/deepdive.css">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://adwaith-mrv.github.io/tau-readiness/">
+  <meta property="og:title" content="Warframe: Tau - a launch-readiness read | Adwaith V">
+  <meta property="og:description" content="A pre-launch instrumentation plan for Warframe's Tau: the day-one events, economy guardrails and metric pairs that tell a reactivation spike from a retained player.">
+  <meta property="og:image" content="https://adwaith-mrv.github.io/tau-readiness/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Warframe: Tau key art with the title Launch Readiness Report - Fornax + Brysko">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Warframe: Tau - a launch-readiness read | Adwaith V">
+  <meta name="twitter:description" content="A pre-launch instrumentation plan for Warframe's Tau: the day-one events, economy guardrails and metric pairs that tell a reactivation spike from a retained player.">
+  <meta name="twitter:image" content="https://adwaith-mrv.github.io/tau-readiness/og.png">
+
+  <!-- Schema.org Article JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "@id": "https://adwaith-mrv.github.io/tau-readiness/#article",
+    "headline": "Warframe: Tau - a launch-readiness read",
+    "description": "A pre-launch instrumentation plan for Warframe's Tau: the day-one events, economy guardrails and metric pairs that tell a reactivation spike from a retained player.",
+    "image": "https://adwaith-mrv.github.io/tau-readiness/og.png",
+    "datePublished": "2026-07-13",
+    "dateModified": "2026-09-22",
+    "author": {
+      "@type": "Person",
+      "@id": "https://adwaith-mrv.github.io/#person",
+      "name": "Adwaith V"
+    },
+    "publisher": {
+      "@type": "Person",
+      "@id": "https://adwaith-mrv.github.io/#person",
+      "name": "Adwaith V"
+    },
+    "isPartOf": {
+      "@id": "https://adwaith-mrv.github.io/#website"
+    },
+    "mainEntityOfPage": "https://adwaith-mrv.github.io/tau-readiness/"
+  }
+  </script>
+
+  <!--FONTS-->
+  <style>
+  @font-face{font-family:'BF Modernista';src:url(assets/fonts/BF_Modernista-Light.ttf) format('truetype');font-weight:300;font-display:swap;}
+  @font-face{font-family:'BF Modernista';src:url(assets/fonts/BF_Modernista-Regular.ttf) format('truetype');font-weight:400;font-display:swap;}
+  @font-face{font-family:'BF Modernista';src:url(assets/fonts/BF_Modernista-Bold.ttf) format('truetype');font-weight:700;font-display:swap;}
+  </style>
+  <!--/FONTS-->
+
+  <style>
+  :root{
+    --paper:#F6F5F1; --surface:#FFFFFF; --ink:#14161A; --muted:#4A5568;
+    --rule:#DED9CD; --grid:#E7E2D6; --faint:#8A9099;
+    --gold:#A8801F; --blue:#2C63B5;
+    --r1:#C9A840; --r2:#9C7618; --r3:#5A470D;
+    --shadow:0 1px 2px rgba(20,22,26,.05), 0 8px 24px rgba(20,22,26,.05);
+    --modelbg:#F8F9FB;
+    --sans:'BF Modernista','Futura','Avenir Next','Helvetica Neue',Arial,sans-serif;
+    --serif:'BF Modernista','Futura','Avenir Next','Helvetica Neue',Arial,sans-serif;
+    --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace;
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --paper:#14161A; --surface:#1B1E23; --ink:#EFEDE6; --muted:#A8AEB8;
+      --rule:#2C3037; --grid:#262A30; --faint:#767D88;
+      --gold:#B08722; --blue:#3E7FCC;
+      --r1:#5A470D; --r2:#9C7618; --r3:#C9A840;
+      --shadow:0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.25); --modelbg:#1B1E23;
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#14161A; --surface:#1B1E23; --ink:#EFEDE6; --muted:#A8AEB8;
+    --rule:#2C3037; --grid:#262A30; --faint:#767D88;
+    --gold:#B08722; --blue:#3E7FCC;
+    --r1:#5A470D; --r2:#9C7618; --r3:#C9A840;
+    --shadow:0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.25); --modelbg:#1B1E23;
+  }
+
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--paper); color:var(--ink);
+    font-family:var(--sans); font-size:16px; line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:920px; margin:0 auto; padding:48px 24px 80px}
+
+  /* ---------- masthead ---------- */
+  .back-link{display:inline-block; font-family:var(--mono); font-size:13px; color:var(--muted); text-decoration:none; margin-bottom:16px}
+  .back-link:hover{color:var(--ink)}
+  .mast{border-bottom:1px solid var(--rule); padding-bottom:28px; margin-bottom:36px}
+  .eyebrow{font-family:var(--mono); font-size:12.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); margin:0 0 14px}
+  h1{font-family:var(--serif); font-weight:600; font-size:clamp(28px,4.4vw,44px); line-height:1.15; letter-spacing:-.01em; margin:0 0 14px; max-width:20ch}
+  .byline{font-size:14px; color:var(--muted); margin:0}
+  .byline b{color:var(--ink); font-weight:600}
+
+  /* ---------- hero ---------- */
+  .hero{display:flex; flex-wrap:wrap; gap:32px; align-items:center; margin:0 0 40px; padding:28px 30px; background:var(--surface); border:1px solid var(--rule); border-radius:10px; box-shadow:var(--shadow)}
+  .hero-fig{font-family:var(--sans); font-weight:700; font-size:72px; line-height:.92; letter-spacing:-.03em; color:var(--gold)}
+  .hero-body{flex:1 1 320px; min-width:260px}
+  .hero-body p{margin:0 0 10px; font-size:15.5px; font-weight:300; line-height:1.6; color:var(--ink)}
+  .hero-body p b{color:var(--ink); font-weight:700}
+  .hero-body .blocklabel{color:var(--gold)}
+
+  /* ---------- cards & prose ---------- */
+  .card{background:var(--surface); border:1px solid var(--rule); border-radius:10px; padding:26px 28px 22px; margin:0 0 26px; box-shadow:var(--shadow)}
+  .card h2{font-family:var(--sans); font-size:20px; font-weight:600; letter-spacing:-.01em; line-height:1.3; margin:0 0 14px; color:var(--ink)}
+  .card .dek{font-size:15.5px; font-weight:300; line-height:1.6; color:var(--muted); margin:0 0 20px}
+  .card .dek b{color:var(--ink); font-weight:600}
+
+  .card .blocklabel, .hero .blocklabel, .blocklabel{
+    font-family:var(--mono); font-size:15px; letter-spacing:.12em; text-transform:uppercase;
+    color:var(--gold); margin:0 0 14px; font-weight:500; line-height:1.4;
+  }
+  .hero-body .blocklabel{margin-bottom:8px}
+
+  .card.prose p{font-size:15.5px; font-weight:300; line-height:1.65; margin:0 0 15px; color:var(--ink)}
+  .card.prose p:last-child, .card.prose ol:last-child{margin-bottom:0}
+  .card.prose p.blocklabel{font-size:15px; font-weight:500; letter-spacing:.12em; color:var(--gold); margin:0 0 14px; line-height:1.4}
+  .card.prose p.dek{font-size:15.5px; font-weight:300; line-height:1.6; color:var(--muted); margin:0 0 20px}
+  .card.prose p.splith{color:var(--ink)}
+  .card.prose p b, .card.prose li b{font-weight:700}
+  .card.prose ul, .card.prose ol{margin:0 0 15px 0; padding-left:22px}
+  .card.prose li{font-size:15.5px; font-weight:300; line-height:1.65; margin-bottom:9px; color:var(--ink)}
+  .card.prose code{font-family:var(--mono); font-size:14.5px; background:var(--paper);
+    border:1px solid var(--rule); border-radius:4px; padding:1px 5px}
+  .card.prose .splith, .card.prose .split .splith{font-family:var(--mono); font-size:13.5px; letter-spacing:.06em; text-transform:uppercase;
+    color:var(--ink); font-weight:500; margin:22px 0 10px !important}
+
+  .splitgrid{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:22px; margin:4px 0 22px}
+  .split{border-top:2px solid var(--gold); padding-top:14px}
+  .split .splith{margin:0 0 8px !important}
+  .split p{font-size:14.5px; line-height:1.58; color:var(--muted); margin:0}
+  .card.prose .split p{font-size:14.5px; line-height:1.58; margin:0}
+  .card.prose .pull{font-family:var(--mono); font-weight:500; font-size:16px; line-height:1.55;
+    border-left:4px solid var(--gold); padding-left:20px; color:var(--ink); margin:22px 0}
+
+  .note{font-size:12.5px; color:var(--muted); margin:14px 0 0; padding-top:13px; border-top:1px solid var(--rule)}
+  .note code{font-family:var(--mono); font-size:11.5px}
+  .note a{color:var(--ink); text-underline-offset:2px}
+
+  /* ---------- filters / segmented toggle ---------- */
+  .filters{display:flex; flex-wrap:wrap; gap:10px 22px; align-items:center; padding:14px 18px; background:var(--surface); border:1px solid var(--rule); border-radius:10px; margin:0 0 28px; box-shadow:var(--shadow)}
+  .fgroup{display:flex; align-items:center; gap:9px}
+  .fgroup>span{font-size:12px; color:var(--muted); letter-spacing:.02em}
+  .seg{display:flex; border:1px solid var(--rule); border-radius:7px; overflow:hidden}
+  .seg button{appearance:none; border:0; background:transparent; color:var(--muted); font-family:var(--sans); font-size:13px; font-weight:500; padding:7px 13px; cursor:pointer; border-right:1px solid var(--rule); min-height:34px}
+  .seg button:last-child{border-right:0}
+  .seg button[aria-pressed="true"]{background:var(--ink); color:var(--paper)}
+  .seg button:focus-visible{outline:2px solid var(--blue); outline-offset:-2px}
+
+  /* ---------- provenance ---------- */
+  .prov{margin-top:44px; padding-top:26px; border-top:1px solid var(--rule); font-size:13px; color:var(--muted)}
+  .prov h3{font-family:var(--mono); font-size:15px; font-weight:500; color:var(--gold); letter-spacing:.12em; margin:0 0 12px; text-transform:uppercase}
+  .prov ul{margin:0; padding-left:18px}
+  .prov li{margin-bottom:7px}
+  .prov b{color:var(--ink); font-weight:600}
+  .prov a{color:var(--blue); font-weight:600; text-underline-offset:3px}
+  .prov a:hover{color:var(--gold)}
+
+  @media (max-width:640px){
+    .wrap{padding:32px 16px 60px}
+    .card{padding:20px 16px 18px}
+    .hero{padding:22px 20px; gap:20px}
+    .hero-fig{font-size:56px}
+    .card.prose p, .card.prose li{font-size:15.5px}
+  }
+  </style>
+</head>
+<body>
+
+<div class="wrap">
+
+<script>
+  /* Apply the saved Appearance choice before first paint. Same key as The Venus Gate,
+     so one choice carries across every DeepDive page on the site. */
+  try{var vgSaved=localStorage.getItem('vg-theme'); if(vgSaved)document.documentElement.setAttribute('data-theme',vgSaved);}catch(e){}
+</script>
+
+<style>
+  /* ---- page-scoped additions, tokens only ---- */
+  .filters.theme-only{justify-content:flex-end; margin:0 0 18px; padding:0; background:transparent; border:0; box-shadow:none}
+  .dated{font-size:13.5px; line-height:1.55; color:var(--muted); background:var(--surface);
+    border:1px solid var(--rule); border-left:4px solid var(--gold); border-radius:8px;
+    padding:12px 16px; margin:0 0 28px}
+  .dated b{color:var(--ink); font-weight:600}
+  .dated a{color:var(--ink); text-underline-offset:2px}
+
+  .art{margin:0 0 36px; border-radius:10px; overflow:hidden; border:1px solid var(--rule);
+    box-shadow:var(--shadow); background:#0B0B0C}
+  .art img{display:block; width:100%; height:auto}
+  .art figcaption{font-size:12px; color:var(--faint); padding:9px 14px; background:var(--surface);
+    border-top:1px solid var(--rule)}
+
+  .loop{display:flex; flex-wrap:wrap; align-items:center; gap:8px 6px; margin:4px 0 22px;
+    font-family:var(--mono); font-size:13px}
+  .loop span{border:1px solid var(--rule); background:var(--paper); border-radius:6px;
+    padding:6px 10px; color:var(--ink)}
+  .loop i{font-style:normal; color:var(--gold)}
+
+  .card.prose .split code{font-size:12.5px}
+  .card.prose code{overflow-wrap:anywhere}
+  .splitgrid.four{grid-template-columns:repeat(2,minmax(0,1fr))}
+  @media (max-width:640px){ .splitgrid.four{grid-template-columns:1fr} }
+
+  .bars{margin:6px 0 18px}
+  .bar{display:grid; grid-template-columns:150px 1fr; align-items:center; gap:14px; margin:0 0 12px}
+  .bar .lab{font-size:13px; color:var(--muted); line-height:1.35}
+  .bar .track{background:var(--paper); border:1px solid var(--rule); border-radius:6px; height:30px; position:relative}
+  .bar .fill{height:100%; border-radius:5px 0 0 5px; background:var(--r1)}
+  .bar .fill.now{background:var(--gold)}
+  .bar .num{position:absolute; right:10px; top:50%; transform:translateY(-50%);
+    font-family:var(--mono); font-size:13px; color:var(--ink)}
+  @media (max-width:640px){ .bar{grid-template-columns:1fr; gap:6px} }
+
+  .closer{display:grid; grid-template-columns:1fr 200px; gap:26px; align-items:center}
+  .closer .logo{background:#0B0B0C; border-radius:8px; padding:22px 26px; margin:0 0 16px}
+  .closer .logo img{display:block; width:100%; max-width:260px; height:auto}
+  .closer .badge img{display:block; width:100%; height:auto; border-radius:8px; border:1px solid var(--rule)}
+  @media (max-width:640px){ .closer{grid-template-columns:1fr} .closer .badge{max-width:200px} }
+</style>
+
+<a class="back-link" href="/#/">&larr; Strategic Deep Dive</a>
+
+<header class="mast">
+  <p class="eyebrow">Launch Readiness Report &middot; Warframe: Tau &middot; Digital Extremes</p>
+  <h1>Instrument the return, not the reveal</h1>
+  <p class="byline"><b>Adwaith V</b> &middot; How I would instrument Fornax and Brysko so Warframe's first new star system is not a content island.</p>
+</header>
+
+<div class="filters theme-only">
+  <div class="fgroup">
+    <span id="themeLabel">Appearance</span>
+    <div class="seg" role="group" aria-labelledby="themeLabel" id="themeSeg">
+      <button data-theme-set="light" aria-pressed="false">Light</button>
+      <button data-theme-set="dark" aria-pressed="false">Dark</button>
+    </div>
+  </div>
+</div>
+
+<p class="dated"><b>Pre-launch read.</b> Written 13 July 2026 from the TennoCon 2026 reveal and published on LinkedIn the same day (<a href="https://www.linkedin.com/posts/adwaith-v_warframe-digitalextremes-tennocon2026-activity-7482492192322764800-mIHE" target="_blank" rel="noopener">original post</a>). Tau has not shipped, and nothing here has been graded against it yet. When it ships, the grade goes next to this page, not over it.</p>
+
+<figure class="art">
+  <picture>
+    <source srcset="assets/tau-key-art.webp" type="image/webp">
+    <img src="assets/tau-key-art.png" width="1920" height="1080" alt="Warframe: Tau key art, 'Coming 2026', as revealed at TennoCon 2026" loading="eager">
+  </picture>
+  <figcaption>Key art &copy; Digital Extremes Ltd, used here for commentary.</figcaption>
+</figure>
+
+<!-- ============ THE 90-SECOND READ ============ -->
+<section class="hero" id="block-decision">
+  <div class="hero-fig">D30</div>
+  <div class="hero-body">
+    <p class="blocklabel">The call</p>
+    <p><b>What this is.</b> A launch-readiness plan for Tau, the first new star system in Warframe's 13-year history: what to measure on day one so the retention story is visible before it is over.</p>
+    <p><b>What I did.</b> Mapped the core loop, then named the events that separate a player who came back for the reveal from one who stays, across behaviour, economy, infrastructure and the dashboard itself.</p>
+    <p><b>Why it matters.</b> The metric that greenlights Tau and the metric that rescues it point in opposite directions. Launch reactivation gets the headline. D30 one-and-done churn tells you whether there is a tail. Ship both on one dashboard, or you are reading the flattering half.</p>
+  </div>
+</section>
+
+<!-- ============ PILLAR 01 ============ -->
+<section class="card prose" id="block-loop">
+  <p class="blocklabel">Pillar 01 &middot; Behavioural loop &amp; telemetry</p>
+  <h2>Read leading friction signals, not a lagging retention funnel</h2>
+  <p class="dek">To predict D30 churn on day one, you watch what players do in week one. A retention funnel only reports the loss after it has happened.</p>
+
+  <p class="splith">The loop being instrumented</p>
+  <div class="loop" aria-label="Core loop">
+    <span>Star-chart node select</span><i>&rarr;</i>
+    <span>Entrati Vessel transit (Arturos / Zioa)</span><i>&rarr;</i>
+    <span>Fornax mission</span><i>&rarr;</i>
+    <span>Reward pull (Bloom + Portau)</span><i>&rarr;</i>
+    <span>Casino / Dry Dock hub</span><i>&rarr;</i>
+    <span>Re-queue</span>
+  </div>
+
+  <div class="splitgrid four">
+    <div class="split">
+      <p class="splith">Content-island signal</p>
+      <p><code>content_exhaustion_velocity</code> vs <code>reward_replenish_rate</code>. How fast veterans burn unique rewards against the live-ops restock cadence. The leading indicator of the D30 exhaustion curve.</p>
+    </div>
+    <div class="split">
+      <p class="splith">One-and-done signature</p>
+      <p><code>fornax_mission_completed</code> vs <code>fornax_return_d7</code>. The central risk is Fornax becoming a "visit once and leave" city. This catches it in week one instead of month three.</p>
+    </div>
+    <div class="split">
+      <p class="splith">Activation wall</p>
+      <p><code>tau_gate_cleared</code> vs <code>fornax_mission_completed</code>. Veterans who unlock Tau but never walk in, since access is gated behind existing story content.</p>
+    </div>
+    <div class="split">
+      <p class="splith">Transit-friction hook</p>
+      <p><code>vessel_transit_initiated</code> per session. The per-session cost of leaving the Origin System for the first new star chart in 13 years.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PILLAR 02 ============ -->
+<section class="card prose" id="block-economy">
+  <p class="blocklabel">Pillar 02 &middot; Economic stabilisation &amp; value capture</p>
+  <h2>Bloom either recirculates or it strands</h2>
+  <p class="dek">A new currency either feeds global progression or it becomes a closed loop inside one region. The ledger design decides which, not the fiction.</p>
+
+  <div class="splitgrid">
+    <div class="split">
+      <p class="splith">New faucets</p>
+      <p>Bloom, the in-universe addictive substance. Portau card winnings, a parallel currency that either floods or strands if left unmanaged.</p>
+    </div>
+    <div class="split">
+      <p class="splith">Sinks</p>
+      <p>Time-gated Hunra bounty cycles to pull Bloom velocity. The jazz casino hub as an optional high-variance sink for surplus.</p>
+    </div>
+    <div class="split">
+      <p class="splith">Cross-inflation guardrail</p>
+      <p>Ring-fence the Tau economy from Origin-System currencies so Bloom faucets do not devalue existing Plat and Ducat sinks. The community's word for thin grind value is "player revolt".</p>
+    </div>
+  </div>
+
+  <p class="pull"><code>bloom_tokens_sunk_locally</code> vs <code>bloom_tokens_converted_to_global_progression</code>, per cohort. Whether the card economy feeds global player equity or dead-ends inside Fornax.</p>
+</section>
+
+<!-- ============ PILLAR 03 ============ -->
+<section class="card prose" id="block-infra">
+  <p class="blocklabel">Pillar 03 &middot; Tech / ops infrastructure</p>
+  <h2>A new star chart is new routing, not new tilesets</h2>
+  <p class="dek">A star chart outside a 13-year-old Origin System is new instance-routing topology to provision, not just new art to render.</p>
+
+  <div class="splitgrid four">
+    <div class="split">
+      <p class="splith">Two launch regions</p>
+      <p>Fornax plus one unannounced region means new matchmaking cells and instance routing standing up at once.</p>
+    </div>
+    <div class="split">
+      <p class="splith">Zero-downtime deploy</p>
+      <p>Blue-green patching for the winter launch and its hotfix cadence. Jade Shadows' turbulence is the pattern to avoid, and DE said Tau was given "undistracted" landing room.</p>
+    </div>
+    <div class="split">
+      <p class="splith">State validation</p>
+      <p>Portau outcomes and Bloom rewards resolved server-side, so a brand-new economy cannot be spoofed from the client.</p>
+    </div>
+    <div class="split">
+      <p class="splith">Session-momentum signal</p>
+      <p><code>server_provisioning_latency</code> vs <code>queue_abandonment_rate</code>. Whether backend strain is killing sessions before players load in. The TennoLive Relay on Saturn, open through 13 July, was a live rehearsal of that synchronised-instance load.</p>
+    </div>
+  </div>
+
+  <p class="splith">Concurrency provisioning</p>
+  <p>Provision Tau's winter launch above the 157k line, toward the all-time peak, for headroom.</p>
+  <div class="bars" role="img" aria-label="Warframe Steam concurrent players: about 126,000 at the previous TennoCon, 157,162 in July 2026, 181,509 all-time peak">
+    <div class="bar"><div class="lab">Last TennoCon</div><div class="track"><div class="fill" style="width:69.4%"></div><span class="num">~126,000</span></div></div>
+    <div class="bar"><div class="lab">July 2026 Steam peak</div><div class="track"><div class="fill now" style="width:86.6%"></div><span class="num">157,162</span></div></div>
+    <div class="bar"><div class="lab">All-time peak</div><div class="track"><div class="fill" style="width:100%"></div><span class="num">181,509</span></div></div>
+  </div>
+  <p class="note">157,162 and 181,509 are SteamCharts monthly and all-time peaks. The ~126,000 figure for the previous TennoCon comes from a community creator's post, not from Digital Extremes, and is shown as context only.</p>
+</section>
+
+<!-- ============ PILLAR 04 ============ -->
+<section class="card prose" id="block-matrix">
+  <p class="blocklabel">Pillar 04 &middot; The balanced strategic matrix</p>
+  <h2>The greenlight number and the rescue number, on one dashboard</h2>
+  <p class="dek">Each metric here has a partner that catches it lying.</p>
+
+  <div class="splitgrid four">
+    <div class="split">
+      <p class="splith">North star</p>
+      <p>Tau D30 veteran re-engagement. Tau is the single strongest reactivation driver on the roadmap.</p>
+    </div>
+    <div class="split">
+      <p class="splith">Counter-metric</p>
+      <p>Fornax D30 one-and-done churn: the share of players who finish the story run and never return.</p>
+    </div>
+    <div class="split">
+      <p class="splith">Exploit surface</p>
+      <p>Bloom and Portau farming macro-bots, and progression runners rushing the gated unlock. Brysko's Corecracker auto-targeting kill-orbs are a candidate AFK-farm vector.</p>
+    </div>
+    <div class="split">
+      <p class="splith">Roadmap guardrail</p>
+      <p>Origin-System update cadence health, since the loudest friction theme is content drought everywhere else while Tau ramps.</p>
+    </div>
+  </div>
+
+  <p class="pull">A sub-feature that does not recirculate value into the primary loop is an expensive distraction, not an ecosystem.</p>
+</section>
+
+<!-- ============ CLOSE ============ -->
+<section class="card prose" id="block-close">
+  <div class="closer">
+    <div>
+      <div class="logo">
+        <picture>
+          <source srcset="assets/tau-logo.webp" type="image/webp">
+          <img src="assets/tau-logo.png" width="688" height="324" alt="Warframe: Tau logo" loading="lazy">
+        </picture>
+      </div>
+      <p class="blocklabel">TennoCon 2026 &middot; Fornax + Brysko</p>
+      <h2>Instrument the return, not the reveal.</h2>
+      <p>None of this shows up in a trailer. All of it decides whether Tau has a loop or only a moment.</p>
+    </div>
+    <div class="badge">
+      <picture>
+        <source srcset="assets/tennocon-2026-badge.webp" type="image/webp">
+        <img src="assets/tennocon-2026-badge.png" width="648" height="1003" alt="TennoCon 2026 attendee badge" loading="lazy">
+      </picture>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROVENANCE ============ -->
+<section class="prov" id="block-prov">
+  <h3>Sources &amp; method</h3>
+  <ul>
+    <li><b>Event names are proposed instrumentation, not Digital Extremes telemetry.</b> Every hook above is a recommended schema written from outside the studio.</li>
+    <li><b>Reveal details</b> (Fornax, Brysko, Bloom, Portau, gated access, two launch regions) are from DE's TennoCon 2026 presentation and its press coverage, as compiled in my post-event report.</li>
+    <li><b>Community risk framing</b> ("visit once and leave", "player revolt") is from critical op-eds and forum consensus after the reveal.</li>
+    <li><b>Concurrency:</b> SteamCharts, Warframe (app 230410). Previous-TennoCon figure from a community creator, as noted above.</li>
+    <li><b>Timestamp:</b> first published 13 July 2026 on LinkedIn, before Tau's launch.</li>
+  </ul>
+  <p class="note">Part of a TennoCon 2026 series. The fall update read is next: <a href="/#/DeepDive/FallBridge">Making the fall bridge hold until winter</a>. The measured teardown behind the series is <a href="/venus-gate/">The Venus Gate</a>.</p>
+</section>
+
+<script>
+  /* Appearance toggle - same behaviour and storage key as The Venus Gate.
+     No renderAll() here: this page has no charts to redraw. */
+  (function(){
+    function currentTheme(){
+      var set=document.documentElement.getAttribute('data-theme');
+      if(set)return set;
+      return window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';
+    }
+    function syncThemeSeg(){
+      var t=currentTheme();
+      Array.prototype.forEach.call(document.querySelectorAll('#themeSeg button'),function(b){
+        b.setAttribute('aria-pressed', b.dataset.themeSet===t?'true':'false');
+      });
+    }
+    Array.prototype.forEach.call(document.querySelectorAll('#themeSeg button'),function(b){
+      b.addEventListener('click',function(){
+        document.documentElement.setAttribute('data-theme', b.dataset.themeSet);
+        try{localStorage.setItem('vg-theme', b.dataset.themeSet);}catch(e){}
+        syncThemeSeg();
+      });
+    });
+    try{window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change',syncThemeSeg);}catch(e){}
+    syncThemeSeg();
+  })();
+</script>
+
+</div>
+
+</body>
+</html>
