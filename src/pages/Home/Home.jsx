@@ -249,7 +249,7 @@ const Home = () => {
                             },
                             {
                                 title: 'Career Break - Caregiving',
-                                company: 'Personal • Jul 2025 - Jul 2025',
+                                company: 'Personal • Aug 2025 - Mar 2026',
                                 desc: 'Dedicated time to family health and caregiving responsibilities while maintaining continuous independent research, economy modeling, and game systems analysis.',
                                 isMuted: true
                             },
