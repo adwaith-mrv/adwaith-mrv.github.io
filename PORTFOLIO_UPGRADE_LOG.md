@@ -618,3 +618,54 @@ export default ContactButton;
     *   Card 6 (Education Journey) renders 3 distinct degree credential lines.
     *   Verbatim copy matches 100% across Cards 1, 3, and 5.
     *   Zero console errors and zero layout shifts.
+
+---
+
+## Upgrade 14: Warframe: Forecast Scorecard Static Teardown & 6-Card Carousel Integration
+
+### 1. Requirements & Problem Statement
+*   **Requirement 1**: Build a new standalone static reading page at canonical path `/forecast-scorecard/` corresponding to the 11 September 2026 LinkedIn carousel publication.
+*   **Requirement 2**: Present a pre-launch live-ops forecast for Warframe's August beat (*Amir's Shockwave*), written 13 July 2026, locked a month early, and graded against what shipped on 12 August, naming three misses on the record.
+*   **Requirement 3**: Retain the original 13 July 2026 forecast verbatim and unedited in a collapsible `<details class="archive">` block at the foot of the page.
+*   **Requirement 4**: Ensure zero em dash characters (`—`) in the archive block.
+*   **Requirement 5**: Ingest 4 slide render assets (WebP + PNG) and 1200x630 `og.png` (133,693 bytes) untouched.
+*   **Requirement 6**: Add Warframe: Forecast Scorecard as the **5th card** in the Home page 3D DepthCarousel (`deepDiveItems`), anchoring the crop to `left center` so left-aligned text is never clipped.
+*   **Requirement 7**: Extend `DepthCarousel.jsx` to render up to 6 cards in the 3D cascade and support `item.position`. Confirm the existing 5 cards continue to render as before.
+*   **Requirement 8**: Register canonical URL in `public/sitemap.xml` and brief in `public/llms.txt`.
+*   **Requirement 9**: Pass all Playwright acceptance checks with zero console errors and zero 404s.
+
+### 2. Architectural Implementation
+*   **Standalone Static Architecture** (`public/forecast-scorecard/index.html`):
+    *   Semantic `<head>` with title, description, canonical link, OpenGraph tags, Twitter card, and Schema.org `Article` JSON-LD (`datePublished: 2026-09-11`).
+    *   Pre-rendered body with back link (`/#/`), masthead, Appearance toggle (sharing `vg-theme` key), dated LinkedIn banner, 90-second D14 read block (`3/4` hero figure), Pillar 01 (The method & scoring loop), Pillar 02 (The scorecard table with 4 graded claims), Pillar 03 (Why it missed), Pillar 04 (The standard), closer block with WebP/PNG picture fallback, unedited 13 July forecast inside `<details class="archive">`, and Sources & method provenance.
+    *   Capture-phase picture error listener ensuring graceful fallback to PNG if WebP is blocked.
+*   **Asset Ingestion** (`public/forecast-scorecard/assets/` & `og.png`):
+    *   `forecast-cover.webp` (57,684 bytes) and `forecast-cover.png` (104,790 bytes).
+    *   `forecast-closer.webp` (27,280 bytes) and `forecast-closer.png` (57,028 bytes).
+    *   `public/forecast-scorecard/og.png` (133,693 bytes).
+    *   Copied `BF Modernista` font files matching Tau and Fall Bridge.
+*   **DepthCarousel 6-Card Cascade** (`src/components/UI/DepthCarousel.jsx` & `src/pages/Home/Home.jsx`):
+    *   Supported `item.position` alongside `item.fit` on image and video elements.
+    *   Expanded `maxDist` rendering limit from 4 to 6 to support 6 cards simultaneously in the deck stack.
+    *   Adjusted scale and opacity decay curves to ensure all background cards remain visible.
+    *   Inserted Forecast Scorecard in 5th position:
+        1. Venus Gate
+        2. Publish the Bill Before the Grind
+        3. Tau
+        4. Fall Bridge
+        5. **Forecast Scorecard** (`fit: 'cover'`, `position: 'left center'`)
+        6. NFS Most Wanted (2005)
+*   **Index Updates** (`public/sitemap.xml` & `public/llms.txt`):
+    *   Added canonical `<loc>https://adwaith-mrv.github.io/forecast-scorecard/</loc>` to `sitemap.xml`.
+    *   Enriched `llms.txt` with factual briefing for Warframe: Forecast Scorecard.
+
+### 3. Verification & Validation
+*   Automated Playwright test suite (`scratch/test-forecast-scorecard.js`):
+    *   **68 out of 68 checks passed (100%)**.
+    *   **Em Dash Count**: Verified exactly 0 em dash characters in `<details class="archive">`.
+    *   **Archive Fidelity**: 100% byte-identical match with source body fragment.
+    *   **Appearance Toggle**: Instant switching, persistence across reload, and cross-teardown synchronization with `/fall-bridge/`.
+    *   **Mobile Responsiveness**: Zero horizontal overflow at 390px, 360px, and 320px viewports. Scorecard table cards stack cleanly.
+    *   **Image Fallback**: WebP serves naturally, and PNG fallback activates cleanly when WebP is blocked.
+    *   **Carousel Regression**: Verified all 6 cards render in exact order; verified the other 5 cards render with original images/video; verified active centering and zero horizontal overflow at 430px, 390px, and 360px.
+    *   **Zero Errors**: Zero console errors and zero 404s across all pages.

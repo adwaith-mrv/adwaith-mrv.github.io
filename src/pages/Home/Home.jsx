@@ -59,6 +59,18 @@ const deepDiveItems = [
         fit: 'cover'
     },
     {
+        id: 'forecast-scorecard',
+        title: 'Warframe: Forecast Scorecard',
+        kicker: 'Graded Forecast',
+        oneLiner: "A prediction nobody checks isn't one.",
+        mediaType: 'image',
+        media: '/forecast-scorecard/assets/forecast-cover.webp',
+        route: '/forecast-scorecard/',
+        badgePosition: 'top-left',
+        fit: 'cover',
+        position: 'left center'
+    },
+    {
         id: 'nfs-mw',
         title: 'NFS Most Wanted (2005)',
         mediaType: 'video',

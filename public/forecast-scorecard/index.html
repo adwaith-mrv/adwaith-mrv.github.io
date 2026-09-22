@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Warframe: a live-ops forecast, graded after launch | Adwaith V</title>
+  <meta name="description" content="A dated pre-launch forecast of Warframe's August live-ops beat, locked a month early and graded against what shipped: three misses named on the record, and the original left unedited.">
+  <link rel="canonical" href="https://adwaith-mrv.github.io/forecast-scorecard/">
+  <link rel="stylesheet" href="/assets/deepdive.css">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://adwaith-mrv.github.io/forecast-scorecard/">
+  <meta property="og:title" content="Warframe: a live-ops forecast, graded after launch | Adwaith V">
+  <meta property="og:description" content="A dated pre-launch forecast of Warframe's August live-ops beat, locked a month early and graded against what shipped: three misses named on the record, and the original left unedited.">
+  <meta property="og:image" content="https://adwaith-mrv.github.io/forecast-scorecard/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Forecast Scorecard title slide: A prediction that got graded">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Warframe: a live-ops forecast, graded after launch | Adwaith V">
+  <meta name="twitter:description" content="A dated pre-launch forecast of Warframe's August live-ops beat, locked a month early and graded against what shipped: three misses named on the record, and the original left unedited.">
+  <meta name="twitter:image" content="https://adwaith-mrv.github.io/forecast-scorecard/og.png">
+
+  <!-- Schema.org Article JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "@id": "https://adwaith-mrv.github.io/forecast-scorecard/#article",
+    "headline": "Warframe: a live-ops forecast, graded after launch",
+    "description": "A dated pre-launch forecast of Warframe's August live-ops beat, locked a month early and graded against what shipped: three misses named on the record, and the original left unedited.",
+    "image": "https://adwaith-mrv.github.io/forecast-scorecard/og.png",
+    "datePublished": "2026-09-11",
+    "dateModified": "2026-09-22",
+    "author": {
+      "@type": "Person",
+      "@id": "https://adwaith-mrv.github.io/#person",
+      "name": "Adwaith V"
+    },
+    "publisher": {
+      "@type": "Person",
+      "@id": "https://adwaith-mrv.github.io/#person",
+      "name": "Adwaith V"
+    },
+    "isPartOf": {
+      "@id": "https://adwaith-mrv.github.io/#website"
+    },
+    "mainEntityOfPage": "https://adwaith-mrv.github.io/forecast-scorecard/"
+  }
+  </script>
+
+  <script>
+    // Picture fallback: if webp request is blocked or fails, fall back to png
+    document.addEventListener('error', function(e) {
+      if (e.target && e.target.tagName === 'IMG' && e.target.closest('picture')) {
+        var pic = e.target.closest('picture');
+        var src = pic.querySelector('source');
+        if (src && !e.target.dataset.fallbackApplied) {
+          e.target.dataset.fallbackApplied = 'true';
+          src.remove();
+          var png = e.target.getAttribute('src');
+          e.target.src = png;
+        }
+      }
+    }, true);
+  </script>
+
+  <!--FONTS-->
+  <style>
+  @font-face{font-family:'BF Modernista';src:url(assets/fonts/BF_Modernista-Light.ttf) format('truetype');font-weight:300;font-display:swap;}
+  @font-face{font-family:'BF Modernista';src:url(assets/fonts/BF_Modernista-Regular.ttf) format('truetype');font-weight:400;font-display:swap;}
+  @font-face{font-family:'BF Modernista';src:url(assets/fonts/BF_Modernista-Bold.ttf) format('truetype');font-weight:700;font-display:swap;}
+  </style>
+  <!--/FONTS-->
+
+  <style>
+  :root{
+    --paper:#F6F5F1; --surface:#FFFFFF; --ink:#14161A; --muted:#4A5568;
+    --rule:#DED9CD; --grid:#E7E2D6; --faint:#8A9099;
+    --gold:#A8801F; --blue:#2C63B5;
+    --r1:#C9A840; --r2:#9C7618; --r3:#5A470D;
+    --shadow:0 1px 2px rgba(20,22,26,.05), 0 8px 24px rgba(20,22,26,.05);
+    --modelbg:#F8F9FB;
+    --sans:'BF Modernista','Futura','Avenir Next','Helvetica Neue',Arial,sans-serif;
+    --serif:'BF Modernista','Futura','Avenir Next','Helvetica Neue',Arial,sans-serif;
+    --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace;
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --paper:#14161A; --surface:#1B1E23; --ink:#EFEDE6; --muted:#A8AEB8;
+      --rule:#2C3037; --grid:#262A30; --faint:#767D88;
+      --gold:#B08722; --blue:#3E7FCC;
+      --r1:#5A470D; --r2:#9C7618; --r3:#C9A840;
+      --shadow:0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.25); --modelbg:#1B1E23;
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#14161A; --surface:#1B1E23; --ink:#EFEDE6; --muted:#A8AEB8;
+    --rule:#2C3037; --grid:#262A30; --faint:#767D88;
+    --gold:#B08722; --blue:#3E7FCC;
+    --r1:#5A470D; --r2:#9C7618; --r3:#C9A840;
+    --shadow:0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.25); --modelbg:#1B1E23;
+  }
+
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--paper); color:var(--ink);
+    font-family:var(--sans); font-size:16px; line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:920px; margin:0 auto; padding:48px 24px 80px}
+
+  /* ---------- masthead ---------- */
+  .back-link{display:inline-block; font-family:var(--mono); font-size:13px; color:var(--muted); text-decoration:none; margin-bottom:16px}
+  .back-link:hover{color:var(--ink)}
+  .mast{border-bottom:1px solid var(--rule); padding-bottom:28px; margin-bottom:36px}
+  .eyebrow{font-family:var(--mono); font-size:12.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); margin:0 0 14px}
+  h1{font-family:var(--serif); font-weight:600; font-size:clamp(28px,4.4vw,44px); line-height:1.15; letter-spacing:-.01em; margin:0 0 14px; max-width:20ch}
+  .byline{font-size:14px; color:var(--muted); margin:0}
+  .byline b{color:var(--ink); font-weight:600}
+
+  /* ---------- hero ---------- */
+  .hero{display:flex; flex-wrap:wrap; gap:32px; align-items:center; margin:0 0 40px; padding:28px 30px; background:var(--surface); border:1px solid var(--rule); border-radius:10px; box-shadow:var(--shadow)}
+  .hero-fig{font-family:var(--sans); font-weight:700; font-size:72px; line-height:.92; letter-spacing:-.03em; color:var(--gold)}
+  .hero-body{flex:1 1 320px; min-width:260px}
+  .hero-body p{margin:0 0 10px; font-size:15.5px; font-weight:300; line-height:1.6; color:var(--ink)}
+  .hero-body p b{color:var(--ink); font-weight:700}
+  .hero-body .blocklabel{color:var(--gold)}
+
+  /* ---------- cards & prose ---------- */
+  .card{background:var(--surface); border:1px solid var(--rule); border-radius:10px; padding:26px 28px 22px; margin:0 0 26px; box-shadow:var(--shadow)}
+  .card h2{font-family:var(--sans); font-size:20px; font-weight:600; letter-spacing:-.01em; line-height:1.3; margin:0 0 14px; color:var(--ink)}
+  .card .dek{font-size:15.5px; font-weight:300; line-height:1.6; color:var(--muted); margin:0 0 20px}
+  .card .dek b{color:var(--ink); font-weight:600}
+
+  .card .blocklabel, .hero .blocklabel, .blocklabel{
+    font-family:var(--mono); font-size:15px; letter-spacing:.12em; text-transform:uppercase;
+    color:var(--gold); margin:0 0 14px; font-weight:500; line-height:1.4;
+  }
+  .hero-body .blocklabel{margin-bottom:8px}
+
+  .card.prose p{font-size:15.5px; font-weight:300; line-height:1.65; margin:0 0 15px; color:var(--ink)}
+  .card.prose p:last-child, .card.prose ol:last-child{margin-bottom:0}
+  .card.prose p.blocklabel{font-size:15px; font-weight:500; letter-spacing:.12em; color:var(--gold); margin:0 0 14px; line-height:1.4}
+  .card.prose p.dek{font-size:15.5px; font-weight:300; line-height:1.6; color:var(--muted); margin:0 0 20px}
+  .card.prose p.splith{color:var(--ink)}
+  .card.prose p b, .card.prose li b{font-weight:700}
+  .card.prose ul, .card.prose ol{margin:0 0 15px 0; padding-left:22px}
+  .card.prose li{font-size:15.5px; font-weight:300; line-height:1.65; margin-bottom:9px; color:var(--ink)}
+  .card.prose code{font-family:var(--mono); font-size:14.5px; background:var(--paper);
+    border:1px solid var(--rule); border-radius:4px; padding:1px 5px}
+  .card.prose .splith, .card.prose .split .splith{font-family:var(--mono); font-size:13.5px; letter-spacing:.06em; text-transform:uppercase;
+    color:var(--ink); font-weight:500; margin:22px 0 10px !important}
+
+  .splitgrid{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:22px; margin:4px 0 22px}
+  .split{border-top:2px solid var(--gold); padding-top:14px}
+  .split .splith{margin:0 0 8px !important}
+  .split p{font-size:14.5px; line-height:1.58; color:var(--muted); margin:0}
+  .card.prose .split p{font-size:14.5px; line-height:1.58; margin:0}
+  .card.prose .pull{font-family:var(--mono); font-weight:500; font-size:16px; line-height:1.55;
+    border-left:4px solid var(--gold); padding-left:20px; color:var(--ink); margin:22px 0}
+
+  .note{font-size:12.5px; color:var(--muted); margin:14px 0 0; padding-top:13px; border-top:1px solid var(--rule)}
+  .note code{font-family:var(--mono); font-size:11.5px}
+  .note a{color:var(--ink); text-underline-offset:2px}
+
+  /* ---------- filters / segmented toggle ---------- */
+  .filters{display:flex; flex-wrap:wrap; gap:10px 22px; align-items:center; padding:14px 18px; background:var(--surface); border:1px solid var(--rule); border-radius:10px; margin:0 0 28px; box-shadow:var(--shadow)}
+  .fgroup{display:flex; align-items:center; gap:9px}
+  .fgroup>span{font-size:12px; color:var(--muted); letter-spacing:.02em}
+  .seg{display:flex; border:1px solid var(--rule); border-radius:7px; overflow:hidden}
+  .seg button{appearance:none; border:0; background:transparent; color:var(--muted); font-family:var(--sans); font-size:13px; font-weight:500; padding:7px 13px; cursor:pointer; border-right:1px solid var(--rule); min-height:34px}
+  .seg button:last-child{border-right:0}
+  .seg button[aria-pressed="true"]{background:var(--ink); color:var(--paper)}
+  .seg button:focus-visible{outline:2px solid var(--blue); outline-offset:-2px}
+
+  /* ---------- provenance ---------- */
+  .prov{margin-top:44px; padding-top:26px; border-top:1px solid var(--rule); font-size:13px; color:var(--muted)}
+  .prov h3{font-family:var(--mono); font-size:15px; font-weight:500; color:var(--gold); letter-spacing:.12em; margin:0 0 12px; text-transform:uppercase}
+  .prov ul{margin:0; padding-left:18px}
+  .prov li{margin-bottom:7px}
+  .prov b{color:var(--ink); font-weight:600}
+  .prov a{color:var(--blue); font-weight:600; text-underline-offset:3px}
+  .prov a:hover{color:var(--gold)}
+
+  @media (max-width:640px){
+    .wrap{padding:32px 16px 60px}
+    .card{padding:20px 16px 18px}
+    .hero{padding:22px 20px; gap:20px}
+    .hero-fig{font-size:56px}
+    .card.prose p, .card.prose li{font-size:15.5px}
+  }
+  </style>
+
+</head>
+<body>
+<div class="wrap">
+
+<script>
+  /* Apply the saved Appearance choice before first paint. Same key as The Venus Gate,
+     so one choice carries across every DeepDive page on the site. */
+  try{var vgSaved=localStorage.getItem('vg-theme'); if(vgSaved)document.documentElement.setAttribute('data-theme',vgSaved);}catch(e){}
+</script>
+
+<style>
+  /* ---- page-scoped additions, tokens only (shared with Tau / Fall Bridge) ---- */
+  .filters.theme-only{justify-content:flex-end; margin:0 0 18px; padding:0; background:transparent; border:0; box-shadow:none}
+  .dated{font-size:13.5px; line-height:1.55; color:var(--muted); background:var(--surface);
+    border:1px solid var(--rule); border-left:4px solid var(--gold); border-radius:8px;
+    padding:12px 16px; margin:0 0 28px}
+  .dated b{color:var(--ink); font-weight:600}
+  .dated a{color:var(--ink); text-underline-offset:2px}
+
+  .loop{display:flex; flex-wrap:wrap; align-items:center; gap:8px 6px; margin:4px 0 22px;
+    font-family:var(--mono); font-size:13px}
+  .loop span{border:1px solid var(--rule); background:var(--paper); border-radius:6px;
+    padding:6px 10px; color:var(--ink)}
+  .loop i{font-style:normal; color:var(--gold)}
+
+  .card.prose code{overflow-wrap:anywhere}
+  .splitgrid.four{grid-template-columns:repeat(2,minmax(0,1fr))}
+  @media (max-width:640px){ .splitgrid.four{grid-template-columns:1fr} }
+
+  .closer{display:grid; grid-template-columns:1fr 200px; gap:26px; align-items:center}
+  .closer .badge img{display:block; width:100%; height:auto; border-radius:8px; border:1px solid var(--rule)}
+  @media (max-width:640px){ .closer{grid-template-columns:1fr} .closer .badge{max-width:200px} }
+
+  /* ---- forecast-scorecard additions ---- */
+  .score{width:100%; border-collapse:collapse; margin:6px 0 20px; font-size:14px; line-height:1.5}
+  .score th{font-family:var(--mono); font-size:11.5px; letter-spacing:.08em; text-transform:uppercase;
+    color:var(--muted); text-align:left; font-weight:600; padding:0 12px 10px 0; border-bottom:1px solid var(--rule)}
+  .score td{vertical-align:top; padding:14px 12px 14px 0; border-bottom:1px solid var(--rule); color:var(--ink)}
+  .score td:first-child{font-weight:600; width:18%}
+  .score .grade{font-family:var(--mono); font-size:12px; letter-spacing:.06em; text-transform:uppercase;
+    white-space:nowrap; font-weight:600}
+  /* --r1 has too little contrast for text in both themes, so grades use ink and --r2 */
+  .score .miss{color:var(--ink)}
+  .score .held{color:var(--r2)}
+  .score .grade span{display:block; font-family:inherit; text-transform:none; letter-spacing:0;
+    white-space:normal; font-weight:400; font-size:12.5px; color:var(--muted); margin-top:4px}
+  @media (max-width:640px){
+    .score thead{display:none}
+    .score, .score tbody, .score tr, .score td{display:block; width:100%}
+    .score tr{border:1px solid var(--rule); border-radius:8px; padding:12px 14px; margin:0 0 12px; background:var(--paper)}
+    .score td{border:0; padding:4px 0}
+    .score td:first-child{width:100%}
+    .score td[data-h]::before{content:attr(data-h); display:block; font-family:var(--mono); font-size:11px;
+      letter-spacing:.08em; text-transform:uppercase; color:var(--muted); margin-top:6px}
+  }
+  .archive{margin:8px 0 0; border:1px solid var(--rule); border-radius:8px; background:var(--paper)}
+  .archive summary{cursor:pointer; padding:12px 16px; font-weight:600; color:var(--ink)}
+  .archive .archive-body{padding:0 16px 14px; font-size:14px; line-height:1.55; color:var(--ink)}
+  .archive h4{margin:18px 0 6px; font-size:14.5px}
+  .archive ul{margin:6px 0 0 18px; padding:0}
+  .archive li{margin:0 0 6px}
+  .archive .stamp{font-family:var(--mono); font-size:12px; color:var(--muted); margin:0 0 4px}
+</style>
+
+<a class="back-link" href="/#/">&larr; Strategic Deep Dive</a>
+
+<header class="mast">
+  <p class="eyebrow">Forecast Scorecard &middot; Warframe: Amir's Shockwave &middot; Digital Extremes</p>
+  <h1>A prediction nobody checks isn't one</h1>
+  <p class="byline"><b>Adwaith V</b> &middot; I wrote a live-ops forecast a month before launch, locked it, and graded it against what shipped.</p>
+</header>
+
+<div class="filters theme-only">
+  <div class="fgroup">
+    <span id="themeLabel">Appearance</span>
+    <div class="seg" role="group" aria-labelledby="themeLabel" id="themeSeg">
+      <button data-theme-set="light" aria-pressed="false">Light</button>
+      <button data-theme-set="dark" aria-pressed="false">Dark</button>
+    </div>
+  </div>
+</div>
+
+<p class="dated"><b>Graded forecast.</b> The prediction was written and archived on 13 July 2026, from Digital Extremes' own TennoCon report. Amir's Shockwave shipped on 12 August. The freshness check ran on 14 August, and this scorecard was published on LinkedIn on 11 September 2026 (<a href="https://www.linkedin.com/feed/update/urn:li:activity:7504222757350428672/" target="_blank" rel="noopener">original post</a>). The 13 July text sits at the foot of this page, unedited.</p>
+
+<!-- ============ THE 90-SECOND READ ============ -->
+<section class="hero" id="block-decision">
+  <div class="hero-fig">3/4</div>
+  <div class="hero-body">
+    <p class="blocklabel">The grade</p>
+    <p><b>What this is.</b> A pre-launch read of Warframe's August live-ops beat (Amir's Shockwave, plus Fables &amp; Frontiers: Running Late), graded against the shipped patch two days after launch.</p>
+    <p><b>What I found.</b> Three of four spine-level claims did not survive the patch notes. All three came from the same place: reading a pre-launch report as if it were the shipped product.</p>
+    <p><b>Why it matters.</b> Teardowns are cheap when nobody checks them. Every forecast in this series is dated before launch and graded after it, on the record, whether it held or not.</p>
+  </div>
+</section>
+
+<!-- ============ PILLAR 01 ============ -->
+<section class="card prose" id="block-loop">
+  <p class="blocklabel">Pillar 01 &middot; The method</p>
+  <h2>Written a month early, locked, graded after launch</h2>
+  <p class="dek">The rule was set before the outcome was known.</p>
+
+  <p class="splith">The scoring loop</p>
+  <div class="loop" aria-label="Scoring loop">
+    <span>Forecast written</span><i>&rarr;</i>
+    <span>Dated + archived</span><i>&rarr;</i>
+    <span>Launch</span><i>&rarr;</i>
+    <span>Freshness check</span><i>&rarr;</i>
+    <span>Errors named</span><i>&rarr;</i>
+    <span>Both versions published</span>
+  </div>
+
+  <div class="splitgrid four">
+    <div class="split">
+      <p class="splith">Archived, not edited</p>
+      <p>The 13 July version stays wrong on the record, on purpose.</p>
+    </div>
+    <div class="split">
+      <p class="splith">Freshness check</p>
+      <p>Run 14 August 2026, two days after the 12 August launch.</p>
+    </div>
+    <div class="split">
+      <p class="splith">Scored, not softened</p>
+      <p>Three spine-level errors found and named one by one. Nothing smoothed over.</p>
+    </div>
+    <div class="split">
+      <p class="splith">Kept intact</p>
+      <p>The archived forecast carries its own do-not-edit rule.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PILLAR 02 ============ -->
+<section class="card prose" id="block-economy">
+  <p class="blocklabel">Pillar 02 &middot; The scorecard</p>
+  <h2>Four claims from 13 July, set against what shipped on 12 August</h2>
+  <p class="dek">Every claim was written before a single player could log in. Every correction comes from Digital Extremes' own patch notes and reward tables.</p>
+
+  <table class="score">
+    <thead>
+      <tr><th>Claim</th><th>Predicted, 13 July</th><th>Shipped, 12 August</th><th>Grade</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>KIM campaign</td>
+        <td data-h="Predicted, 13 July">A six-day time-gate: temporary, gone within a week.</td>
+        <td data-h="Shipped, 12 August">Fables &amp; Frontiers: Running Late shipped as a permanent addition to the KIM system. No time-gate exists.</td>
+        <td data-h="Grade" class="grade miss">Miss</td>
+      </tr>
+      <tr>
+        <td>Nightwave track</td>
+        <td data-h="Predicted, 13 July">A six-day swap of Nora's Nightwave track, a backend season change.</td>
+        <td data-h="Shipped, 12 August">30 ranks plus 150 prestige ranks: a months-long track, not a swap.</td>
+        <td data-h="Grade" class="grade miss">Miss</td>
+      </tr>
+      <tr>
+        <td>Reward pressure</td>
+        <td data-h="Predicted, 13 July">Flavor-forward: cosmetic, low-pressure by design.</td>
+        <td data-h="Shipped, 12 August">Hard progression goods on a free track: Umbra Forma (R28), Omni Forma (R26), Warframe Slot (R20), Veiled Riven Cipher (R19), Arcane Guardian &times;3 (R14), Primary Arcane Adapter (R8).</td>
+        <td data-h="Grade" class="grade miss">Miss</td>
+      </tr>
+      <tr>
+        <td>Load</td>
+        <td data-h="Predicted, 13 July">No Tau-class spike for the August beat; the 157,162 TennoCon peak from July cited for provisioning.</td>
+        <td data-h="Shipped, 12 August">Steam peaked at 56,310 on 13 August: trough-window concurrency, far under the July peak.</td>
+        <td data-h="Grade" class="grade held">Held<span>No spike was forecast and none came. The cited figure was July's, stale by August.</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p class="note"><b>Missed entirely:</b> Nora Night did not host Nightwave, for the first time in seven years. The 13 July read called the change a backend season swap.</p>
+</section>
+
+<!-- ============ PILLAR 03 ============ -->
+<section class="card prose" id="block-infra">
+  <p class="blocklabel">Pillar 03 &middot; Why it missed</p>
+  <h2>A pre-launch report is not the shipped product</h2>
+  <p class="dek">All three misses were inherited from the source, not introduced in the analysis. That is a sourcing error, and it is fixable.</p>
+
+  <div class="splitgrid four">
+    <div class="split">
+      <p class="splith">The source</p>
+      <p>Every claim came from Digital Extremes' TennoCon report, compiled a month before launch. The report described intent; the patch shipped a decision.</p>
+    </div>
+    <div class="split">
+      <p class="splith">The pattern</p>
+      <p>Each miss was about how long something ran or how much it paid, not whether it existed. The campaign, the track and the reward table were all real; their duration and weight were not what the report implied.</p>
+    </div>
+    <div class="split">
+      <p class="splith">The consequence</p>
+      <p>A cosmetic track and a Warframe Slot track need different guardrails. Reading the weight wrong meant the forecast's economy pillar was guarding the wrong risk.</p>
+    </div>
+    <div class="split">
+      <p class="splith">The correction</p>
+      <p>A live-window teardown written two days after launch superseded the forecast and rebuilt the economy read around the real reward table. The forecast was kept beside it, not replaced.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PILLAR 04 ============ -->
+<section class="card prose" id="block-matrix">
+  <p class="blocklabel">Pillar 04 &middot; The standard</p>
+  <h2>A prediction nobody checks is an opinion with a date stamp</h2>
+  <p class="dek">This is the bar every published teardown in this series is held to before anyone is asked to trust it.</p>
+
+  <div class="splitgrid four">
+    <div class="split">
+      <p class="splith">Not hidden</p>
+      <p>The wrong version stays archived and dated, not quietly edited.</p>
+    </div>
+    <div class="split">
+      <p class="splith">Not hedged</p>
+      <p>Three misses named one by one, not smoothed into a general disclaimer.</p>
+    </div>
+    <div class="split">
+      <p class="splith">The standard</p>
+      <p>The same discipline applies to every teardown in the series, including the ones still waiting for launch.</p>
+    </div>
+    <div class="split">
+      <p class="splith">Next check</p>
+      <p>The <a href="/fall-bridge/">Iceblade of Narin read</a> gets the same freshness check after it ships, on the record.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CLOSE ============ -->
+<section class="card prose" id="block-close">
+  <div class="closer">
+    <div>
+      <p class="blocklabel">Self-graded prediction &middot; Warframe &middot; Amir's Shockwave</p>
+      <h2>A prediction nobody checks isn't one.</h2>
+      <p>Date it before launch. Grade it after. Publish both.</p>
+    </div>
+    <div class="badge">
+      <picture>
+        <source srcset="assets/forecast-closer.webp" type="image/webp">
+        <img src="assets/forecast-closer.png" width="1620" height="2025" alt="Closing slide of the Forecast Scorecard carousel: A prediction nobody checks isn't one. Adwaith V." loading="lazy">
+      </picture>
+    </div>
+  </div>
+
+  <details class="archive">
+    <summary>The 13 July forecast, unedited</summary>
+    <div class="archive-body">
+      <p class="stamp">Archived pre-launch prediction &middot; written 13 July 2026 &middot; kept as written</p>
+      <h4>Slide 1 - Pillar 1: Behavioral Loop &amp; Telemetry Instrumentation</h4>
+      <p>Takeaway: This layer's job is login rhythm, so instrument streaks and cadence and let the big drops chase the concurrency peaks.</p>
+      <ul>
+        <li>Core loop nodes: daily/weekly Nightwave challenge → challenge complete → rank and reward → KIM narrative beat → return next day.</li>
+        <li>Cadence hook (instrumentation to build): <code>nightwave_daily_challenge_completed</code> streak length - the primary login-frequency signal for a free battle-pass-style track.</li>
+        <li>Narrative-pacing hook (instrumentation to build): <code>kim_conversation_node_reached</code> across the six-day KIM campaign - maps where players drop off inside the story track.</li>
+        <li>Novelty-vs-hook test (instrumentation to build): <code>fables_frontiers_room_entered</code> vs <code>fables_session_repeat_d7</code> - tells you if the Höllvania Mall tabletop room is a repeatable draw or a one-visit set piece.</li>
+        <li>Flavor-engagement hook (instrumentation to build): <code>onlyne_song_running_late_played</code> - light signal on the new On-Lyne track's pull.</li>
+      </ul>
+      <h4>Slide 2 - Pillar 2: Economic Stabilization &amp; Value Capture</h4>
+      <p>Takeaway: The report already calls this track "less exploitative," so the economic job is to hold that line while still driving logins.</p>
+      <ul>
+        <li>Low-pressure faucet: a free battle-pass-like track handing out cosmetics, Zildi glyphs, and the "Running Late" song - monetization stays light by design.</li>
+        <li>Cadence sink: the time-gated six-day KIM campaign plus weekly Nightwave challenges force login rhythm without shipping new hard content.</li>
+        <li>Fatigue guardrail: the report's failure mode here is "just another grind layer," so keep the track flavor-forward, not grind-forward.</li>
+        <li>Rank-velocity monitor (instrumentation to build): <code>nightwave_rank_up</code> pace vs challenge availability - catches both grind-wall and trivial-completion extremes.</li>
+      </ul>
+      <h4>Slide 3 - Pillar 3: Tech/Ops Infrastructure Architecture</h4>
+      <p>Takeaway: The infrastructure ask is deliberately small, and that is the point - a persistent social room riding existing Höllvania tech.</p>
+      <ul>
+        <li>Reuse over rebuild: Fables &amp; Frontiers is a persistent Höllvania Mall game room plus KIM group-chat expansion, leaning on shipped Warframe: 1999 infrastructure.</li>
+        <li>Seasonal-track swap: Amir's Shockwave temporarily replaces Nora's Nightwave track for six days - a backend season swap, not a new subsystem.</li>
+        <li>State validation (instrumentation to build): server-side challenge-completion checks so Nightwave rank claims can't be spoofed.</li>
+        <li>Scaling: no Tau-class spike expected for the August 2026 beat - the main new load is the KIM group-chat/social expansion, which needs sync and moderation headroom.</li>
+      </ul>
+      <h4>Slide 4 - Pillar 4: The Balanced Strategic Matrix</h4>
+      <p>Takeaway: Success here is a shallower trough between expansions, measured in stickiness rather than a peak this track was never built to hit.</p>
+      <ul>
+        <li>Exploit surface: challenge-completion bots farming Nightwave rank - a low-value target, so low risk, but validate completion server-side anyway.</li>
+        <li>North Star: DAU/WAU stickiness ratio across the August-to-fall lull.</li>
+        <li>Counter-metric: Nightwave fatigue churn - players who lapse from repetitive challenge grind.</li>
+        <li>Sustain guardrail: login-streak retention through the gap before Iceblade of Narin (Fall 2026) and Tau (winter 2026).</li>
+      </ul>
+    </div>
+  </details>
+</section>
+
+<!-- ============ PROVENANCE ============ -->
+<section class="prov" id="block-prov">
+  <h3>Sources &amp; method</h3>
+  <ul>
+    <li><b>The prediction</b> was written on 13 July 2026 from my TennoCon 2026 post-event report, which compiled Digital Extremes' own presentation and its press coverage. It is reproduced above without edits.</li>
+    <li><b>What shipped:</b> WARFRAME Wiki (Nightwave / Amir's Shockwave, retrieved 14 August 2026), warframe.com news, Massively Overpowered launch coverage and the Warframe Forums stream schedule.</li>
+    <li><b>Concurrency:</b> SteamCharts monthly peak for July 2026 (157,162); SteamDB-derived daily peak for 13 August 2026 (56,310). Warframe, Steam app 230410.</li>
+    <li><b>Event names</b> in the archived forecast are proposed instrumentation written from outside the studio, not Digital Extremes telemetry.</li>
+    <li><b>Timestamps:</b> forecast 13 July 2026; launch 12 August 2026; freshness check 14 August 2026; scorecard first published 11 September 2026 on LinkedIn.</li>
+  </ul>
+  <p class="note">Part of a TennoCon 2026 series. Still waiting to be graded: <a href="/fall-bridge/">A rework wins in the loadout, not the patch notes</a> and <a href="/tau-readiness/">Instrument the return, not the reveal</a>. The measured teardown behind the series is <a href="/venus-gate/">The Venus Gate</a>.</p>
+</section>
+
+<script>
+  /* Appearance toggle - same behaviour and storage key as The Venus Gate.
+     No renderAll() here: this page has no charts to redraw. */
+  (function(){
+    function currentTheme(){
+      var set=document.documentElement.getAttribute('data-theme');
+      if(set)return set;
+      return window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';
+    }
+    function syncThemeSeg(){
+      var t=currentTheme();
+      Array.prototype.forEach.call(document.querySelectorAll('#themeSeg button'),function(b){
+        b.setAttribute('aria-pressed', b.dataset.themeSet===t?'true':'false');
+      });
+    }
+    Array.prototype.forEach.call(document.querySelectorAll('#themeSeg button'),function(b){
+      b.addEventListener('click',function(){
+        document.documentElement.setAttribute('data-theme', b.dataset.themeSet);
+        try{localStorage.setItem('vg-theme', b.dataset.themeSet);}catch(e){}
+        syncThemeSeg();
+      });
+    });
+    try{window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change',syncThemeSeg);}catch(e){}
+    syncThemeSeg();
+  })();
+</script>
+
+</div>
+</body>
+</html>

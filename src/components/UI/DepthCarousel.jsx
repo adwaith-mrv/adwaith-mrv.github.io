@@ -148,8 +148,8 @@ const DepthCarousel = ({ items }) => {
         const rotateY = col * -7.5;
         
         // Slower scale and opacity decay so active + background cards look grand and premium
-        const scale = Math.max(0, 1 - (maxDist * 0.15)); 
-        const opacity = maxDist === 0 ? 1 : Math.max(0, 0.9 - (maxDist * 0.22)); 
+        const scale = Math.max(0.2, 1 - (maxDist * 0.14)); 
+        const opacity = maxDist === 0 ? 1 : Math.max(0.1, 0.9 - (maxDist * 0.15)); 
         const blur = maxDist === 0 ? 0 : maxDist * 1.5;
 
         return { x, y, z, rotateX, rotateY, scale, opacity, blur, maxDist };
@@ -170,7 +170,7 @@ const DepthCarousel = ({ items }) => {
                             const badgePosClass = item.badgePosition || 'bottom-left';
                             
                             // Prevent rendering extremely distant cards to optimize performance
-                            if (maxDist > 4) return null;
+                            if (maxDist > 6) return null;
 
                             const zIndex = 100 - maxDist * 10;
 
@@ -214,7 +214,10 @@ const DepthCarousel = ({ items }) => {
                                                 alt={item.title} 
                                                 className="card-media-3d" 
                                                 draggable="false" 
-                                                style={item.fit ? { objectFit: item.fit } : undefined}
+                                                style={{
+                                                    ...(item.fit ? { objectFit: item.fit } : {}),
+                                                    ...(item.position ? { objectPosition: item.position } : {})
+                                                }}
                                             />
                                         )}
                                         {item.mediaType === 'video' && (
@@ -225,7 +228,10 @@ const DepthCarousel = ({ items }) => {
                                                 muted 
                                                 playsInline 
                                                 className="card-media-3d" 
-                                                style={item.fit ? { objectFit: item.fit } : undefined}
+                                                style={{
+                                                    ...(item.fit ? { objectFit: item.fit } : {}),
+                                                    ...(item.position ? { objectPosition: item.position } : {})
+                                                }}
                                             />
                                         )}
                                         
