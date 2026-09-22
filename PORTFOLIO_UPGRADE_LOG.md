@@ -579,6 +579,42 @@ export default ContactButton;
     *   **Cross-Links & Redirects**: Verified Tau footer link `/#/DeepDive/FallBridge` seamlessly lands on `/fall-bridge/` with zero requests to `canva.com`.
     *   **Regression Integrity**: Verified Home, Venus Gate, Binding Constraint, Tau, and NFS Most Wanted render with zero regressions, zero console errors, and zero 404s.
 
+---
 
+## Upgrade 13: Experience Timeline Typography Centering, APM Title Standardization, and Multi-Line Progression Layout
 
+### 1. Requirements & Problem Statement
+*   **Requirement 1**: Make all job titles (text in orange, `.job-title`) in the Experience section center aligned within their respective card.
+*   **Requirement 2**: Update the designations for both Bajaj Finserv junior roles—replacing `"Junior Product Manager - Credit Cards"` and `"Junior Product Manager - Lending"` with `"Associate Product Manager"`—and ensure they are center aligned.
+*   **Requirement 3**: Split the company/tenure line (blue text, `.company`) into 2 separate lines wherever the bullet delimiter (`•`) is present, center aligned directly beneath the orange title.
+*   **Requirement 4**: Completely replace the body text of the Independent PM card (`Product Manager - Game Systems & Live Economy Analysis (Independent)`) with:
+    > *"Model and publish quantitative economy teardowns of live-service games (Warframe in Machinations; NFS Most Wanted 2005), under declared protocols. Reconstruct early-game progression to locate drop gates, resource bottlenecks and pacing constraints, stress-tested with Monte Carlo simulation. The work ends in product briefs that resolve the binding constraint without devaluing the grind. Certifications: Game Economy Designer, Machinations Essentials."*
+*   **Requirement 5**: In the Credit Cards card, replace the conversion bullet with:
+    > *"Lifted application conversion 15% through SoQL funnel analysis, ETB/NTB segmentation, dynamic auto-fill and targeted UI/UX optimisation."*
+*   **Requirement 6**: In the Education Journey card, split the blue degree text into 3 separate lines:
+    *   Line 1: `"M.S. Management Science: Business Analytics & Systems • University at Buffalo"`
+    *   Line 2: `"M.B.A., Operations • Amrita School of Business, Bengaluru"`
+    *   Line 3: `"B.E., Computer Science Engineering • Dr. Ambedkar Institute of Technology, Bengaluru"`
+*   **Requirement 7**: In the Product Manager card (`Jan 2025 - Jul 2025`), replace the UAT testing bullet with:
+    > *"Ran release readiness end to end: 250+ UAT/CUG test cases across PWA, middleware and SFDC automations, zero P0 blockers at launch."*
 
+### 2. Architectural Implementation
+*   **CSS Enhancements** (`src/App.css`):
+    *   Added `text-align: center;` to `.job-title`.
+    *   Added `text-align: center;` and `line-height: 1.5;` to `.company`.
+    *   Introduced `.company-line` container with `margin-bottom: 0.25rem;` (`:last-child { margin-bottom: 0; }`) to guarantee crisp vertical spacing and clean stacking across all viewports.
+*   **Data Model & Dynamic Rendering** (`src/pages/Home/Home.jsx`):
+    *   Upgraded `exp.company` schema to support string arrays (`Array.isArray(exp.company)`), rendering each item inside a `.company-line` div.
+    *   Standardized titles across Cards 4 & 5 to `'Associate Product Manager'`.
+    *   Replaced Card 1 body copy verbatim with the game systems & live economy teardown thesis.
+    *   Updated Card 3 UAT/CUG release readiness copy.
+    *   Updated Card 5 SoQL conversion copy.
+    *   Expanded Card 6 into a 3-tier education degree hierarchy.
+
+### 3. Verification & Validation
+*   Automated Playwright checks confirmed:
+    *   All 6 timeline cards exhibit `titleAlign === 'center'` and `compAlign === 'center'`.
+    *   Cards 1 through 5 render exactly 2 stacked company/date lines.
+    *   Card 6 (Education Journey) renders 3 distinct degree credential lines.
+    *   Verbatim copy matches 100% across Cards 1, 3, and 5.
+    *   Zero console errors and zero layout shifts.

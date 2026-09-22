@@ -243,34 +243,38 @@ const Home = () => {
                         {[
                             {
                                 title: 'Product Manager - Game Systems & Live Economy Analysis (Independent)',
-                                company: 'Independent Practice • Jul 2025 - Present',
-                                desc: 'Modeled and published quantitative economy teardowns across live-service titles (Warframe, NFS Most Wanted 2005, EA Sports FC) using Machinations under declared protocols. Reconstructed early-game progression curves, identifying and publishing drop gates, resource bottlenecks, and pacing constraints. Built probabilistic Monte Carlo simulations analyzing drop rates, crafting times, and player friction points across hundreds of runs. Authored comprehensive product briefs proposing structural systems solutions to surface binding constraints without devaluing existing grinds. Certified as Game Economy Designer and completed Machinations Essentials certification.',
+                                company: ['Independent Practice', 'Jul 2025 - Present'],
+                                desc: 'Model and publish quantitative economy teardowns of live-service games (Warframe in Machinations; NFS Most Wanted 2005), under declared protocols. Reconstruct early-game progression to locate drop gates, resource bottlenecks and pacing constraints, stress-tested with Monte Carlo simulation. The work ends in product briefs that resolve the binding constraint without devaluing the grind. Certifications: Game Economy Designer, Machinations Essentials.',
                                 tags: ['Game Economy Design', 'Systems Design', 'Machinations.io', 'Monte Carlo Simulation', 'LiveOps', 'Progression Modeling']
                             },
                             {
                                 title: 'Career Break - Caregiving',
-                                company: 'Personal • Aug 2025 - Mar 2026',
+                                company: ['Personal', 'Aug 2025 - Mar 2026'],
                                 desc: 'Dedicated time to family health and caregiving responsibilities while maintaining continuous independent research, economy modeling, and game systems analysis.',
                                 isMuted: true
                             },
                             {
                                 title: 'Product Manager',
-                                company: 'Bajaj Finserv - Bharat Lending CoE • Jan 2025 - Jul 2025',
-                                desc: 'Led SME lending BRD tailoring and requirement gathering, cutting rework by 25%. Collaborated with 3+ tech teams to deliver PWA & SFDC integration, reducing release cycle by 2 weeks. Conducted extensive UAT testing with 140+ cases, cutting production bugs by 20%.'
+                                company: ['Bajaj Finserv - Bharat Lending CoE', 'Jan 2025 - Jul 2025'],
+                                desc: 'Led SME lending BRD tailoring and requirement gathering, cutting rework by 25%. Collaborated with 3+ tech teams to deliver PWA & SFDC integration, reducing release cycle by 2 weeks. Ran release readiness end to end: 250+ UAT/CUG test cases across PWA, middleware and SFDC automations, zero P0 blockers at launch.'
                             },
                             {
-                                title: 'Junior Product Manager - Lending',
-                                company: 'Bajaj Finserv - Bharat Lending CoE • Nov 2024 - Jan 2025',
+                                title: 'Associate Product Manager',
+                                company: ['Bajaj Finserv - Bharat Lending CoE', 'Nov 2024 - Jan 2025'],
                                 desc: 'Authored BRDs for BFL-BFDL and Airtel-BFL partnerships, accelerating partner approvals by 20%. Developed technical workflows and Figma mockups, cutting review cycles by 30%. Coordinated UAT with 25+ test cases, enabling successful first-pass testing.'
                             },
                             {
-                                title: 'Junior Product Manager - Credit Cards',
-                                company: 'Bajaj Finserv - Credit Cards CoE • Jun 2023 - Nov 2024',
-                                desc: 'Conducted funnel analysis and implemented UI/UX improvements, increasing conversions by 15%. Owned BRDs and backlog alignment, improving sprint velocity by 20%. Developed Salesforce dashboards for data-driven decisions, increasing engagement by 12%. Led Agile coordination with 100% sprint target adherence over 6 releases.'
+                                title: 'Associate Product Manager',
+                                company: ['Bajaj Finserv - Credit Cards CoE', 'Jun 2023 - Nov 2024'],
+                                desc: 'Lifted application conversion 15% through SoQL funnel analysis, ETB/NTB segmentation, dynamic auto-fill and targeted UI/UX optimisation. Owned BRDs and backlog alignment, improving sprint velocity by 20%. Developed Salesforce dashboards for data-driven decisions, increasing engagement by 12%. Led Agile coordination with 100% sprint target adherence over 6 releases.'
                             },
                             {
                                 title: 'Education Journey',
-                                company: 'MS Business Analytics (Buffalo) • MBA Operations (Amrita) • BE Computer Science',
+                                company: [
+                                    'M.S. Management Science: Business Analytics & Systems • University at Buffalo',
+                                    'M.B.A., Operations • Amrita School of Business, Bengaluru',
+                                    'B.E., Computer Science Engineering • Dr. Ambedkar Institute of Technology, Bengaluru'
+                                ],
                                 desc: 'Specialized in Business Analytics with 3.644/4 GPA. MBA with specialization excellence award and leadership as class representative. Captain of Men\'s Basketball Team during engineering, combining technical skills with leadership experience.'
                             }
                         ].map((exp, i) => (
@@ -279,7 +283,15 @@ const Home = () => {
                                 <div className="comet-card timeline-content" onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave}>
                                     <div className="comet-card-content">
                                         <div className="job-title">{exp.title}</div>
-                                        <div className="company">{exp.company}</div>
+                                        <div className="company">
+                                            {Array.isArray(exp.company) ? (
+                                                exp.company.map((line, idx) => (
+                                                    <div key={idx} className="company-line">{line}</div>
+                                                ))
+                                            ) : (
+                                                <div className="company-line">{exp.company}</div>
+                                            )}
+                                        </div>
                                         <div className="job-description">{exp.desc}</div>
                                         {exp.tags && (
                                             <div className="timeline-tags" style={{ marginTop: '0.8rem', display: 'flex', flexWrap: 'wrap', gap: '0.4rem' }}>
