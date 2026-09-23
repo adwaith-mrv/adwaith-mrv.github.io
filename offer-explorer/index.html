@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Where a match-3 asks you to pay: 52 levels, logged by hand | Adwaith V</title>
+  <meta name="description" content="A first-hand mobile free-to-play teardown: 52 levels of Match Factory! logged by hand, a tool that reads the log, and the call it supports - gate the first priced offer on need, not on a level number.">
+  <link rel="canonical" href="https://adwaith-mrv.github.io/offer-explorer/">
+  <link rel="stylesheet" href="/assets/deepdive.css">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://adwaith-mrv.github.io/offer-explorer/">
+  <meta property="og:title" content="Where a match-3 asks you to pay: 52 levels, logged by hand | Adwaith V">
+  <meta property="og:description" content="A first-hand mobile free-to-play teardown: 52 levels of Match Factory! logged by hand, a tool that reads the log, and the call it supports - gate the first priced offer on need, not on a level number.">
+  <meta property="og:image" content="https://adwaith-mrv.github.io/offer-explorer/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="The Offer Explorer showing coin balance by level for a 52-level play log">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Where a match-3 asks you to pay: 52 levels, logged by hand | Adwaith V">
+  <meta name="twitter:description" content="A first-hand mobile free-to-play teardown: 52 levels of Match Factory! logged by hand, a tool that reads the log, and the call it supports - gate the first priced offer on need, not on a level number.">
+  <meta name="twitter:image" content="https://adwaith-mrv.github.io/offer-explorer/og.png">
+
+  <!-- Schema.org Article JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "@id": "https://adwaith-mrv.github.io/offer-explorer/#article",
+    "headline": "Where a match-3 asks you to pay: 52 levels, logged by hand",
+    "description": "A first-hand mobile free-to-play teardown: 52 levels of Match Factory! logged by hand, a tool that reads the log, and the call it supports - gate the first priced offer on need, not on a level number.",
+    "image": "https://adwaith-mrv.github.io/offer-explorer/og.png",
+    "datePublished": "2026-09-23",
+    "dateModified": "2026-09-23",
+    "author": {
+      "@type": "Person",
+      "@id": "https://adwaith-mrv.github.io/#person",
+      "name": "Adwaith V"
+    },
+    "publisher": {
+      "@type": "Person",
+      "@id": "https://adwaith-mrv.github.io/#person",
+      "name": "Adwaith V"
+    },
+    "isPartOf": {
+      "@id": "https://adwaith-mrv.github.io/#website"
+    },
+    "mainEntityOfPage": "https://adwaith-mrv.github.io/offer-explorer/"
+  }
+  </script>
+
+  <script>
+    // Picture fallback: if webp request is blocked or fails, fall back to png
+    document.addEventListener('error', function(e) {
+      if (e.target && e.target.tagName === 'IMG' && e.target.closest('picture')) {
+        var pic = e.target.closest('picture');
+        var src = pic.querySelector('source');
+        if (src && !e.target.dataset.fallbackApplied) {
+          e.target.dataset.fallbackApplied = 'true';
+          src.remove();
+          var png = e.target.getAttribute('src');
+          e.target.src = png;
+        }
+      }
+    }, true);
+  </script>
+
+  <!--FONTS-->
+  <style>
+  @font-face{font-family:'BF Modernista';src:url(assets/fonts/BF_Modernista-Light.ttf) format('truetype');font-weight:300;font-display:swap;}
+  @font-face{font-family:'BF Modernista';src:url(assets/fonts/BF_Modernista-Regular.ttf) format('truetype');font-weight:400;font-display:swap;}
+  @font-face{font-family:'BF Modernista';src:url(assets/fonts/BF_Modernista-Bold.ttf) format('truetype');font-weight:700;font-display:swap;}
+  </style>
+  <!--/FONTS-->
+
+  <style>
+  :root{
+    --paper:#F6F5F1; --surface:#FFFFFF; --ink:#14161A; --muted:#4A5568;
+    --rule:#DED9CD; --grid:#E7E2D6; --faint:#8A9099;
+    --gold:#A8801F; --blue:#2C63B5;
+    --r1:#C9A840; --r2:#9C7618; --r3:#5A470D;
+    --shadow:0 1px 2px rgba(20,22,26,.05), 0 8px 24px rgba(20,22,26,.05);
+    --modelbg:#F8F9FB;
+    --sans:'BF Modernista','Futura','Avenir Next','Helvetica Neue',Arial,sans-serif;
+    --serif:'BF Modernista','Futura','Avenir Next','Helvetica Neue',Arial,sans-serif;
+    --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace;
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --paper:#14161A; --surface:#1B1E23; --ink:#EFEDE6; --muted:#A8AEB8;
+      --rule:#2C3037; --grid:#262A30; --faint:#767D88;
+      --gold:#B08722; --blue:#3E7FCC;
+      --r1:#5A470D; --r2:#9C7618; --r3:#C9A840;
+      --shadow:0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.25); --modelbg:#1B1E23;
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#14161A; --surface:#1B1E23; --ink:#EFEDE6; --muted:#A8AEB8;
+    --rule:#2C3037; --grid:#262A30; --faint:#767D88;
+    --gold:#B08722; --blue:#3E7FCC;
+    --r1:#5A470D; --r2:#9C7618; --r3:#C9A840;
+    --shadow:0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.25); --modelbg:#1B1E23;
+  }
+
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--paper); color:var(--ink);
+    font-family:var(--sans); font-size:16px; line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:920px; margin:0 auto; padding:48px 24px 80px}
+
+  /* ---------- masthead ---------- */
+  .back-link{display:inline-block; font-family:var(--mono); font-size:13px; color:var(--muted); text-decoration:none; margin-bottom:16px}
+  .back-link:hover{color:var(--ink)}
+  .mast{border-bottom:1px solid var(--rule); padding-bottom:28px; margin-bottom:36px}
+  .eyebrow{font-family:var(--mono); font-size:12.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); margin:0 0 14px}
+  h1{font-family:var(--serif); font-weight:600; font-size:clamp(28px,4.4vw,44px); line-height:1.15; letter-spacing:-.01em; margin:0 0 14px; max-width:20ch}
+  .byline{font-size:14px; color:var(--muted); margin:0}
+  .byline b{color:var(--ink); font-weight:600}
+
+  /* ---------- hero ---------- */
+  .hero{display:flex; flex-wrap:wrap; gap:32px; align-items:center; margin:0 0 40px; padding:28px 30px; background:var(--surface); border:1px solid var(--rule); border-radius:10px; box-shadow:var(--shadow)}
+  .hero-fig{font-family:var(--sans); font-weight:700; font-size:72px; line-height:.92; letter-spacing:-.03em; color:var(--gold)}
+  .hero-body{flex:1 1 320px; min-width:260px}
+  .hero-body p{margin:0 0 10px; font-size:15.5px; font-weight:300; line-height:1.6; color:var(--ink)}
+  .hero-body p b{color:var(--ink); font-weight:700}
+  .hero-body .blocklabel{color:var(--gold)}
+
+  /* ---------- cards & prose ---------- */
+  .card{background:var(--surface); border:1px solid var(--rule); border-radius:10px; padding:26px 28px 22px; margin:0 0 26px; box-shadow:var(--shadow)}
+  .card h2{font-family:var(--sans); font-size:20px; font-weight:600; letter-spacing:-.01em; line-height:1.3; margin:0 0 14px; color:var(--ink)}
+  .card .dek{font-size:15.5px; font-weight:300; line-height:1.6; color:var(--muted); margin:0 0 20px}
+  .card .dek b{color:var(--ink); font-weight:600}
+
+  .card .blocklabel, .hero .blocklabel, .blocklabel{
+    font-family:var(--mono); font-size:15px; letter-spacing:.12em; text-transform:uppercase;
+    color:var(--gold); margin:0 0 14px; font-weight:500; line-height:1.4;
+  }
+  .hero-body .blocklabel{margin-bottom:8px}
+
+  .card.prose p{font-size:15.5px; font-weight:300; line-height:1.65; margin:0 0 15px; color:var(--ink)}
+  .card.prose p:last-child, .card.prose ol:last-child{margin-bottom:0}
+  .card.prose p.blocklabel{font-size:15px; font-weight:500; letter-spacing:.12em; color:var(--gold); margin:0 0 14px; line-height:1.4}
+  .card.prose p.dek{font-size:15.5px; font-weight:300; line-height:1.6; color:var(--muted); margin:0 0 20px}
+  .card.prose p.splith{color:var(--ink)}
+  .card.prose p b, .card.prose li b{font-weight:700}
+  .card.prose ul, .card.prose ol{margin:0 0 15px 0; padding-left:22px}
+  .card.prose li{font-size:15.5px; font-weight:300; line-height:1.65; margin-bottom:9px; color:var(--ink)}
+  .card.prose code{font-family:var(--mono); font-size:14.5px; background:var(--paper);
+    border:1px solid var(--rule); border-radius:4px; padding:1px 5px}
+  .card.prose .splith, .card.prose .split .splith{font-family:var(--mono); font-size:13.5px; letter-spacing:.06em; text-transform:uppercase;
+    color:var(--ink); font-weight:500; margin:22px 0 10px !important}
+
+  .splitgrid{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:22px; margin:4px 0 22px}
+  .split{border-top:2px solid var(--gold); padding-top:14px}
+  .split .splith{margin:0 0 8px !important}
+  .split p{font-size:14.5px; line-height:1.58; color:var(--muted); margin:0}
+  .card.prose .split p{font-size:14.5px; line-height:1.58; margin:0}
+  .card.prose .pull{font-family:var(--mono); font-weight:500; font-size:16px; line-height:1.55;
+    border-left:4px solid var(--gold); padding-left:20px; color:var(--ink); margin:22px 0}
+
+  .note{font-size:12.5px; color:var(--muted); margin:14px 0 0; padding-top:13px; border-top:1px solid var(--rule)}
+  .note code{font-family:var(--mono); font-size:11.5px}
+  .note a{color:var(--ink); text-underline-offset:2px}
+
+  /* ---------- filters / segmented toggle ---------- */
+  .filters{display:flex; flex-wrap:wrap; gap:10px 22px; align-items:center; padding:14px 18px; background:var(--surface); border:1px solid var(--rule); border-radius:10px; margin:0 0 28px; box-shadow:var(--shadow)}
+  .fgroup{display:flex; align-items:center; gap:9px}
+  .fgroup>span{font-size:12px; color:var(--muted); letter-spacing:.02em}
+  .seg{display:flex; border:1px solid var(--rule); border-radius:7px; overflow:hidden}
+  .seg button{appearance:none; border:0; background:transparent; color:var(--muted); font-family:var(--sans); font-size:13px; font-weight:500; padding:7px 13px; cursor:pointer; border-right:1px solid var(--rule); min-height:34px}
+  .seg button:last-child{border-right:0}
+  .seg button[aria-pressed="true"]{background:var(--ink); color:var(--paper)}
+  .seg button:focus-visible{outline:2px solid var(--blue); outline-offset:-2px}
+
+  /* ---------- provenance ---------- */
+  .prov{margin-top:44px; padding-top:26px; border-top:1px solid var(--rule); font-size:13px; color:var(--muted)}
+  .prov h3{font-family:var(--mono); font-size:15px; font-weight:500; color:var(--gold); letter-spacing:.12em; margin:0 0 12px; text-transform:uppercase}
+  .prov ul{margin:0; padding-left:18px}
+  .prov li{margin-bottom:7px}
+  .prov b{color:var(--ink); font-weight:600}
+  .prov a{color:var(--blue); font-weight:600; text-underline-offset:3px}
+  .prov a:hover{color:var(--gold)}
+
+  @media (max-width:640px){
+    .wrap{padding:32px 16px 60px}
+    .card{padding:20px 16px 18px}
+    .hero{padding:22px 20px; gap:20px}
+    .hero-fig{font-size:56px}
+    .card.prose p, .card.prose li{font-size:15.5px}
+  }
+  </style>
+
+</head>
+<body>
+<div class="wrap">
+
+<script>
+  /* Apply the saved Appearance choice before first paint. Same key as The Venus Gate,
+     so one choice carries across every DeepDive page on the site. */
+  try{var vgSaved=localStorage.getItem('vg-theme'); if(vgSaved)document.documentElement.setAttribute('data-theme',vgSaved);}catch(e){}
+</script>
+
+<style>
+  /* ---- page-scoped additions, tokens only (shared with the other DeepDive pages) ---- */
+  .filters.theme-only{justify-content:flex-end; margin:0 0 18px; padding:0; background:transparent; border:0; box-shadow:none}
+  .dated{font-size:13.5px; line-height:1.55; color:var(--muted); background:var(--surface);
+    border:1px solid var(--rule); border-left:4px solid var(--gold); border-radius:8px;
+    padding:12px 16px; margin:0 0 18px}
+  .dated b{color:var(--ink); font-weight:600}
+  .dated a{color:var(--ink); text-underline-offset:2px}
+
+  .art{margin:0 0 36px; border-radius:10px; overflow:hidden; border:1px solid var(--rule);
+    box-shadow:var(--shadow); background:var(--surface)}
+  .art img{display:block; width:100%; height:auto}
+  .art figcaption{font-size:12px; color:var(--faint); padding:9px 14px; background:var(--surface);
+    border-top:1px solid var(--rule)}
+
+  .loop{display:flex; flex-wrap:wrap; align-items:center; gap:8px 6px; margin:4px 0 22px;
+    font-family:var(--mono); font-size:13px}
+  .loop span{border:1px solid var(--rule); background:var(--paper); border-radius:6px;
+    padding:6px 10px; color:var(--ink)}
+  .loop i{font-style:normal; color:var(--gold)}
+
+  .card.prose code{overflow-wrap:anywhere}
+  .splitgrid.four{grid-template-columns:repeat(2,minmax(0,1fr))}
+  @media (max-width:640px){ .splitgrid.four{grid-template-columns:1fr} }
+
+  /* ---- offer-explorer additions ---- */
+  .scope{font-size:13.5px; line-height:1.6; color:var(--ink); background:var(--paper);
+    border:1px solid var(--rule); border-radius:8px; padding:14px 16px; margin:0 0 28px}
+  .scope p{margin:0 0 8px}
+  .scope p:last-child{margin:0}
+  .scope b{font-weight:600}
+  .scope .lbl{font-family:var(--mono); font-size:11px; letter-spacing:.08em;
+    text-transform:uppercase; color:var(--muted); display:block; margin:0 0 6px}
+
+  .cta{display:flex; flex-wrap:wrap; gap:10px; margin:6px 0 20px}
+  .cta a{display:inline-block; font-family:var(--mono); font-size:13px; letter-spacing:.02em;
+    text-decoration:none; border:1px solid var(--rule); border-radius:8px; padding:10px 16px;
+    color:var(--ink); background:var(--surface)}
+  .cta a.primary{border-color:var(--gold); color:var(--gold)}
+  .cta a:hover{border-color:var(--gold)}
+
+  .call{margin:6px 0 4px}
+  .call dt{font-family:var(--mono); font-size:11.5px; letter-spacing:.08em; text-transform:uppercase;
+    color:var(--muted); margin:0 0 4px}
+  .call dd{margin:0 0 16px; font-size:15px; line-height:1.55; color:var(--ink)}
+  .call dd:last-child{margin-bottom:4px}
+</style>
+
+<a class="back-link" href="/#/">&larr; Strategic Deep Dive</a>
+
+<header class="mast">
+  <p class="eyebrow">Mobile F2P &middot; Offer timing &middot; Hand-logged play data</p>
+  <h1>Where a match-3 asks you to pay</h1>
+  <p class="byline"><b>Adwaith V</b> &middot; 52 levels of Match Factory!, logged by hand, and a tool built to read them.</p>
+</header>
+
+<div class="filters theme-only">
+  <div class="fgroup">
+    <span id="themeLabel">Appearance</span>
+    <div class="seg" role="group" aria-labelledby="themeLabel" id="themeSeg">
+      <button data-theme-set="light" aria-pressed="false">Light</button>
+      <button data-theme-set="dark" aria-pressed="false">Dark</button>
+    </div>
+  </div>
+</div>
+
+<p class="dated"><b>Built 22 to 23 September 2026</b>, inside a 48-hour window, from a method I had written down beforehand. Every step of the build is timestamped in a log I kept alongside it, including the places where I departed from my own method.</p>
+
+<div class="scope">
+  <span class="lbl">What this is, and what it is not</span>
+  <p><b>Scope.</b> One account, one player, Indian pricing, levels 1 to 52, played 22 to 23 September 2026. Every number here was logged by hand from my own session. Nothing is modelled, scraped or estimated.</p>
+  <p><b>The instrument caveat.</b> Offers in a live mobile game are targeted by behaviour, so the offers in this log are the ones <i>this account</i> was served. They are not the game's offer set, and a second account would almost certainly see different prices and timing. Read this as an instrument and a set of hypotheses, not as a description of how the game monetises everyone.</p>
+  <p><b>Independent.</b> Independent analysis by Adwaith V. No affiliation with, and no endorsement by, any game developer or publisher. Prices are as displayed to this account on those dates; store pricing is routinely varied by region and cohort.</p>
+</div>
+
+<div class="cta">
+  <a class="primary" href="https://match-factory-offer-explorer.vercel.app" target="_blank" rel="noopener">Open the live tool &rarr;</a>
+  <a href="https://github.com/adwaith-mrv/match-factory-offer-explorer" target="_blank" rel="noopener">Source and both CSVs</a>
+</div>
+
+<figure class="art">
+  <picture>
+    <source srcset="assets/explorer-screen.webp" type="image/webp">
+    <img src="assets/explorer-screen.png" width="1145" height="959" alt="The Offer Explorer: a coin balance by level table, each row showing the running balance and a trend bar" loading="eager">
+  </picture>
+  <figcaption>The Offer Explorer reading the 52-level play log. Level 1 reads 0 with a squeeze flag for every player: the tutorial level shows no coin or lives UI, so there is nothing to log yet.</figcaption>
+</figure>
+
+<!-- ============ THE 90-SECOND READ ============ -->
+<section class="hero" id="block-decision">
+  <div class="hero-fig">52</div>
+  <div class="hero-body">
+    <p class="blocklabel">The call</p>
+    <p><b>What I did.</b> Played the first 52 levels of a live match-3 title, logged every level by hand (result, time left, coins in and out, lives, every offer shown and its price), then built a small web tool that derives the coin balance level by level and lines the priced offers up against it.</p>
+    <p><b>What the run showed.</b> The coin balance never went negative. It ended at +360 with 460 earned and 100 spent, across 4 failed attempts in 52 levels. Meanwhile the game showed a priced offer three times, the first at level 15. The offers arrived long before any need for them did.</p>
+    <p><b>The call.</b> Gate the first priced offer on a measured need state rather than a level number, and judge it on purchase rate per offer shown, not on offers shown.</p>
+  </div>
+</section>
+
+<!-- ============ PILLAR 01 ============ -->
+<section class="card prose" id="block-loop">
+  <p class="blocklabel">Pillar 01 &middot; What I measured</p>
+  <h2>One row per level, written while playing, not afterwards</h2>
+  <p class="dek">The schema was fixed before the session started, so the log could not quietly bend toward whatever I found.</p>
+
+  <p class="splith">The loop being logged</p>
+  <div class="loop" aria-label="Logged loop">
+    <span>Level start</span><i>&rarr;</i>
+    <span>Win or fail</span><i>&rarr;</i>
+    <span>Coins in / out</span><i>&rarr;</i>
+    <span>Lives state</span><i>&rarr;</i>
+    <span>Offer shown</span><i>&rarr;</i>
+    <span>Next level</span>
+  </div>
+
+  <div class="splitgrid four">
+    <div class="split">
+      <p class="splith">Economy</p>
+      <p><code>coinsEarned</code>, <code>coinsSpent</code>, <code>spentOn</code>. Enough to derive a running balance without ever asking the game for one.</p>
+    </div>
+    <div class="split">
+      <p class="splith">Pressure</p>
+      <p><code>result</code>, <code>timeLeftSeconds</code>, <code>livesLeft</code>. Failure and the lives state are what a paywall would have to lean on.</p>
+    </div>
+    <div class="split">
+      <p class="splith">Selling</p>
+      <p><code>offerShown</code>, <code>offerType</code>, <code>offerPriceInr</code>. Every surface that asked for money or attention, priced where a price was shown.</p>
+    </div>
+    <div class="split">
+      <p class="splith">Unlocks</p>
+      <p><code>eventOrPassUnlocked</code>. The events and passes that change the rules mid-run, such as the key challenge at level 15 and the pass at level 33.</p>
+    </div>
+  </div>
+  <p class="note">56 rows across 52 distinct levels: a level that was failed and replayed keeps one row per attempt.</p>
+</section>
+
+<!-- ============ PILLAR 02 ============ -->
+<section class="card prose" id="block-economy">
+  <p class="blocklabel">Pillar 02 &middot; What the run showed</p>
+  <h2>The squeeze never arrived, but the offers did</h2>
+  <p class="dek">Three things in the log point the same way: through level 52 this account was never short of anything it could buy.</p>
+
+  <div class="splitgrid four">
+    <div class="split">
+      <p class="splith">Coins</p>
+      <p>460 earned, 100 spent, ending at +360. The balance never went negative. The only spend in 52 levels was 100 coins on a booster at level 49.</p>
+    </div>
+    <div class="split">
+      <p class="splith">Failure</p>
+      <p>4 failed attempts, at levels 31, 34 (twice) and 37. No fail was ever converted into a paid continue.</p>
+    </div>
+    <div class="split">
+      <p class="splith">Lives</p>
+      <p>Lives read as infinite on 29 of 56 rows, mostly through key-event windows. A lives paywall cannot bite while a timed unlimited window is running.</p>
+    </div>
+    <div class="split">
+      <p class="splith">Offers</p>
+      <p>An offer was on screen for 28 of 56 rows. Three carried a price: a key challenge at level 15 (1,499 or 1,950 in a bundle), a coin bundle at level 23 (199), and a pass at level 33 (999).</p>
+    </div>
+  </div>
+
+  <p class="pull">Offer exposure ran at roughly half of all logged rows while the resource those offers relieve was never scarce. Exposure and need were not on the same clock.</p>
+</section>
+
+<!-- ============ PILLAR 03 ============ -->
+<section class="card prose" id="block-infra">
+  <p class="blocklabel">Pillar 03 &middot; The call</p>
+  <h2>Gate the first priced offer on need, not on a level number</h2>
+  <p class="dek">One decision, one movement I would expect, and the result that would prove me wrong.</p>
+
+  <dl class="call">
+    <dt>Decision</dt>
+    <dd>Hold the first priced offer until the account reaches a measured need state: a fail streak, or a coin balance below the cost of one continue. Today, on this account, the first priced offer arrived at level 15, about 34 levels before the balance came anywhere near a spend it could not cover.</dd>
+
+    <dt>Expected movement</dt>
+    <dd>Purchase rate per offer shown goes up, because each offer lands on a player who wants the thing it sells. Total offers shown goes down, and revenue should hold or rise on fewer impressions.</dd>
+
+    <dt>Falsifier</dt>
+    <dd>If purchase rate per offer shown does not move once the gate is in, then level-based timing was never the constraint, and early exposure is doing a different job: familiarising the player with the store. In that case, shown-early is correct and this call is wrong.</dd>
+
+    <dt>What I would test with real telemetry</dt>
+    <dd>Split the cohort on the gate. Watch purchase rate per offer shown, first-purchase level, and the share of players who reach level 50 having never hit a blocking wall. That last one is the segment this run belongs to, and on this evidence it may be large.</dd>
+  </dl>
+</section>
+
+<!-- ============ PILLAR 04 ============ -->
+<section class="card prose" id="block-matrix">
+  <p class="blocklabel">Pillar 04 &middot; The tool</p>
+  <h2>A reader for the log, not a model of the game</h2>
+  <p class="dek">It derives everything from the CSV, so anyone can swap in their own log and get their own answer.</p>
+
+  <div class="splitgrid four">
+    <div class="split">
+      <p class="splith">Balance timeline</p>
+      <p>Collapses multiple attempts per level into one net delta, accumulates, and marks the first point the balance cannot cover a spend. Level 1 always reads 0: the tutorial shows no coin or lives UI, for anyone.</p>
+    </div>
+    <div class="split">
+      <p class="splith">Offer value</p>
+      <p>Groups priced offers by type and compares each against the coin cost of a continue, so a price can be read as what it substitutes for.</p>
+    </div>
+    <div class="split">
+      <p class="splith">The data ships with it</p>
+      <p>Both CSVs are in the repo: the cleaned play log and the raw observation sheet with level timers and booster notes.</p>
+    </div>
+    <div class="split">
+      <p class="splith">Built in 48 hours</p>
+      <p>React, TypeScript and Vite, deployed on Vercel. The build log is timestamped step by step, including where the method failed and what I did instead.</p>
+    </div>
+  </div>
+
+  <div class="cta">
+    <a class="primary" href="https://match-factory-offer-explorer.vercel.app" target="_blank" rel="noopener">Open the live tool &rarr;</a>
+    <a href="https://github.com/adwaith-mrv/match-factory-offer-explorer" target="_blank" rel="noopener">Source and both CSVs</a>
+  </div>
+</section>
+
+<!-- ============ PROVENANCE ============ -->
+<section class="prov" id="block-prov">
+  <h3>Sources &amp; method</h3>
+  <ul>
+    <li><b>All data is first-hand.</b> One account, one player, Indian pricing, levels 1 to 52, logged by hand during play on 22 and 23 September 2026. No scraped data, no estimates, no modelled values.</li>
+    <li><b>Offers are targeted.</b> What this account saw is not what every account sees, and store prices vary by region and cohort. Treat the offer rows as one served sequence, not as the game's offer set.</li>
+    <li><b>The tool derives, it does not assume.</b> Balance, squeeze point and offer value are all computed from the CSV in the repo; change the CSV and the page changes with it.</li>
+    <li><b>Independent analysis</b> by Adwaith V, with no affiliation with or endorsement by any game developer or publisher. Game and product names are used only to identify what was played.</li>
+    <li><b>Timestamp:</b> built and published 22 to 23 September 2026.</li>
+  </ul>
+  <p class="note">Other teardowns in this series: <a href="/forecast-scorecard/">a forecast graded after launch</a>, <a href="/fall-bridge/">a pre-launch retention plan</a> and <a href="/venus-gate/">the measured economy model</a>.</p>
+</section>
+
+<script>
+  /* Appearance toggle - same behaviour and storage key as The Venus Gate.
+     No renderAll() here: this page has no charts to redraw. */
+  (function(){
+    function currentTheme(){
+      var set=document.documentElement.getAttribute('data-theme');
+      if(set)return set;
+      return window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';
+    }
+    function syncThemeSeg(){
+      var t=currentTheme();
+      Array.prototype.forEach.call(document.querySelectorAll('#themeSeg button'),function(b){
+        b.setAttribute('aria-pressed', b.dataset.themeSet===t?'true':'false');
+      });
+    }
+    Array.prototype.forEach.call(document.querySelectorAll('#themeSeg button'),function(b){
+      b.addEventListener('click',function(){
+        document.documentElement.setAttribute('data-theme', b.dataset.themeSet);
+        try{localStorage.setItem('vg-theme', b.dataset.themeSet);}catch(e){}
+        syncThemeSeg();
+      });
+    });
+    try{window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change',syncThemeSeg);}catch(e){}
+    syncThemeSeg();
+  })();
+</script>
+
+</div>
+
+</body>
+</html>
