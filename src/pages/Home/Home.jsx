@@ -16,8 +16,19 @@ import gcpLogo from '../../assets/icons/google-cloud-logo.svg';
 import n8nLogo from '../../assets/icons/n8n_pink+white_logo.svg';
 import './Home.css';
 
-// 4 Strategic Deep Dives
+// 7 Strategic Deep Dives
 const deepDiveItems = [
+    {
+        id: 'offer-explorer',
+        title: 'Where a match-3 asks you to pay',
+        kicker: 'Mobile F2P',
+        oneLiner: '52 levels, logged by hand, and the tool that reads them.',
+        mediaType: 'image',
+        media: '/offer-explorer/assets/explorer-card.webp',
+        route: '/offer-explorer/',
+        badgePosition: 'top-left',
+        fit: 'cover'
+    },
     {
         id: 'venus-gate',
         title: 'Warframe: Venus Gate',
