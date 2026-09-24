@@ -265,8 +265,8 @@ const Home = () => {
                         {[
                             {
                                 title: 'Product Manager - Game Systems & Live Economy Analysis (Independent)',
-                                company: ['Independent Practice', 'Jul 2025 - Present'],
-                                desc: 'Model and publish quantitative economy teardowns of live-service games (Warframe in Machinations; NFS Most Wanted 2005), under declared protocols. Reconstruct early-game progression to locate drop gates, resource bottlenecks and pacing constraints, stress-tested with Monte Carlo simulation. The work ends in product briefs that resolve the binding constraint without devaluing the grind. Certifications: Game Economy Designer, Machinations Essentials.',
+                                company: ['Independent Practice', 'Nov 2025 - Present'],
+                                desc: 'Started alongside caregiving in Nov 2025, full time since Mar 2026. Model and publish quantitative economy teardowns of live-service games (Warframe in Machinations; NFS Most Wanted 2005), under declared protocols. Reconstruct early-game progression to locate drop gates, resource bottlenecks and pacing constraints, stress-tested with Monte Carlo simulation. The work ends in product briefs that resolve the binding constraint without devaluing the grind. Certifications: Game Economy Designer, Machinations Essentials.',
                                 tags: ['Game Economy Design', 'Systems Design', 'Machinations.io', 'Monte Carlo Simulation', 'LiveOps', 'Progression Modeling']
                             },
                             {
