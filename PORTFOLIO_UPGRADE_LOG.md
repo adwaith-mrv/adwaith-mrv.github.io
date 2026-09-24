@@ -669,3 +669,61 @@ export default ContactButton;
     *   **Image Fallback**: WebP serves naturally, and PNG fallback activates cleanly when WebP is blocked.
     *   **Carousel Regression**: Verified all 6 cards render in exact order; verified the other 5 cards render with original images/video; verified active centering and zero horizontal overflow at 430px, 390px, and 360px.
     *   **Zero Errors**: Zero console errors and zero 404s across all pages.
+
+---
+
+## Upgrade 15: Where a Match-3 Asks You to Pay (Offer Explorer) Mobile F2P Teardown & 7-Card Carousel Integration
+
+### 1. Requirements & Problem Statement
+*   **Requirement 1**: Build a new standalone static reading page at canonical path `/offer-explorer/` covering a first-hand mobile free-to-play teardown: 52 levels of *Match Factory!* logged by hand during play on 22–23 September 2026, and a live web application reading the play log.
+*   **Requirement 2**: Present the core product thesis: gate the first priced offer on a measured need state rather than a fixed level number, judged on purchase rate per offer shown rather than raw offer exposure.
+*   **Requirement 3**: Include four pillars:
+    *   **Pillar 01 (What I measured)**: Hand-logged telemetry loop, schema fixed before play (economy, pressure, selling, unlocks).
+    *   **Pillar 02 (What the run showed)**: +360 ending coin balance, 4 fails across 52 levels, 0 continue spends, infinite lives on 29/56 rows, 3 priced offers arriving long before need.
+    *   **Pillar 03 (The call)**: Decision, expected movement, falsifier, and telemetry A/B testing recommendation.
+    *   **Pillar 04 (The tool)**: Balance timeline, offer value analysis, bundled raw/clean CSVs, 48-hour build stack (React + TypeScript + Vite on Vercel).
+*   **Requirement 4**: Retain the unedited data and scope boundaries box (`.scope`) verbatim, with two external CTA links to the live tool and GitHub repository.
+*   **Requirement 5**: Ingest 4 tool screenshots (WebP + PNG) and 1200x630 `og.png` (90,188 bytes) untouched.
+*   **Requirement 6**: Insert Offer Explorer as the **1st card** in the Home page 3D DepthCarousel (`deepDiveItems`), shifting existing cards to 2 through 7:
+    1. **Where a match-3 asks you to pay** (`/offer-explorer/`)
+    2. Warframe: Venus Gate (`/venus-gate/`)
+    3. Publish the Bill Before the Grind (`/binding-constraint/`)
+    4. Warframe: Tau (`/tau-readiness/`)
+    5. Warframe: Iceblade of Narin (`/fall-bridge/`)
+    6. Warframe: Forecast Scorecard (`/forecast-scorecard/`)
+    7. NFS Most Wanted (2005) (`/nfs-most-wanted/`)
+*   **Requirement 7**: Test the 7-card cascade at 430px, 390px, and 360px without touching `DepthCarousel.jsx` unless clipping occurs.
+*   **Requirement 8**: Run regression tests ensuring all 6 existing deep dives (`/venus-gate/`, `/binding-constraint/`, `/tau-readiness/`, `/fall-bridge/`, `/forecast-scorecard/`, `/nfs-most-wanted/`) and the home page (`/#/`) return HTTP 200, render as before, and have zero horizontal overflow at 390px.
+*   **Requirement 9**: Register canonical URL in `public/sitemap.xml` and briefing in `public/llms.txt`.
+*   **Requirement 10**: Pass all Playwright acceptance checks with zero console errors, zero 404s, and zero occurrences of excluded words (`playbook`, `gumroad`, `savage`, `phoenix`, `meetup`, `sidewinder`).
+
+### 2. Architectural Implementation
+*   **Standalone Static Architecture** (`public/offer-explorer/index.html`):
+    *   Semantic `<head>` with title, description, canonical link, OpenGraph tags, Twitter card, and Schema.org `Article` JSON-LD (`datePublished: 2026-09-23`).
+    *   Pre-rendered body with back link (`/#/`), masthead, Appearance toggle (sharing `vg-theme` key), dated build line, scope boundaries box (`.scope`), dual CTA buttons (`.cta`), `<figure class="art">` with WebP/PNG `<picture>` fallback, 90-second D14 read block (`52` hero figure), Pillars 01 through 04, decision list (`<dl class="call">`), and Sources & method provenance.
+    *   Capture-phase picture error listener ensuring graceful fallback to PNG if WebP is blocked.
+*   **Asset Ingestion** (`public/offer-explorer/assets/` & `og.png`):
+    *   `explorer-screen.webp` (34,980 bytes) and `explorer-screen.png` (43,925 bytes).
+    *   `explorer-card.webp` (15,980 bytes) and `explorer-card.png` (49,853 bytes).
+    *   `public/offer-explorer/og.png` (90,188 bytes, 1200x630).
+    *   Copied `BF Modernista` font suite matching sibling teardowns.
+*   **DepthCarousel 7-Card Cascade** (`src/pages/Home/Home.jsx`):
+    *   Inserted Offer Explorer as Card 1 with `fit: 'cover'`, preserving exact field names and structure.
+    *   Verified `DepthCarousel.jsx` without code modifications: tested 7-card deck cascade across 430px, 390px, and 360px. Confirmed active card is perfectly centered (`offset = 0px`) and zero cards clip.
+*   **Index Updates** (`public/sitemap.xml` & `public/llms.txt`):
+    *   Added canonical `<loc>https://adwaith-mrv.github.io/offer-explorer/</loc>` to `sitemap.xml`.
+    *   Enriched `llms.txt` with factual briefing for Where a match-3 asks you to pay.
+
+### 3. Verification & Validation
+*   Automated Playwright test suite (`scratch/test-offer-explorer.js`):
+    *   **77 out of 77 checks passed (100%)**.
+    *   **Banned Words Audit**: Confirmed 0 occurrences of `playbook`, `gumroad`, `savage`, `phoenix`, `meetup`, `sidewinder`.
+    *   **View-Source & Raw HTML**: Full prose, scope box, 4 pillars, decision list, and CTA buttons present in DOM with zero hydration delay.
+    *   **Appearance Toggle**: Instant switching, persistence across reload, and cross-teardown synchronization with `/forecast-scorecard/`.
+    *   **Mobile Responsiveness**: Zero horizontal overflow at 430px, 390px, 360px, and 320px viewports. CTA buttons wrap cleanly.
+    *   **Image Fallback**: WebP serves naturally, and PNG fallback activates cleanly when WebP is blocked.
+    *   **External Links**: Both CTA buttons open live tool and GitHub repository in new tabs with `rel="noopener"`.
+    *   **Carousel 7-Card Order & Geometry**: Confirmed 7 cards render in exact order; active Card 1 centered with 0px offset at 430px, 390px, and 360px; zero horizontal page overflow.
+    *   **Teardown Regression Suite**: Verified `/venus-gate/`, `/binding-constraint/`, `/tau-readiness/`, `/fall-bridge/`, `/forecast-scorecard/`, `/nfs-most-wanted/` and `/#/` all return HTTP 200, have zero horizontal overflow at 390px, and render as before.
+    *   **Zero Errors**: Zero console errors and zero 404s logged across all pages.
+    *   **Live Production Verification**: Deployed to `gh-pages` and verified live on `https://adwaith-mrv.github.io/offer-explorer/` (HTTP 200).

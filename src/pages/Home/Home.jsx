@@ -228,7 +228,6 @@ const Home = () => {
                         <p>Since July 2025 I have published measured teardowns of live-service systems - Digital Extremes, EA, Valve, Netflix × Mattel - modelled in Machinations under declared protocols. Certified Game Economy Designer.</p>
                         <p>Before that, two years as a Product Manager at Bajaj Finserv: a 0-to-1 digital lending platform taken from 1% to 100% of traffic in six weeks with zero P0 blockers, +15% application conversion, -40% transmission failure rates.</p>
                         <p>I am looking for a Product Manager seat on a live-service game - economy, LiveOps, or player progression. If your D30 curve is doing something your dashboards have not explained yet, that is the conversation I want.</p>
-                        <p className="about-contact-line"><code>adwaith.mrv@gmail.com · adwaith-mrv.github.io</code></p>
                     </div>
 
                     <div className="about-stats-row fade-in">
