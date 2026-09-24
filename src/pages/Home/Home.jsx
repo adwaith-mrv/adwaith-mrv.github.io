@@ -221,29 +221,32 @@ const Home = () => {
             <section id="about" className="section fade-in">
                 <div className="container">
                     <h2 className="fade-in">About Me</h2>
-                    <div className="about-text fade-in">
-                        <p>I take live-service game economies apart and publish the numbers.</p>
-                        <p>Warframe, Legendary Rank 1 at 938 tracked hours - community reports for LR1 sit at 2,000 to 4,000. Star chart 238/238, Steel Path 238/238, 6,483 missions. The gap is method, not volume.</p>
-                        <p>The industry reads player-hostile monetisation as a revenue decision. Most of the time it is a measurement decision. A team watching conversion and quarterly revenue sees a system working, and the number that would catch it lying is D180 cohort retention, which arrives far too late to argue with in a quarterly review. So the pattern repeats, and each repetition spends trust that does not come back. That gap is the work I want: building the instrumentation that makes the long-horizon number visible early enough to defend.</p>
-                        <p>Since July 2025 I have published measured teardowns of live-service systems - Digital Extremes, EA, Valve, Netflix × Mattel - modelled in Machinations under declared protocols. Certified Game Economy Designer.</p>
-                        <p>Before that, two years as a Product Manager at Bajaj Finserv: a 0-to-1 digital lending platform taken from 1% to 100% of traffic in six weeks with zero P0 blockers, +15% application conversion, -40% transmission failure rates.</p>
-                        <p>I am looking for a Product Manager seat on a live-service game - economy, LiveOps, or player progression. If your D30 curve is doing something your dashboards have not explained yet, that is the conversation I want.</p>
-                    </div>
+                    <div className="about-layout fade-in">
+                        <div className="about-text">
+                            <p>I take live-service game economies apart and publish the numbers.</p>
+                            <p>Two years as a Product Manager at Bajaj Finserv built the habit: instrument the funnel, watch it daily, change the thing the data points at. A 0-to-1 digital lending platform taken from 1% to 100% of traffic in six weeks, zero P0 blockers, +15% application conversion.</p>
+                            <p>Since Nov 2025 I have pointed that at games. Seven published deep dives: a Machinations model of Warframe's early economy built from 20 measured runs, two dated pre-launch forecasts, one of them graded on the record after launch, and a mobile free-to-play teardown from 52 levels logged by hand, shipped with a working tool.</p>
+                            <p>Why it matters: player-hostile monetisation is usually a measurement failure rather than a greed one. The number that catches it, D180 cohort retention, arrives far too late to argue with in a quarterly review. I build the instrumentation that makes it visible early enough to defend.</p>
+                            <p>Warframe Legendary Rank 1 at 938 tracked hours. Looking for a Product Manager seat on a live-service game: economy, LiveOps or player progression. If your D30 curve is doing something your dashboards have not explained yet, that is the conversation I want.</p>
+                        </div>
 
-                    <div className="about-stats-row fade-in">
-                        {[
-                            { num: '2+', label: 'Years PM Experience' },
-                            { num: '6+', label: 'Products Delivered' },
-                            { num: 'LR1', label: 'Warframe Legendary Rank 1 · 938 tracked hours' },
-                            { num: '4', label: 'Studios torn down and published' }
-                        ].map((stat, i) => (
-                            <div key={i} className="comet-card stat-card fade-in" onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave}>
-                                <div className="comet-card-content">
-                                    <span className="stat-number">{stat.num}</span>
-                                    <div className="stat-label">{stat.label}</div>
-                                </div>
+                        <div className="about-stats-container">
+                            <div className="about-stats-grid">
+                                {[
+                                    { num: '2+', label: 'Years PM experience' },
+                                    { num: '7', label: 'Published deep dives' },
+                                    { num: 'LR1', label: 'Warframe - 938 hrs' },
+                                    { num: '5', label: 'Studios analysed' }
+                                ].map((stat, i) => (
+                                    <div key={i} className="comet-card stat-card" onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave}>
+                                        <div className="comet-card-content">
+                                            <span className="stat-number">{stat.num}</span>
+                                            <div className="stat-label">{stat.label}</div>
+                                        </div>
+                                    </div>
+                                ))}
                             </div>
-                        ))}
+                        </div>
                     </div>
                 </div>
             </section>
