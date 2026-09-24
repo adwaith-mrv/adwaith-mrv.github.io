@@ -323,64 +323,49 @@ body::before {
     padding: 2rem 1.5rem;
 }
 
-/* About Section Split Layout (PC) */
-.about-layout {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 3.5rem;
-    align-items: center;
-    margin-top: 2.5rem;
-}
-
-.about-text {
-    font-family: 'BF Modernista', 'Futura', 'Avenir Next', sans-serif;
-    font-size: 1.15rem;
-    line-height: 1.85;
-    color: #FFFFFF;
-    font-weight: 400;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
-    text-align: left;
-    margin-top: 0;
-}
-
-.about-text p {
-    margin-bottom: 1.4rem;
-    text-align: left;
-}
-
-.about-text p:last-child {
-    margin-bottom: 0;
-}
-
-.about-stats-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-}
-
-.about-stats-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.25rem;
-    width: 100%;
-    max-width: 520px;
-}
-
+/* About Section: Stat Tiles above, Text Block below */
 .about-stats-row {
-    display: flex;
-    gap: 2rem;
-    justify-content: center;
-    flex-wrap: wrap;
-    margin-bottom: 2.2rem;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    width: 100%;
+    max-width: 1080px;
+    margin: 2.5rem auto 3rem auto;
 }
 
+/* Stat Cards & Staggered Reveal Animations */
 .stat-card {
     width: 100%;
     max-width: 100%;
     min-width: 0;
     height: 140px;
     box-sizing: border-box;
+}
+
+.stat-card.fade-in {
+    opacity: 0;
+    transform: translateY(28px) scale(0.96);
+    transition: opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1),
+                transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+    transition-delay: var(--stat-delay, 0.1s);
+}
+
+.stat-card.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+/* Staggered delay defaults */
+.stat-card.fade-in:nth-child(1) { transition-delay: 0.1s; }
+.stat-card.fade-in:nth-child(2) { transition-delay: 0.25s; }
+.stat-card.fade-in:nth-child(3) { transition-delay: 0.4s; }
+.stat-card.fade-in:nth-child(4) { transition-delay: 0.55s; }
+
+/* Immediate 3D hover responsiveness once visible */
+@media (hover: hover) and (pointer: fine) {
+    .stat-card.fade-in.visible:hover {
+        transition-delay: 0s !important;
+    }
 }
 
 .stat-card .comet-card-content {
@@ -411,6 +396,39 @@ body::before {
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
     text-align: center;
     line-height: 1.35;
+}
+
+/* About Text block placed below */
+.about-text {
+    max-width: 880px;
+    margin: 0 auto;
+    font-family: 'BF Modernista', 'Futura', 'Avenir Next', sans-serif;
+    font-size: 1.15rem;
+    line-height: 1.85;
+    color: #FFFFFF;
+    font-weight: 400;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+    text-align: left;
+}
+
+.about-text.fade-in {
+    transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+                transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+    transition-delay: 0.65s;
+}
+
+.about-text.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.about-text p {
+    margin-bottom: 1.5rem;
+    text-align: left;
+}
+
+.about-text p:last-child {
+    margin-bottom: 0;
 }
 
 .timeline {
@@ -800,30 +818,16 @@ audio#bg-music {
     }
 }
 
-/* Tablet & Mobile Devices: Tiles shown first, followed by About Me text */
 @media (max-width: 1024px) {
-    .about-layout {
-        display: flex;
-        flex-direction: column;
-        gap: 2.2rem;
-        margin-top: 1.8rem;
-    }
-
-    .about-stats-container {
-        order: 1;
-        width: 100%;
+    .about-stats-row {
+        grid-template-columns: repeat(2, 1fr);
+        max-width: 540px;
+        margin: 2rem auto 2.5rem auto;
+        gap: 1.25rem;
     }
 
     .about-text {
-        order: 2;
-        text-align: left;
-        margin-top: 0;
-    }
-
-    .about-stats-grid {
-        max-width: 520px;
-        margin: 0 auto;
-        gap: 1.25rem;
+        max-width: 100%;
     }
 
     .stat-card {
@@ -843,16 +847,6 @@ audio#bg-music {
 
     .contact-form {
         padding: 2.8rem 2.2rem;
-    }
-
-    .about-stats-row {
-        justify-content: center;
-        gap: 1.2rem;
-    }
-
-    .stat-card {
-        flex: 1 1 40%;
-        max-width: 100%;
     }
 }
 
@@ -898,19 +892,13 @@ audio#bg-music {
 
 /* Mobile Devices: 2x2 Stats, Touch-Friendly Forms & Ergonomics */
 @media (max-width: 600px) {
-    .about-layout {
-        gap: 1.6rem;
-        margin-top: 1.2rem;
-    }
-
-    .about-stats-grid,
     .about-stats-row {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         gap: 0.85rem;
         width: 100%;
         max-width: 100%;
-        margin-bottom: 0;
+        margin: 1.5rem auto 2rem auto;
     }
 
     .stat-card {
