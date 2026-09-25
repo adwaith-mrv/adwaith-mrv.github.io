@@ -383,29 +383,68 @@ const Home = () => {
                         {[
                             {
                                 title: 'Games & LiveOps',
-                                desc: 'Economy modelling & simulation (Machinations), faucet/sink & sink-pressure analysis, drop-table & progression-gate analysis, offer timing & store-pricing analysis from first-hand play logs, battle-pass & cosmetic monetization teardowns, player-lifecycle funnels, retention cohorts (D1/D7/D30), ARPDAU, live-title performance diagnosis - applied in published teardowns & economy models, not in a shipped title.'
+                                skills: [
+                                    'Economy modelling & simulation (Machinations)',
+                                    'Faucet/sink & sink-pressure analysis',
+                                    'Drop-table & progression-gate analysis',
+                                    'Offer timing & store-pricing analysis from first-hand play logs',
+                                    'Battle-pass & cosmetic monetization teardowns',
+                                    'Player-lifecycle funnels',
+                                    'Retention cohorts (D1/D7/D30)',
+                                    'ARPDAU',
+                                    'Live-title performance diagnosis - applied in published teardowns & economy models, not in a shipped title'
+                                ]
                             },
                             {
                                 title: 'Product & Strategy',
-                                desc: 'Product roadmapping, 0-to-1 launches, PRD/BRD authoring, backlog ownership, user story definition, OKR/KPI definition, funnel analysis, phased-rollout & staged-cohort experimentation, go-to-market execution.'
+                                skills: [
+                                    'Product roadmapping',
+                                    '0-to-1 launches',
+                                    'PRD/BRD authoring',
+                                    'Backlog ownership',
+                                    'User story definition',
+                                    'OKR/KPI definition',
+                                    'Funnel analysis',
+                                    'Phased-rollout & staged-cohort experimentation',
+                                    'Go-to-market execution'
+                                ]
                             },
                             {
                                 title: 'Data & Analytics',
-                                desc: 'Excel/Sheets modelling, SQL/SoQL, cohort & funnel analysis, retention & engagement metrics, stage-wise drop-off & root-cause identification, dashboarding (Salesforce, Pendo).'
+                                skills: [
+                                    'Excel/Sheets modelling',
+                                    'SQL/SoQL',
+                                    'Cohort & funnel analysis',
+                                    'Retention & engagement metrics',
+                                    'Stage-wise drop-off & root-cause identification',
+                                    'Dashboarding (Salesforce, Pendo)'
+                                ]
                             },
                             {
                                 title: 'Prototyping',
-                                desc: 'React, TypeScript & Vite front-ends deployed on Vercel; machine-readable PRDs driving AI-assisted builds; hand-logged data schemas & CSV-driven analysis tools, shipped public with source.'
+                                skills: [
+                                    'React, TypeScript & Vite front-ends deployed on Vercel',
+                                    'Machine-readable PRDs driving AI-assisted builds',
+                                    'Hand-logged data schemas & CSV-driven analysis tools, shipped public with source'
+                                ]
                             },
                             {
                                 title: 'Delivery & Craft',
-                                desc: 'Agile/Scrum, sprint planning, backlog grooming, issue triage, cross-functional coordination across product, engineering & partner teams; Figma & Draw.io for flows, wireframes & interaction specs.'
+                                skills: [
+                                    'Agile/Scrum, sprint planning, backlog grooming, issue triage',
+                                    'Cross-functional coordination across product, engineering & partner teams',
+                                    'Figma & Draw.io for flows, wireframes & interaction specs'
+                                ]
                             }
                         ].map((cat, i) => (
                             <div key={i} className="comet-card skill-category fade-in" onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave}>
                                 <div className="comet-card-content">
                                     <h3>{cat.title}</h3>
-                                    <p className="skill-desc">{cat.desc}</p>
+                                    <ul className="skill-list">
+                                        {cat.skills.map((skill, si) => (
+                                            <li key={si}>{skill}</li>
+                                        ))}
+                                    </ul>
                                 </div>
                             </div>
                         ))}
