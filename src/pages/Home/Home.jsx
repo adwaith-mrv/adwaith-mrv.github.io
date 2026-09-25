@@ -33,10 +33,10 @@ const deepDiveItems = [
         id: 'venus-gate',
         title: 'Warframe: Venus Gate',
         mediaType: 'image',
-        media: '/assets/images/warframe-venus-gate.png',
+        media: '/assets/images/warframe-venus-gate.jpg',
         route: '/venus-gate/',
         badgePosition: 'top-left',
-        fit: 'contain'
+        fit: 'cover'
     },
     {
         id: 'binding-constraint',
