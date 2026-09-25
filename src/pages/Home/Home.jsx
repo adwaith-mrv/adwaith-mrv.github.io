@@ -382,34 +382,30 @@ const Home = () => {
                     <div className="skills-grid fade-in">
                         {[
                             {
-                                title: 'Game Economy & Systems',
-                                skills: ['Economy Modeling & Balancing', 'Machinations.io', 'Progression & Level Pacing', 'Sink & Source Accounting', 'Drop Tables & Probabilistic Design', 'Monte Carlo Simulations']
+                                title: 'Games & LiveOps',
+                                desc: 'Economy modelling & simulation (Machinations), faucet/sink & sink-pressure analysis, drop-table & progression-gate analysis, offer timing & store-pricing analysis from first-hand play logs, battle-pass & cosmetic monetization teardowns, player-lifecycle funnels, retention cohorts (D1/D7/D30), ARPDAU, live-title performance diagnosis - applied in published teardowns & economy models, not in a shipped title.'
                             },
                             {
-                                title: 'LiveOps & Player Lifecycle',
-                                skills: ['Event Architecture & Cadence', 'FTUE & Friction Analysis', 'Cohort Retention (D1/D7/D30/D180)', 'Churn Diagnostic Modeling', 'Monetisation Ethics & Guardrails', 'Battle Pass & Reward Curves']
+                                title: 'Product & Strategy',
+                                desc: 'Product roadmapping, 0-to-1 launches, PRD/BRD authoring, backlog ownership, user story definition, OKR/KPI definition, funnel analysis, phased-rollout & staged-cohort experimentation, go-to-market execution.'
                             },
                             {
-                                title: 'Product & Delivery',
-                                skills: ['0-to-1 Product Launches', 'BRD & PRD Authoring', 'Cross-Functional Leadership', 'Agile / Scrum (6+ Releases)', 'UAT & Test Case Design', 'Stakeholder Alignment']
+                                title: 'Data & Analytics',
+                                desc: 'Excel/Sheets modelling, SQL/SoQL, cohort & funnel analysis, retention & engagement metrics, stage-wise drop-off & root-cause identification, dashboarding (Salesforce, Pendo).'
                             },
                             {
-                                title: 'Data & Instrumentation',
-                                skills: ['Funnel Telemetry & Event Taxonomies', 'Dashboarding (Tableau, Salesforce)', 'SQL & Exploratory Data Analysis', 'Cohort Analysis & Segmentation', 'Statistical Significance Testing', 'Quantitative User Research']
+                                title: 'Prototyping',
+                                desc: 'React, TypeScript & Vite front-ends deployed on Vercel; machine-readable PRDs driving AI-assisted builds; hand-logged data schemas & CSV-driven analysis tools, shipped public with source.'
                             },
                             {
-                                title: 'Platform & Tooling',
-                                skills: ['Salesforce (SFDC) Integration', 'Progressive Web Apps (PWA)', 'API & System Architecture', 'No-Code / Low-Code (n8n)', 'Git & Modern Dev Workflows', 'AI Augmentation & Automation']
+                                title: 'Delivery & Craft',
+                                desc: 'Agile/Scrum, sprint planning, backlog grooming, issue triage, cross-functional coordination across product, engineering & partner teams; Figma & Draw.io for flows, wireframes & interaction specs.'
                             }
                         ].map((cat, i) => (
                             <div key={i} className="comet-card skill-category fade-in" onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave}>
                                 <div className="comet-card-content">
                                     <h3>{cat.title}</h3>
-                                    <ul className="skill-list">
-                                        {cat.skills.map((skill, si) => (
-                                            <li key={si}>{skill}</li>
-                                        ))}
-                                    </ul>
+                                    <p className="skill-desc">{cat.desc}</p>
                                 </div>
                             </div>
                         ))}
