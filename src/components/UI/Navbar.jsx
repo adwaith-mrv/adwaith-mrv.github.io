@@ -11,7 +11,7 @@ const navLinks = [
     { label: 'Contact', href: '#contact' },
 ];
 
-const RESUME_URL = 'https://drive.google.com/file/d/1wuO7PbXZuMGzbPrPeImM9hFlnzgt6xKE/view?usp=sharing';
+const RESUME_URL = '/assets/resume/Adwaith_V_Resume.pdf';
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);

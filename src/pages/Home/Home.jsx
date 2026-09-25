@@ -200,8 +200,8 @@ const Home = () => {
         }
     };
 
-    // The Google Drive link for your latest resume
-    const resumeUrl = "https://drive.google.com/file/d/1wuO7PbXZuMGzbPrPeImM9hFlnzgt6xKE/view?usp=sharing";
+    // Link for your latest resume hosted on GitHub
+    const resumeUrl = "/assets/resume/Adwaith_V_Resume.pdf";
 
     return (
         <main className="home-page">
