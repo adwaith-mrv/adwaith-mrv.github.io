@@ -388,7 +388,7 @@ const Home = () => {
                             { logo: jpmcLogo, logoClass: 'cert-logo-jpmc', title: 'Agile Program', issuer: 'JP Morgan Chase', url: '/assets/certificates/jpmorgan-chase-agile-program.png' },
                             { logo: pendoLogo, logoClass: 'cert-logo-pendo', title: 'AI for Product Management', issuer: 'Pendo', url: 'https://www.credly.com/badges/69a873f8-a661-41f9-a4f8-d861370d62e3' },
                             { logo: gcpLogo, logoClass: 'cert-logo-gcp', title: 'Google Cloud Platform', issuer: 'Google Cloud', url: 'https://www.credly.com/users/adwaith-v.6245a192/badges#credly' },
-                            { logo: n8nLogo, logoClass: 'cert-logo-n8n', title: 'n8n Automation Level 1', issuer: 'n8n', url: 'https://community.n8n.io/badges/104/completed-n8n-course-level-1?username=beingsavage' }
+                            { logo: n8nLogo, logoClass: 'cert-logo-n8n', title: 'n8n Automation Level 1', issuer: 'n8n', url: '/assets/certificates/n8n-course-level-1.png' }
                         ].map((cert, i) => (
                             <div key={i} className="comet-card cert-card fade-in" onClick={() => window.open(cert.url, '_blank')} onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave}>
                                 <div className="comet-card-content" style={{ textAlign: 'center', alignItems: 'center' }}>
